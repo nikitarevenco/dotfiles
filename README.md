@@ -11,8 +11,8 @@ My personal ideal dev environment in Windows 11 including:
 
 ### Download
 
-1. Open PowerShell as an administrator.
-1. Run the following command which downloads this repo's files into `dotfiles` directory within your home directory:
+Open PowerShell as an administrator.
+Run the following command which downloads this repo's files into `dotfiles` directory within your home directory:
 
 ```powershell
 Invoke-WebRequest -Uri "https://github.com/nikitarevenco/dotfiles-windows/archive/refs/heads/main.zip" -OutFile "$env:USERPROFILE\dotfiles-windows.zip"; Expand-Archive -Path "$env:USERPROFILE\dotfiles-windows.zip" -DestinationPath "$env:USERPROFILE\dotfiles" -Force; Move-Item -Path "$env:USERPROFILE\dotfiles\dotfiles-windows-main\*" -Destination "$env:USERPROFILE\dotfiles" -Force; Remove-Item "$env:USERPROFILE\dotfiles\dotfiles-windows-main" -Recurse; Remove-Item "$env:USERPROFILE\dotfiles-windows.zip"
@@ -20,8 +20,7 @@ Invoke-WebRequest -Uri "https://github.com/nikitarevenco/dotfiles-windows/archiv
 
 ### Package Installations
 
-1. Open PowerShell as an administrator.
-1. Run the following two commands to install `scoop` package manager:
+Run the following two commands to install `scoop` package manager:
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -31,13 +30,13 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 ```
 
-1. Add scoop buckets:
+Add scoop buckets:
 
 ```powershell
 scoop bucket add extras nerd-fonts
 ```
 
-1. Install the packages:
+Install the packages:
 
 ```powershell
 scoop install neovim nodejs pnpm git nerd-fonts/JetBrains-Mono wezterm glazewm whkd main/clink starship lua
@@ -75,20 +74,19 @@ Set the following environment variables.
 
 ### Git
 
-1. Open wezterm.
-1. Generate ssh keys:
+Generate ssh keys:
 
 ```powershell
 ssh-keygen -t ed25519
 ```
 
-1. Copy the following output into `GitHub > Settings > SSH Keys > New SSH Key`
+Copy the following output into `GitHub > Settings > SSH Keys > New SSH Key`
 
 ```powershell
 type %USERPROFILE%\.ssh\id_ed25519.pub
 ```
 
-1. Then test the connection:
+Then test the connection:
 
 ```powershell
 ssh -T git@github.com
@@ -99,10 +97,8 @@ ssh -T git@github.com
 Debloat Windows for increased privacy and better performance.
 
 1. Open PowerShell as an administrator.
-1. Run this script ([Win11Debloat](https://github.com/Raphire/Win11Debloat)):
+1. Run this script ([Win11Debloat](https://github.com/Raphire/Win11Debloat)) and choose the default settings:
 
 ```powershell
 & ([scriptblock]::Create((irm "https://win11debloat.raphi.re/")))
 ```
-
-1. Choose the default settings.
