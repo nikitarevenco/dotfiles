@@ -1,0 +1,138 @@
+
+general:
+  startup_commands: []
+  focus_follows_cursor: false
+  toggle_workspace_on_refocus: false
+
+  cursor_jump:
+    enabled: true
+    trigger: 'monitor_focus'
+
+gaps:
+  inner_gap: '0px'
+
+  outer_gap:
+    top: '0px'
+    right: '0px'
+    bottom: '0px'
+    left: '0px'
+
+window_effects:
+  focused_window:
+    border:
+      enabled: true
+      color: '#cba6f7'
+
+  other_windows:
+    border:
+      enabled: true
+      color: '#1e1e2e'
+
+window_behavior:
+  initial_state: 'tiling'
+
+  state_defaults:
+    floating:
+      centered: true
+      shown_on_top: false
+
+    fullscreen:
+      maximized: false
+      shown_on_top: false
+
+workspaces:
+  - name: '1'
+  - name: '2'
+  - name: '3'
+  - name: '4'
+binding_modes:
+  - name: 'resize'
+    keybindings:
+      - commands: ['resize --width -2%']
+        bindings: ['h', 'left']
+      - commands: ['resize --width +2%']
+        bindings: ['l', 'right']
+      - commands: ['resize --height +2%']
+        bindings: ['k', 'up']
+      - commands: ['resize --height -2%']
+        bindings: ['j', 'down']
+      - commands: ['wm-disable-binding-mode --name resize']
+        bindings: ['escape', 'enter']
+
+  - name: 'pause'
+    keybindings:
+      - commands: ['wm-disable-binding-mode --name pause']
+        bindings: ['alt+shift+p']
+window_rules:
+  - commands: ['ignore']
+    match:
+      - window_title: { regex: '[Pp]icture.in.[Pp]icture' }
+        window_class: { regex: 'Chrome_WidgetWin_1|MozillaDialogClass' }
+      - window_process: { equals: 'PowerToys.PowerAccent' }
+      - window_process: { equals: 'Lively' }
+        window_class: { regex: 'HwndWrapper*' }
+
+keybindings:
+  - commands: ['focus --direction left']
+    bindings: ['alt+n']
+  - commands: ['focus --direction up']
+    bindings: ['alt+e']
+  - commands: ['focus --direction down']
+    bindings: ['alt+i']
+  - commands: ['focus --direction right']
+    bindings: ['alt+o']
+
+  - commands: ['resize --width +2%']
+    bindings: ['alt+j']
+  - commands: ['resize --width -2%']
+    bindings: ['alt+l']
+  - commands: ['resize --height +2%']
+    bindings: ['alt+u']
+  - commands: ['resize --height -2%']
+    bindings: ['alt+y']
+
+  - commands: ['toggle-floating --centered']
+    bindings: ['alt+q']
+
+  - commands: ['toggle-fullscreen']
+    bindings: ['alt+m']
+
+  - commands: ['close']
+    bindings: ['alt+t']
+  - commands: ['toggle-tiling']
+    bindings: ['alt+g']
+
+  - commands: ['shell-exec wezterm-gui']
+    bindings: ['alt+s']
+  - commands: ['shell-exec chrome']
+    bindings: ['alt+r']
+
+  - commands: ['focus --recent-workspace']
+    bindings: ['alt+v']
+
+  - commands: ['move --direction left']
+    bindings: ['alt+2']
+  - commands: ['move --direction right']
+    bindings: ['alt+8']
+  - commands: ['move --direction up']
+    bindings: ['alt+1']
+  - commands: ['move --direction down']
+    bindings: ['alt+4']
+
+  - commands: ['focus --workspace 1']
+    bindings: ['alt+b']
+  - commands: ['focus --workspace 2']
+    bindings: ['alt+p']
+  - commands: ['focus --workspace 3']
+    bindings: ['alt+f']
+  - commands: ['focus --workspace 4']
+    bindings: ['alt+w']
+
+  - commands: ['move --workspace 1']
+    bindings: ['alt+7']
+  - commands: ['move --workspace 2']
+    bindings: ['alt+3']
+  - commands: ['move --workspace 3']
+    bindings: ['alt+0']
+  - commands: ['move --workspace 4']
+    bindings: ['alt+5']
