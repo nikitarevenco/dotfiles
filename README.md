@@ -9,6 +9,15 @@ My personal ideal dev environment in Windows 11 including:
 
 ## Setup
 
+### Download
+
+1. Open PowerShell as an administrator.
+1. Run the following command which downloads this repo's files into `dotfiles` directory within your home directory:
+
+```powershell
+Invoke-WebRequest -Uri "https://github.com/nikitarevenco/dotfiles-windows/archive/refs/heads/main.zip" -OutFile "$env:USERPROFILE\dotfiles-windows.zip"; Expand-Archive -Path "$env:USERPROFILE\dotfiles-windows.zip" -DestinationPath "$env:USERPROFILE\dotfiles" -Force; Move-Item -Path "$env:USERPROFILE\dotfiles\dotfiles-windows-main\*" -Destination "$env:USERPROFILE\dotfiles" -Force; Remove-Item "$env:USERPROFILE\dotfiles\dotfiles-windows-main" -Recurse; Remove-Item "$env:USERPROFILE\dotfiles-windows.zip"
+```
+
 ### Package Installations
 
 1. Open PowerShell as an administrator.
