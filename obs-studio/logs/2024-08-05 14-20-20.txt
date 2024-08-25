@@ -1,0 +1,425 @@
+14:20:20.236: [Safe Mode] Unclean shutdown detected!
+14:20:24.030: [Safe Mode] User elected to launch normally.
+14:20:24.031: Using EGL/X11
+14:20:24.031: CPU Name: Intel(R) Core(TM) i5-10400F CPU @ 2.90GHz
+14:20:24.031: CPU Speed: 800.056MHz
+14:20:24.032: Physical Cores: 6, Logical Cores: 12
+14:20:24.032: Physical Memory: 15926MB Total, 8841MB Free
+14:20:24.032: Kernel Version: Linux 6.10.2-arch1-2
+14:20:24.033: Distribution: "Arch Linux" Unknown
+14:20:24.033: Desktop Environment: 
+14:20:24.033: Session Type: x11
+14:20:24.033: Window System: X11.0, Vendor: The X.Org Foundation, Version: 1.21.1
+14:20:24.036: Qt Version: 6.7.2 (runtime), 6.7.2 (compiled)
+14:20:24.036: Portable mode: false
+14:20:24.059: OBS 30.2.1-1 (linux)
+14:20:24.059: ---------------------------------
+14:20:24.060: ---------------------------------
+14:20:24.060: audio settings reset:
+14:20:24.060: 	samples per sec: 48000
+14:20:24.060: 	speakers:        2
+14:20:24.060: 	max buffering:   960 milliseconds
+14:20:24.060: 	buffering type:  dynamically increasing
+14:20:24.067: ---------------------------------
+14:20:24.067: Initializing OpenGL...
+14:20:24.178: Loading up OpenGL on adapter Mesa NV136
+14:20:24.178: OpenGL loaded successfully, version 4.3 (Core Profile) Mesa 24.1.5-arch1.1, shading language 4.30
+14:20:24.208: ---------------------------------
+14:20:24.208: video settings reset:
+14:20:24.208: 	base resolution:   1920x1080
+14:20:24.208: 	output resolution: 1280x720
+14:20:24.208: 	downscale filter:  Bicubic
+14:20:24.208: 	fps:               30/1
+14:20:24.208: 	format:            NV12
+14:20:24.208: 	YUV mode:          Rec. 709/Partial
+14:20:24.208: NV12 texture support enabled
+14:20:24.208: P010 texture support not available
+14:20:24.210: Audio monitoring device:
+14:20:24.210: 	name: Default
+14:20:24.210: 	id: default
+14:20:24.210: ---------------------------------
+14:20:24.217: Failed to load 'en-US' text for module: 'decklink-captions.so'
+14:20:24.223: Failed to load 'en-US' text for module: 'decklink-output-ui.so'
+14:20:24.229: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed
+14:20:24.229: Failed to initialize module 'decklink.so'
+14:20:24.240: Failed to load 'en-GB' text for module: 'droidcam-obs.so'
+14:20:24.240: [DroidCamOBS] droidcam_obs: libavcodec version 61 is too high (<= 60 required for this release).
+14:20:24.240: Failed to initialize module 'droidcam-obs.so'
+14:20:24.449: [pipewire] No capture sources available
+14:20:24.465: v4l2loopback not installed, virtual camera not registered
+14:20:24.537: os_dlopen(libnvidia-encode.so.1->libnvidia-encode.so.1): libnvidia-encode.so.1: cannot open shared object file: No such file or directory
+14:20:24.537: 
+14:20:24.537: VAAPI: Failed to initialize display in vaapi_device_h264_supported
+14:20:24.537: FFmpeg VAAPI H264 encoding not supported
+14:20:24.537: VAAPI: Failed to initialize display in vaapi_device_av1_supported
+14:20:24.537: FFmpeg VAAPI AV1 encoding not supported
+14:20:24.537: VAAPI: Failed to initialize display in vaapi_device_hevc_supported
+14:20:24.537: FFmpeg VAAPI HEVC encoding not supported
+14:20:24.552: os_dlopen(/usr/lib/obs-plugins/obs-libfdk.so->/usr/lib/obs-plugins/obs-libfdk.so): libfdk-aac.so.2: cannot open shared object file: No such file or directory
+14:20:24.552: 
+14:20:24.554: os_dlopen(/usr/lib/obs-plugins/obs-libfdk.so->/usr/lib/obs-plugins/obs-libfdk.so): libfdk-aac.so.2: cannot open shared object file: No such file or directory
+14:20:24.554: 
+14:20:24.554: Module '/usr/lib/obs-plugins/obs-libfdk.so' not loaded
+14:20:24.641: Failed to load 'en-GB' text for module: 'source-record.so'
+14:20:24.641: [Source Record] loaded version 0.3.4
+14:20:24.656: Failed to load 'en-GB' text for module: 'droidcam-obs.so'
+14:20:24.656: ---------------------------------
+14:20:24.656:   Loaded Modules:
+14:20:24.656:     droidcam-obs.so
+14:20:24.656:     text-freetype2.so
+14:20:24.656:     source-record.so
+14:20:24.656:     rtmp-services.so
+14:20:24.656:     obs-x264.so
+14:20:24.656:     obs-webrtc.so
+14:20:24.656:     obs-vst.so
+14:20:24.656:     obs-transitions.so
+14:20:24.656:     obs-qsv11.so
+14:20:24.656:     obs-outputs.so
+14:20:24.656:     obs-filters.so
+14:20:24.656:     obs-ffmpeg.so
+14:20:24.656:     linux-v4l2.so
+14:20:24.656:     linux-pulseaudio.so
+14:20:24.656:     linux-pipewire.so
+14:20:24.656:     linux-jack.so
+14:20:24.656:     linux-capture.so
+14:20:24.656:     linux-alsa.so
+14:20:24.656:     image-source.so
+14:20:24.656:     frontend-tools.so
+14:20:24.656:     decklink-output-ui.so
+14:20:24.656:     decklink-captions.so
+14:20:24.656: ---------------------------------
+14:20:24.656: ---------------------------------
+14:20:24.656: Available Encoders:
+14:20:24.656:   Video Encoders:
+14:20:24.656: 	- ffmpeg_svt_av1 (SVT-AV1)
+14:20:24.656: 	- ffmpeg_aom_av1 (AOM AV1)
+14:20:24.656: 	- obs_x264 (x264)
+14:20:24.656:   Audio Encoders:
+14:20:24.656: 	- ffmpeg_aac (FFmpeg AAC)
+14:20:24.656: 	- ffmpeg_opus (FFmpeg Opus)
+14:20:24.656: 	- ffmpeg_pcm_s16le (FFmpeg PCM (16-bit))
+14:20:24.656: 	- ffmpeg_pcm_s24le (FFmpeg PCM (24-bit))
+14:20:24.656: 	- ffmpeg_pcm_f32le (FFmpeg PCM (32-bit float))
+14:20:24.656: 	- ffmpeg_alac (FFmpeg ALAC (24-bit))
+14:20:24.656: 	- ffmpeg_flac (FFmpeg FLAC (16-bit))
+14:20:24.656: ==== Startup complete ===============================================
+14:20:24.679: All scene data cleared
+14:20:24.679: ------------------------------------------------
+14:20:24.680: xshm-input: Geometry 3440x1440 @ 0,0
+14:20:24.683: [DroidCamOBS] Source: "DroidCam OBS" - 233
+14:20:24.683: [DroidCamOBS] checking adb
+14:20:25.720: [DroidCamOBS] activated=1, deactivateWNS=0, is_showing=0, enable_audio=1
+14:20:25.720: [DroidCamOBS] video_format=avc video_resolution=1920x1080
+14:20:25.720: [DroidCamOBS] device_info.id=dev_id_wifi device_info.ip=192.168.0.215 device_info.port=4747 device_info.type=1
+14:20:25.720: [DroidCamOBS] video_thread start
+14:20:25.720: [DroidCamOBS] video_decode_thread start
+14:20:25.720: [DroidCamOBS] audio_thread start
+14:20:25.724: Switched to scene 'Scene'
+14:20:25.724: ------------------------------------------------
+14:20:25.724: Loaded scenes:
+14:20:25.724: - scene 'Scene':
+14:20:25.724:     - source: 'Screen Capture (XSHM)' (xshm_input)
+14:20:25.724: - scene 'Face cam':
+14:20:25.724:     - source: 'DroidCam OBS' (droidcam_obs)
+14:20:25.724: ------------------------------------------------
+14:20:33.855: User switched to scene 'Face cam'
+14:20:43.140: [DroidCamOBS] send(/video) failed
+14:20:45.677: [DroidCamOBS] send(/video) failed
+14:20:48.051: [DroidCamOBS] send(/video) failed
+14:20:50.095: [DroidCamOBS] send(/video) failed
+14:20:52.194: [DroidCamOBS] send(/video) failed
+14:20:54.252: [DroidCamOBS] send(/video) failed
+14:20:56.298: [DroidCamOBS] send(/video) failed
+14:20:58.343: [DroidCamOBS] send(/video) failed
+14:21:01.060: [DroidCamOBS] have config: 30
+14:21:01.069: [DroidCamOBS] use hw: 0
+14:21:01.514: [DroidCamOBS] have config: 2
+14:21:01.606: [DroidCamOBS] audio: sample_rate=44100 channels=1
+14:22:04.532: User switched to scene 'Scene'
+14:22:05.680: User switched to scene 'Face cam'
+14:22:10.116: ---------------------------------
+14:22:10.116: [x264 encoder: 'simple_video_stream'] preset: veryfast
+14:22:10.116: [x264 encoder: 'simple_video_stream'] settings:
+14:22:10.116: 	rate_control: CBR
+14:22:10.116: 	bitrate:      2500
+14:22:10.116: 	buffer size:  2500
+14:22:10.116: 	crf:          23
+14:22:10.116: 	fps_num:      30
+14:22:10.116: 	fps_den:      1
+14:22:10.116: 	width:        1280
+14:22:10.116: 	height:       720
+14:22:10.116: 	keyint:       250
+14:22:10.116: 
+14:22:10.125: ---------------------------------
+14:22:10.125: [FFmpeg aac encoder: 'simple_aac'] bitrate: 160, channels: 2, channel_layout: stereo
+14:22:10.125: 
+14:22:10.127: ==== Recording Start ===============================================
+14:22:10.127: [ffmpeg muxer: 'simple_file_output'] Writing file '/home/nikita/recordings/2024-08-05_14-22-10.mkv'...
+14:22:10.149: Failed to inhibit: GDBus.Error:org.freedesktop.DBus.Error.UnknownMethod: No such interface “org.freedesktop.portal.Inhibit” on object at path /org/freedesktop/portal/desktop
+14:27:41.274: [ffmpeg muxer: 'simple_file_output'] Output of file '/home/nikita/recordings/2024-08-05_14-22-10.mkv' stopped
+14:27:41.274: Output 'simple_file_output': stopping
+14:27:41.274: Output 'simple_file_output': Total frames output: 9893
+14:27:41.274: Output 'simple_file_output': Total drawn frames: 9700 (9934 attempted)
+14:27:41.274: Output 'simple_file_output': Number of lagged frames due to rendering lag/stalls: 234 (2.4%)
+14:27:41.295: ==== Recording Stop ================================================
+14:48:17.297: adding 64 milliseconds of audio buffering, total audio buffering is now 64 milliseconds (source: DroidCam OBS)
+14:48:17.297: 
+16:00:47.670: [DroidCamOBS] data packet too large at 0!
+16:00:47.707: [DroidCamOBS] read header recv returned 0
+16:00:49.768: [DroidCamOBS] send(/video) failed
+16:00:51.867: [DroidCamOBS] send(/video) failed
+16:00:53.965: [DroidCamOBS] send(/video) failed
+16:00:56.111: [DroidCamOBS] send(/video) failed
+16:00:58.157: [DroidCamOBS] send(/video) failed
+16:01:00.314: [DroidCamOBS] send(/video) failed
+16:01:02.461: [DroidCamOBS] send(/video) failed
+16:01:04.613: [DroidCamOBS] send(/video) failed
+16:01:06.802: [DroidCamOBS] send(/video) failed
+16:01:09.062: [DroidCamOBS] send(/video) failed
+16:01:11.165: [DroidCamOBS] send(/video) failed
+16:01:13.319: [DroidCamOBS] send(/video) failed
+16:01:15.468: [DroidCamOBS] send(/video) failed
+16:01:17.721: [DroidCamOBS] send(/video) failed
+16:01:23.812: [DroidCamOBS] send(/video) failed
+16:01:25.913: [DroidCamOBS] send(/video) failed
+16:01:28.061: [DroidCamOBS] send(/video) failed
+16:01:30.212: [DroidCamOBS] send(/video) failed
+16:01:32.360: [DroidCamOBS] send(/video) failed
+16:01:34.404: [DroidCamOBS] send(/video) failed
+16:01:36.449: [DroidCamOBS] send(/video) failed
+16:01:38.497: [DroidCamOBS] send(/video) failed
+16:01:44.650: [DroidCamOBS] send(/video) failed
+16:01:46.801: [DroidCamOBS] send(/video) failed
+16:01:48.948: [DroidCamOBS] send(/video) failed
+16:01:51.100: [DroidCamOBS] send(/video) failed
+16:01:53.252: [DroidCamOBS] send(/video) failed
+16:01:55.400: [DroidCamOBS] send(/video) failed
+16:01:57.552: [DroidCamOBS] send(/video) failed
+16:01:59.706: [DroidCamOBS] send(/video) failed
+16:02:01.853: [DroidCamOBS] send(/video) failed
+17:18:56.503: Last log entry repeated for 1977 more lines
+17:18:56.503: User switched to scene 'Scene'
+17:18:56.516: [DroidCamOBS] send(/video) failed
+17:18:56.868: User switched to scene 'Face cam'
+17:18:58.667: [DroidCamOBS] send(/video) failed
+17:19:00.816: [DroidCamOBS] send(/video) failed
+17:19:02.968: [DroidCamOBS] send(/video) failed
+17:19:05.016: [DroidCamOBS] send(/video) failed
+17:19:07.145: [DroidCamOBS] read header recv returned 0
+17:19:08.163: [DroidCamOBS] have config: 2
+17:19:08.247: [DroidCamOBS] audio: sample_rate=44100 channels=1
+17:19:09.204: [DroidCamOBS] read header recv returned 0
+17:19:11.257: [DroidCamOBS] read header recv returned 0
+17:19:13.311: [DroidCamOBS] read header recv returned 0
+17:19:15.365: [DroidCamOBS] read header recv returned 0
+17:19:17.420: [DroidCamOBS] read header recv returned 0
+17:19:19.470: [DroidCamOBS] read header recv returned 0
+17:19:21.523: [DroidCamOBS] read header recv returned 0
+17:19:23.573: [DroidCamOBS] read header recv returned 0
+17:19:25.629: [DroidCamOBS] read header recv returned 0
+17:19:27.682: [DroidCamOBS] read header recv returned 0
+17:19:29.738: [DroidCamOBS] read header recv returned 0
+17:19:31.790: [DroidCamOBS] read header recv returned 0
+17:19:33.844: [DroidCamOBS] read header recv returned 0
+17:19:35.895: [DroidCamOBS] read header recv returned 0
+17:19:37.962: [DroidCamOBS] read header recv returned 0
+17:19:40.018: [DroidCamOBS] read header recv returned 0
+17:19:42.069: [DroidCamOBS] read header recv returned 0
+17:19:44.126: [DroidCamOBS] read header recv returned 0
+17:19:46.183: [DroidCamOBS] read header recv returned 0
+17:19:48.234: [DroidCamOBS] read header recv returned 0
+17:19:50.286: [DroidCamOBS] read header recv returned 0
+17:19:52.337: [DroidCamOBS] read header recv returned 0
+17:19:54.390: [DroidCamOBS] read header recv returned 0
+17:19:56.444: [DroidCamOBS] read header recv returned 0
+17:19:58.498: [DroidCamOBS] read header recv returned 0
+17:20:00.550: [DroidCamOBS] read header recv returned 0
+17:20:02.603: [DroidCamOBS] read header recv returned 0
+17:20:04.654: [DroidCamOBS] read header recv returned 0
+17:20:06.706: [DroidCamOBS] read header recv returned 0
+17:20:08.763: [DroidCamOBS] read header recv returned 0
+17:20:10.814: [DroidCamOBS] read header recv returned 0
+17:20:30.379: Last log entry repeated for 9 more lines
+17:20:30.379: User switched to scene 'Scene'
+17:20:31.183: User switched to scene 'Face cam'
+17:20:31.347: [DroidCamOBS] read header recv returned 0
+17:20:33.401: [DroidCamOBS] read header recv returned 0
+17:20:35.473: [DroidCamOBS] read header recv returned 0
+17:20:37.526: [DroidCamOBS] read header recv returned 0
+17:20:39.590: [DroidCamOBS] read header recv returned 0
+17:20:41.661: [DroidCamOBS] read header recv returned 0
+17:20:43.715: [DroidCamOBS] read header recv returned 0
+17:20:45.767: [DroidCamOBS] read header recv returned 0
+17:20:47.823: [DroidCamOBS] read header recv returned 0
+17:20:49.874: [DroidCamOBS] read header recv returned 0
+17:20:51.927: [DroidCamOBS] read header recv returned 0
+17:20:53.980: [DroidCamOBS] read header recv returned 0
+17:20:56.036: [DroidCamOBS] read header recv returned 0
+17:20:58.087: [DroidCamOBS] read header recv returned 0
+17:21:00.141: [DroidCamOBS] read header recv returned 0
+17:21:02.195: [DroidCamOBS] read header recv returned 0
+17:21:04.247: [DroidCamOBS] read header recv returned 0
+17:21:06.304: [DroidCamOBS] read header recv returned 0
+17:21:08.360: [DroidCamOBS] read header recv returned 0
+17:21:10.423: [DroidCamOBS] read header recv returned 0
+17:21:12.479: [DroidCamOBS] read header recv returned 0
+17:21:14.530: [DroidCamOBS] read header recv returned 0
+17:21:16.584: [DroidCamOBS] read header recv returned 0
+17:21:18.653: [DroidCamOBS] read header recv returned 0
+17:21:20.710: [DroidCamOBS] read header recv returned 0
+17:21:22.762: [DroidCamOBS] read header recv returned 0
+17:21:24.818: [DroidCamOBS] read header recv returned 0
+17:21:26.871: [DroidCamOBS] read header recv returned 0
+17:21:28.923: [DroidCamOBS] read header recv returned 0
+17:21:30.975: [DroidCamOBS] read header recv returned 0
+17:21:33.027: [DroidCamOBS] read header recv returned 0
+17:25:58.422: Last log entry repeated for 129 more lines
+17:25:58.422: [DroidCamOBS] data packet too large at 0!
+17:26:00.998: [DroidCamOBS] have config: 30
+17:26:01.018: [DroidCamOBS] use hw: 0
+17:26:06.616: [DroidCamOBS] read header recv returned -1
+17:26:13.908: User switched to scene 'Scene'
+17:26:14.722: [DroidCamOBS] read header recv returned -1
+17:26:16.977: User switched to scene 'Face cam'
+17:26:22.829: [DroidCamOBS] read header recv returned -1
+17:26:30.936: [DroidCamOBS] read header recv returned -1
+17:26:31.832: ---------------------------------
+17:26:31.832: [x264 encoder: 'simple_video_stream'] preset: veryfast
+17:26:31.832: [x264 encoder: 'simple_video_stream'] settings:
+17:26:31.832: 	rate_control: CBR
+17:26:31.832: 	bitrate:      2500
+17:26:31.832: 	buffer size:  2500
+17:26:31.832: 	crf:          23
+17:26:31.832: 	fps_num:      30
+17:26:31.832: 	fps_den:      1
+17:26:31.832: 	width:        1280
+17:26:31.832: 	height:       720
+17:26:31.832: 	keyint:       250
+17:26:31.832: 
+17:26:31.839: ---------------------------------
+17:26:31.840: [FFmpeg aac encoder: 'simple_aac'] bitrate: 160, channels: 2, channel_layout: stereo
+17:26:31.840: 
+17:26:31.840: ==== Recording Start ===============================================
+17:26:31.840: [ffmpeg muxer: 'simple_file_output'] Writing file '/home/nikita/recordings/2024-08-05_17-26-31.mkv'...
+17:26:31.843: Failed to inhibit: GDBus.Error:org.freedesktop.DBus.Error.UnknownMethod: No such interface “org.freedesktop.portal.Inhibit” on object at path /org/freedesktop/portal/desktop
+17:26:37.503: [ffmpeg muxer: 'simple_file_output'] Output of file '/home/nikita/recordings/2024-08-05_17-26-31.mkv' stopped
+17:26:37.503: Output 'simple_file_output': stopping
+17:26:37.503: Output 'simple_file_output': Total frames output: 138
+17:26:37.503: Output 'simple_file_output': Total drawn frames: 170
+17:26:37.503: ==== Recording Stop ================================================
+17:26:39.042: [DroidCamOBS] read header recv returned -1
+17:26:42.620: User switched to scene 'Scene'
+17:26:44.126: User switched to scene 'Face cam'
+17:26:47.149: [DroidCamOBS] read header recv returned -1
+17:26:55.256: [DroidCamOBS] read header recv returned -1
+17:27:03.362: [DroidCamOBS] read header recv returned -1
+17:27:11.472: [DroidCamOBS] read header recv returned -1
+17:27:19.579: [DroidCamOBS] read header recv returned -1
+17:27:27.682: [DroidCamOBS] read header recv returned -1
+17:27:35.789: [DroidCamOBS] read header recv returned -1
+17:27:36.638: User Removed source 'DroidCam OBS' (droidcam_obs) from scene 'Face cam'
+17:27:36.649: [DroidCamOBS] destroy: "DroidCam OBS"
+17:27:36.649: [DroidCamOBS] stopping
+17:27:36.651: [DroidCamOBS] video_decode_thread end
+17:27:36.684: [DroidCamOBS] video_thread end
+17:27:37.356: User switched to scene 'Scene'
+17:27:37.829: [DroidCamOBS] audio_thread end
+17:27:41.256: [DroidCamOBS] cleanup
+17:27:42.924: [DroidCamOBS] Source: "DroidCam OBS" - 233
+17:27:42.924: [DroidCamOBS] checking adb
+17:27:42.940: [DroidCamOBS] activated=0, deactivateWNS=0, is_showing=0, enable_audio=0
+17:27:42.940: [DroidCamOBS] video_format=avc video_resolution=640x480
+17:27:42.940: [DroidCamOBS] video_thread start
+17:27:42.940: [DroidCamOBS] video_decode_thread start
+17:27:42.940: [DroidCamOBS] audio_thread start
+17:27:42.942: User added source 'DroidCam OBS' (droidcam_obs) to scene 'Scene'
+17:27:46.320: [DroidCamOBS] video_parms_changed: video_format=0/avc video_resolution=3/1920x1080
+17:28:18.295: [DroidCamOBS] activated: id=dev_id_wifi type=1 ip=192.168.0.215 port=4747
+17:28:18.296: [DroidCamOBS] video_format=0/avc video_resolution=3/1920x1080
+17:28:18.900: [DroidCamOBS] have config: 30
+17:28:18.911: [DroidCamOBS] use hw: 0
+17:28:24.646: [DroidCamOBS] read header recv returned -1
+17:28:32.752: [DroidCamOBS] read header recv returned -1
+17:28:40.856: [DroidCamOBS] read header recv returned -1
+17:28:48.962: [DroidCamOBS] read header recv returned -1
+17:28:57.072: [DroidCamOBS] read header recv returned -1
+17:28:57.709: [DroidCamOBS] read_frame: read 28960 bytes wanted 29696
+17:28:59.757: [DroidCamOBS] send(/video) failed
+17:29:01.912: [DroidCamOBS] send(/video) failed
+17:29:04.119: [DroidCamOBS] send(/video) failed
+17:29:06.210: [DroidCamOBS] send(/video) failed
+17:29:08.406: [DroidCamOBS] send(/video) failed
+17:29:10.453: [DroidCamOBS] send(/video) failed
+17:29:12.554: [DroidCamOBS] send(/video) failed
+17:29:14.705: [DroidCamOBS] send(/video) failed
+17:29:16.750: [DroidCamOBS] send(/video) failed
+17:29:18.905: [DroidCamOBS] send(/video) failed
+17:29:21.057: [DroidCamOBS] send(/video) failed
+17:29:23.101: [DroidCamOBS] send(/video) failed
+17:29:25.254: [DroidCamOBS] send(/video) failed
+17:29:27.405: [DroidCamOBS] send(/video) failed
+17:29:29.553: [DroidCamOBS] send(/video) failed
+17:29:31.705: [DroidCamOBS] send(/video) failed
+17:29:33.857: [DroidCamOBS] send(/video) failed
+17:29:36.005: [DroidCamOBS] send(/video) failed
+17:29:38.154: [DroidCamOBS] send(/video) failed
+17:29:40.345: [DroidCamOBS] send(/video) failed
+17:29:42.389: [DroidCamOBS] send(/video) failed
+17:29:44.506: [DroidCamOBS] send(/video) failed
+17:29:46.694: [DroidCamOBS] send(/video) failed
+17:29:48.741: [DroidCamOBS] send(/video) failed
+17:29:50.857: [DroidCamOBS] send(/video) failed
+17:29:52.901: [DroidCamOBS] send(/video) failed
+17:29:54.945: [DroidCamOBS] send(/video) failed
+17:29:57.677: [DroidCamOBS] have config: 30
+17:29:57.688: [DroidCamOBS] use hw: 0
+17:29:58.189: [DroidCamOBS] have config: 2
+17:29:58.265: [DroidCamOBS] audio: sample_rate=44100 channels=1
+17:30:31.183: ---------------------------------
+17:30:31.183: [x264 encoder: 'simple_video_stream'] preset: veryfast
+17:30:31.183: [x264 encoder: 'simple_video_stream'] settings:
+17:30:31.183: 	rate_control: CBR
+17:30:31.183: 	bitrate:      2500
+17:30:31.183: 	buffer size:  2500
+17:30:31.183: 	crf:          23
+17:30:31.183: 	fps_num:      30
+17:30:31.183: 	fps_den:      1
+17:30:31.183: 	width:        1280
+17:30:31.183: 	height:       720
+17:30:31.183: 	keyint:       250
+17:30:31.183: 
+17:30:31.189: ---------------------------------
+17:30:31.189: [FFmpeg aac encoder: 'simple_aac'] bitrate: 160, channels: 2, channel_layout: stereo
+17:30:31.189: 
+17:30:31.190: ==== Recording Start ===============================================
+17:30:31.190: [ffmpeg muxer: 'simple_file_output'] Writing file '/home/nikita/recordings/2024-08-05_17-30-31.mkv'...
+17:30:31.192: Failed to inhibit: GDBus.Error:org.freedesktop.DBus.Error.UnknownMethod: No such interface “org.freedesktop.portal.Inhibit” on object at path /org/freedesktop/portal/desktop
+17:33:30.148: [ffmpeg muxer: 'simple_file_output'] Output of file '/home/nikita/recordings/2024-08-05_17-30-31.mkv' stopped
+17:33:30.148: Output 'simple_file_output': stopping
+17:33:30.148: Output 'simple_file_output': Total frames output: 5336
+17:33:30.148: Output 'simple_file_output': Total drawn frames: 5369
+17:33:30.148: ==== Recording Stop ================================================
+17:35:56.864: ---------------------------------
+17:35:56.864: [x264 encoder: 'simple_video_stream'] preset: veryfast
+17:35:56.864: [x264 encoder: 'simple_video_stream'] settings:
+17:35:56.864: 	rate_control: CBR
+17:35:56.864: 	bitrate:      2500
+17:35:56.864: 	buffer size:  2500
+17:35:56.864: 	crf:          23
+17:35:56.864: 	fps_num:      30
+17:35:56.864: 	fps_den:      1
+17:35:56.864: 	width:        1280
+17:35:56.864: 	height:       720
+17:35:56.864: 	keyint:       250
+17:35:56.864: 
+17:35:56.871: ---------------------------------
+17:35:56.871: [FFmpeg aac encoder: 'simple_aac'] bitrate: 160, channels: 2, channel_layout: stereo
+17:35:56.871: 
+17:35:56.871: ==== Recording Start ===============================================
+17:35:56.871: [ffmpeg muxer: 'simple_file_output'] Writing file '/home/nikita/recordings/2024-08-05_17-35-56.mkv'...
+17:35:56.874: Failed to inhibit: GDBus.Error:org.freedesktop.DBus.Error.UnknownMethod: No such interface “org.freedesktop.portal.Inhibit” on object at path /org/freedesktop/portal/desktop
+17:37:50.148: [ffmpeg muxer: 'simple_file_output'] Output of file '/home/nikita/recordings/2024-08-05_17-35-56.mkv' stopped
+17:37:50.148: Output 'simple_file_output': stopping
+17:37:50.148: Output 'simple_file_output': Total frames output: 3366
+17:37:50.148: Output 'simple_file_output': Total drawn frames: 3399
+17:37:50.148: ==== Recording Stop ================================================

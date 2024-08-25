@@ -1,0 +1,135 @@
+### README
+
+# If you are in this file because you typed edit-keys,
+# Make sure to remap keys to whatever you want. 
+# I personally use a keyboard layout with easily accessible function keys
+# and keys F13-F24. So this is ideal for me. However you should remap 
+# these shortcuts if you're not using a keyboard like that.
+
+### KEYMAPS
+
+F2
+    bash $HOME/.config/sxhkd/scripts/opacity.sh toggle
+
+# F4 - Toggle between Floating and Tiled
+F4
+    bspc query -N -n focused.floating && bspc node -t tiled || bspc node -t floating
+    # If focused window is floating: switch to tiled
+    # If not: switch to floating
+
+# F5 - Toggle between Fullscreen and Tiled
+F5
+	  bspc desktop -l next
+    # If focused window is fullscreen: switch to tiled
+    # If not: switch to fullscreen
+
+# Open screenshot tool
+F7
+  nohup flameshot 0</dev/null 1>/dev/null 2>/dev/null & ; flameshot gui
+
+# focus previus {window, desktop}
+{F8,F9}
+	bspc {node,desktop} -f last
+
+# equalize windows
+F10
+  bspc node @/ --balance
+
+# swap window with the last window
+F11
+  bspc node --swap last
+
+# open email client
+F12
+  thunderbird
+
+# open app launcher
+F13
+	sh ~/.config/rofi/launcher.sh
+
+# open browser
+F15
+  google-chrome-stable
+
+# launch terminal
+F16
+  kitty
+
+# close window
+F17
+	bspc node -c
+
+F18
+  bash $HOME/.config/sxhkd/scripts/workspaces.sh
+
+# focus the window in the given direction
+{F20,F21,F22,F23}
+	bspc node -f {west,south,north,east}
+
+# lock screen 
+F24
+	i3lock -u -c 000000 ; systemctl suspend
+
+### CTRL
+
+# focus given workspace
+ctrl + {F9,F8,F5,F10,F3,F7,F6,F11,F2,F4}
+  bspc desktop -f "^{1,2,3,4,5,6,7,8,9,10}"
+
+# contract a window by moving one of its side inward
+ctrl + {F14,F15,F16,F17}
+	bspc node -z {left 100 0,bottom 0 -100,top 0 100,right -100 0}
+
+### SHIFT
+
+# send to given workspace
+shift + {F9,F8,F5,F10,F3,F7,F6,F11,F2,F4}
+  bspc node -d "^{1,2,3,4,5,6,7,8,9,10}"
+
+# expand a window by moving one of its side outward
+shift + {F14,F15,F16,F17}
+  bspc node -z {left -100 0,bottom 0 +100,top 0 -100,right +100 0}
+
+# force kill window (if unresponsive)
+shift + F18
+	bspc node -k
+
+# Terminal (floating)
+shift + F19
+	bspc rule -a kitty -o state=floating follow=on center=true rectangle=1490x1310+0+0 && kitty
+
+# swap the window in the given direction
+shift + {F20,F21,F22,F23}
+	bspc node -s {west,south,north,east}
+
+### SUPER
+
+# apply padding so screen is 16:9
+super + F1
+  sh ~/.config/sxhkd/scripts/padding.sh
+
+# apply padding so screen is 9:16
+super + F2
+  sh ~/.config/sxhkd/scripts/padding2.sh
+
+# cancel the preselection for the focused node
+super + F4
+	bspc node -p cancel
+
+# preselect the ratio
+super + {F9,F8,F5,F10,F3,F7,F6,F11,F2}
+	bspc node -o 0.{1,2,3,4,5,6,7,8,9}
+
+# Preselect the direction for the next window
+super + {F14,F15,F16,F17}
+    bspc node -p {west,south,north,east}
+
+# move a floating window
+super + {F20,F21,F22,F23}
+	bspc node -v {-100 0,0 100,0 -100,100 0}
+
+### OTHER
+
+# Manage volume
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+    bash $HOME/.config/dunst/scripts/volume.sh {up,down,mute}

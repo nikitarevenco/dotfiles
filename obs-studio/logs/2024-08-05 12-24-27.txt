@@ -1,0 +1,233 @@
+12:24:27.272: Using EGL/X11
+12:24:27.272: CPU Name: Intel(R) Core(TM) i5-10400F CPU @ 2.90GHz
+12:24:27.272: CPU Speed: 3999.689MHz
+12:24:27.272: Physical Cores: 6, Logical Cores: 12
+12:24:27.272: Physical Memory: 15926MB Total, 8824MB Free
+12:24:27.272: Kernel Version: Linux 6.10.2-arch1-2
+12:24:27.272: Distribution: "Arch Linux" Unknown
+12:24:27.272: Desktop Environment: 
+12:24:27.272: Session Type: x11
+12:24:27.272: Window System: X11.0, Vendor: The X.Org Foundation, Version: 1.21.1
+12:24:27.272: Qt Version: 6.7.2 (runtime), 6.7.2 (compiled)
+12:24:27.272: Portable mode: false
+12:24:27.306: OBS 30.2.1-1 (linux)
+12:24:27.306: ---------------------------------
+12:24:27.306: ---------------------------------
+12:24:27.306: audio settings reset:
+12:24:27.306: 	samples per sec: 48000
+12:24:27.306: 	speakers:        2
+12:24:27.306: 	max buffering:   960 milliseconds
+12:24:27.306: 	buffering type:  dynamically increasing
+12:24:27.312: ---------------------------------
+12:24:27.312: Initializing OpenGL...
+12:24:27.423: Loading up OpenGL on adapter Mesa NV136
+12:24:27.423: OpenGL loaded successfully, version 4.3 (Core Profile) Mesa 24.1.5-arch1.1, shading language 4.30
+12:24:27.450: ---------------------------------
+12:24:27.450: video settings reset:
+12:24:27.450: 	base resolution:   1920x1080
+12:24:27.450: 	output resolution: 1280x720
+12:24:27.450: 	downscale filter:  Bicubic
+12:24:27.450: 	fps:               30/1
+12:24:27.450: 	format:            NV12
+12:24:27.450: 	YUV mode:          Rec. 709/Partial
+12:24:27.450: NV12 texture support enabled
+12:24:27.450: P010 texture support not available
+12:24:27.452: Audio monitoring device:
+12:24:27.452: 	name: Default
+12:24:27.452: 	id: default
+12:24:27.452: ---------------------------------
+12:24:27.458: Failed to load 'en-US' text for module: 'decklink-captions.so'
+12:24:27.463: Failed to load 'en-US' text for module: 'decklink-output-ui.so'
+12:24:27.467: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed
+12:24:27.467: Failed to initialize module 'decklink.so'
+12:24:27.473: Failed to load 'en-GB' text for module: 'droidcam-obs.so'
+12:24:27.473: [DroidCamOBS] droidcam_obs: libavcodec version 61 is too high (<= 60 required for this release).
+12:24:27.473: Failed to initialize module 'droidcam-obs.so'
+12:24:27.611: [pipewire] No capture sources available
+12:24:27.623: v4l2loopback not installed, virtual camera not registered
+12:24:27.684: os_dlopen(libnvidia-encode.so.1->libnvidia-encode.so.1): libnvidia-encode.so.1: cannot open shared object file: No such file or directory
+12:24:27.684: 
+12:24:27.685: VAAPI: Failed to initialize display in vaapi_device_h264_supported
+12:24:27.685: FFmpeg VAAPI H264 encoding not supported
+12:24:27.685: VAAPI: Failed to initialize display in vaapi_device_av1_supported
+12:24:27.685: FFmpeg VAAPI AV1 encoding not supported
+12:24:27.685: VAAPI: Failed to initialize display in vaapi_device_hevc_supported
+12:24:27.685: FFmpeg VAAPI HEVC encoding not supported
+12:24:27.693: os_dlopen(/usr/lib/obs-plugins/obs-libfdk.so->/usr/lib/obs-plugins/obs-libfdk.so): libfdk-aac.so.2: cannot open shared object file: No such file or directory
+12:24:27.693: 
+12:24:27.695: os_dlopen(/usr/lib/obs-plugins/obs-libfdk.so->/usr/lib/obs-plugins/obs-libfdk.so): libfdk-aac.so.2: cannot open shared object file: No such file or directory
+12:24:27.695: 
+12:24:27.695: Module '/usr/lib/obs-plugins/obs-libfdk.so' not loaded
+12:24:27.770: Failed to load 'en-GB' text for module: 'droidcam-obs.so'
+12:24:27.770: ---------------------------------
+12:24:27.770:   Loaded Modules:
+12:24:27.770:     droidcam-obs.so
+12:24:27.770:     text-freetype2.so
+12:24:27.770:     rtmp-services.so
+12:24:27.770:     obs-x264.so
+12:24:27.770:     obs-webrtc.so
+12:24:27.770:     obs-vst.so
+12:24:27.770:     obs-transitions.so
+12:24:27.770:     obs-qsv11.so
+12:24:27.770:     obs-outputs.so
+12:24:27.770:     obs-filters.so
+12:24:27.770:     obs-ffmpeg.so
+12:24:27.770:     linux-v4l2.so
+12:24:27.770:     linux-pulseaudio.so
+12:24:27.770:     linux-pipewire.so
+12:24:27.770:     linux-jack.so
+12:24:27.770:     linux-capture.so
+12:24:27.770:     linux-alsa.so
+12:24:27.770:     image-source.so
+12:24:27.770:     frontend-tools.so
+12:24:27.770:     decklink-output-ui.so
+12:24:27.771:     decklink-captions.so
+12:24:27.771: ---------------------------------
+12:24:27.771: ---------------------------------
+12:24:27.771: Available Encoders:
+12:24:27.771:   Video Encoders:
+12:24:27.771: 	- ffmpeg_svt_av1 (SVT-AV1)
+12:24:27.771: 	- ffmpeg_aom_av1 (AOM AV1)
+12:24:27.771: 	- obs_x264 (x264)
+12:24:27.771:   Audio Encoders:
+12:24:27.771: 	- ffmpeg_aac (FFmpeg AAC)
+12:24:27.771: 	- ffmpeg_opus (FFmpeg Opus)
+12:24:27.771: 	- ffmpeg_pcm_s16le (FFmpeg PCM (16-bit))
+12:24:27.771: 	- ffmpeg_pcm_s24le (FFmpeg PCM (24-bit))
+12:24:27.771: 	- ffmpeg_pcm_f32le (FFmpeg PCM (32-bit float))
+12:24:27.771: 	- ffmpeg_alac (FFmpeg ALAC (24-bit))
+12:24:27.771: 	- ffmpeg_flac (FFmpeg FLAC (16-bit))
+12:24:27.771: ==== Startup complete ===============================================
+12:24:27.840: All scene data cleared
+12:24:27.840: ------------------------------------------------
+12:24:27.841: xshm-input: Geometry 3440x1440 @ 0,0
+12:24:27.844: Switched to scene 'Scene'
+12:24:27.844: ------------------------------------------------
+12:24:27.844: Loaded scenes:
+12:24:27.844: - scene 'Scene':
+12:24:27.844:     - source: 'Screen Capture (XSHM)' (xshm_input)
+12:24:27.844: - scene 'Face cam':
+12:24:27.844: ------------------------------------------------
+13:08:24.574: User switched to scene 'Face cam'
+13:08:28.222: [DroidCamOBS] Source: "DroidCam OBS" - 233
+13:08:28.222: [DroidCamOBS] checking adb
+13:08:29.276: [DroidCamOBS] activated=0, deactivateWNS=0, is_showing=0, enable_audio=0
+13:08:29.276: [DroidCamOBS] video_format=avc video_resolution=640x480
+13:08:29.276: [DroidCamOBS] video_thread start
+13:08:29.277: [DroidCamOBS] audio_thread start
+13:08:29.277: [DroidCamOBS] video_decode_thread start
+13:08:29.280: User added source 'DroidCam OBS' (droidcam_obs) to scene 'Face cam'
+13:08:32.091: [DroidCamOBS] video_parms_changed: video_format=0/avc video_resolution=3/1920x1080
+13:09:09.405: [DroidCamOBS] activated: id=dev_id_wifi type=1 ip=192.168.0.215 port=4747
+13:09:09.405: [DroidCamOBS] video_format=0/avc video_resolution=3/1920x1080
+13:09:10.072: [DroidCamOBS] have config: 30
+13:09:10.083: [DroidCamOBS] use hw: 0
+13:09:10.634: [DroidCamOBS] have config: 2
+13:09:10.708: [DroidCamOBS] audio: sample_rate=44100 channels=1
+13:09:31.146: User switched to scene 'Scene'
+13:09:35.294: User switched to scene 'Face cam'
+13:10:11.595: [DroidCamOBS] data packet too large at 0!
+13:10:12.018: [DroidCamOBS] read header recv returned 0
+13:10:14.143: [DroidCamOBS] data packet too large at 540291124!
+13:10:16.291: [DroidCamOBS] data packet too large at 540291124!
+13:10:18.443: [DroidCamOBS] data packet too large at 540291124!
+13:10:20.490: [DroidCamOBS] send(/video) failed
+13:10:22.638: [DroidCamOBS] send(/video) failed
+13:10:24.687: [DroidCamOBS] send(/video) failed
+13:10:26.910: [DroidCamOBS] send(/video) failed
+13:10:28.993: [DroidCamOBS] send(/video) failed
+13:10:31.134: [DroidCamOBS] send(/video) failed
+13:10:33.331: [DroidCamOBS] send(/video) failed
+13:10:35.439: [DroidCamOBS] send(/video) failed
+13:10:37.586: [DroidCamOBS] send(/video) failed
+13:10:39.738: [DroidCamOBS] send(/video) failed
+13:10:41.886: [DroidCamOBS] send(/video) failed
+13:10:44.038: [DroidCamOBS] send(/video) failed
+13:10:46.082: [DroidCamOBS] send(/video) failed
+13:10:48.128: [DroidCamOBS] send(/video) failed
+13:10:50.175: [DroidCamOBS] send(/video) failed
+13:10:52.232: [DroidCamOBS] send(/video) failed
+13:10:54.280: [DroidCamOBS] send(/video) failed
+13:10:56.430: [DroidCamOBS] send(/video) failed
+13:10:58.563: [DroidCamOBS] send(/video) failed
+13:11:00.606: [DroidCamOBS] send(/video) failed
+13:11:02.650: [DroidCamOBS] send(/video) failed
+13:11:04.722: [DroidCamOBS] send(/video) failed
+13:11:06.766: [DroidCamOBS] send(/video) failed
+13:11:08.918: [DroidCamOBS] send(/video) failed
+13:11:11.071: [DroidCamOBS] send(/video) failed
+13:11:13.223: [DroidCamOBS] send(/video) failed
+13:11:15.269: [DroidCamOBS] send(/video) failed
+13:11:17.424: [DroidCamOBS] send(/video) failed
+13:11:19.470: [DroidCamOBS] send(/video) failed
+13:11:21.518: [DroidCamOBS] send(/video) failed
+13:11:23.562: [DroidCamOBS] send(/video) failed
+13:12:02.085: Last log entry repeated for 17 more lines
+13:12:02.085: [DroidCamOBS] have config: 30
+13:12:02.094: [DroidCamOBS] use hw: 0
+13:12:02.538: [DroidCamOBS] have config: 2
+13:12:02.630: [DroidCamOBS] audio: sample_rate=44100 channels=1
+13:12:32.960: [DroidCamOBS] read header recv returned -1
+13:12:32.960: [DroidCamOBS] read header recv returned -1
+13:12:35.006: [DroidCamOBS] send(/video) failed
+13:12:37.100: [DroidCamOBS] send(/video) failed
+13:12:39.234: [DroidCamOBS] send(/video) failed
+13:12:41.282: [DroidCamOBS] send(/video) failed
+13:12:43.328: [DroidCamOBS] send(/video) failed
+13:12:45.386: [DroidCamOBS] send(/video) failed
+13:12:47.533: [DroidCamOBS] send(/video) failed
+13:12:49.579: [DroidCamOBS] send(/video) failed
+13:12:51.695: [DroidCamOBS] send(/video) failed
+13:12:53.781: [DroidCamOBS] send(/video) failed
+13:12:55.828: [DroidCamOBS] send(/video) failed
+13:12:57.874: [DroidCamOBS] send(/video) failed
+13:13:00.023: [DroidCamOBS] send(/video) failed
+13:13:02.071: [DroidCamOBS] send(/video) failed
+13:13:04.223: [DroidCamOBS] send(/video) failed
+13:13:06.377: [DroidCamOBS] send(/video) failed
+13:13:08.559: [DroidCamOBS] send(/video) failed
+13:13:10.675: [DroidCamOBS] send(/video) failed
+13:13:12.720: [DroidCamOBS] send(/video) failed
+13:13:14.773: [DroidCamOBS] send(/video) failed
+13:13:16.818: [DroidCamOBS] send(/video) failed
+13:13:19.003: [DroidCamOBS] send(/video) failed
+13:13:21.050: [DroidCamOBS] send(/video) failed
+13:13:23.202: [DroidCamOBS] send(/video) failed
+13:13:25.245: [DroidCamOBS] send(/video) failed
+13:13:27.366: [DroidCamOBS] send(/video) failed
+13:13:29.410: [DroidCamOBS] send(/video) failed
+13:13:31.455: [DroidCamOBS] send(/video) failed
+13:13:33.510: [DroidCamOBS] send(/video) failed
+13:13:35.554: [DroidCamOBS] send(/video) failed
+13:13:37.599: [DroidCamOBS] send(/video) failed
+13:14:01.416: Last log entry repeated for 10 more lines
+13:14:01.416: [DroidCamOBS] have config: 30
+13:14:01.432: [DroidCamOBS] use hw: 0
+13:14:02.236: [DroidCamOBS] have config: 2
+13:14:02.365: [DroidCamOBS] audio: sample_rate=44100 channels=1
+13:26:14.857: User switched to scene 'Scene'
+13:26:20.079: User switched to scene 'Face cam'
+13:28:16.585: ---------------------------------
+13:28:16.585: [x264 encoder: 'simple_video_stream'] preset: veryfast
+13:28:16.585: [x264 encoder: 'simple_video_stream'] settings:
+13:28:16.585: 	rate_control: CBR
+13:28:16.585: 	bitrate:      2500
+13:28:16.585: 	buffer size:  2500
+13:28:16.585: 	crf:          23
+13:28:16.585: 	fps_num:      30
+13:28:16.585: 	fps_den:      1
+13:28:16.585: 	width:        1280
+13:28:16.585: 	height:       720
+13:28:16.585: 	keyint:       250
+13:28:16.585: 
+13:28:16.593: ---------------------------------
+13:28:16.593: [FFmpeg aac encoder: 'simple_aac'] bitrate: 160, channels: 2, channel_layout: stereo
+13:28:16.593: 
+13:28:16.594: ==== Recording Start ===============================================
+13:28:16.594: [ffmpeg muxer: 'simple_file_output'] Writing file '/home/nikita/recordings/2024-08-05_13-28-16.mkv'...
+13:29:04.492: [ffmpeg muxer: 'simple_file_output'] Output of file '/home/nikita/recordings/2024-08-05_13-28-16.mkv' stopped
+13:29:04.492: Output 'simple_file_output': stopping
+13:29:04.492: Output 'simple_file_output': Total frames output: 1403
+13:29:04.492: Output 'simple_file_output': Total drawn frames: 1384 (1436 attempted)
+13:29:04.492: Output 'simple_file_output': Number of lagged frames due to rendering lag/stalls: 52 (3.6%)
+13:29:04.503: ==== Recording Stop ================================================

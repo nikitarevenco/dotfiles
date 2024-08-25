@@ -1,0 +1,3 @@
+[Bookmarks]
+[Recent]
+/home/nikita/.config/blender/theme/
