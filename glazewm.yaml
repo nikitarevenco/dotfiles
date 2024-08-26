@@ -90,6 +90,8 @@ keybindings:
     bindings: ['alt+u']
   - commands: ['resize --height -2%']
     bindings: ['alt+y']
+  - commands: ['wm-exit']
+    bindings: ['alt+z']
 
   - commands: ['toggle-floating --centered']
     bindings: ['alt+q']
