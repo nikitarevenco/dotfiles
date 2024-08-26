@@ -2,6 +2,7 @@ autosuggest.hint = False
 clink.logo = none
 clink.paste_crlf = ampersand
 cmd.auto_answer = answer_yes
+fzf.default_bindings = true
 
 color.doskey = green
 color.executable = green
@@ -18,4 +19,4 @@ color.divider_line_text = black
 matchicons.enable = true
 tilde.autoexpand = true
 
-divider_line.commands = scooa
+divider_line.commands = scoop

@@ -16,7 +16,6 @@ doskey ?=tldr --static $*
 doskey dns=nslookup $*
 doskey s=s -p google $*
 doskey zip=7z a -t7z $*
-doskey uzip=for /f "tokens=*" %i in ('$1') do @md "%~ni" & @7z x %i -o"%~ni"
 
 ::
 :: ZOXIDE ALIASES
