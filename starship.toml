@@ -9,6 +9,7 @@ disabled = true
 format = "[ $path ](bold blue)"
 truncation_length = 0
 read_only = " 󰌾"
+use_os_path_sep = false
 
 [git_branch]
 format = 'on [$symbol$branch(:$remote_branch) ](bold mauve)'
