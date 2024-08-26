@@ -2,10 +2,13 @@
 
 My personal ideal dev environment in Windows 11 including:
 
-- GlazeWM
-- Wezterm
 - Neovim
+- Wezterm
+- GlazeWM
 - Starship
+- LazyGit
+- Command Prompt
+- Git
 
 ## Setup
 
@@ -15,7 +18,7 @@ Open PowerShell as an administrator.
 Run the following command which downloads this repo's files into `dotfiles` directory within your home directory:
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/nikitarevenco/dotfiles-windows/archive/refs/heads/main.zip" -OutFile "$env:USERPROFILE\dotfiles-windows.zip"; Expand-Archive -Path "$env:USERPROFILE\dotfiles-windows.zip" -DestinationPath "$env:USERPROFILE\dotfiles" -Force; Move-Item -Path "$env:USERPROFILE\dotfiles\dotfiles-windows-main\*" -Destination "$env:USERPROFILE\dotfiles" -Force; Remove-Item "$env:USERPROFILE\dotfiles\dotfiles-windows-main" -Recurse; Remove-Item "$env:USERPROFILE\dotfiles-windows.zip"
+Invoke-WebRequest -Uri "https://github.com/nikitarevenco/dotfiles/archive/refs/heads/main.zip" -OutFile "$env:USERPROFILE\dotfiles.zip"; Expand-Archive -Path "$env:USERPROFILE\dotfiles.zip" -DestinationPath "$env:USERPROFILE\dotfiles" -Force; Move-Item -Path "$env:USERPROFILE\dotfiles\dotfiles-main\*" -Destination "$env:USERPROFILE\dotfiles" -Force; Remove-Item "$env:USERPROFILE\dotfiles\dotfiles-main" -Recurse; Remove-Item "$env:USERPROFILE\dotfiles.zip"
 ```
 
 ### Package Installations
@@ -39,7 +42,11 @@ scoop bucket add extras nerd-fonts
 Install the packages:
 
 ```powershell
-scoop install neovim nodejs pnpm git nerd-fonts/JetBrains-Mono wezterm glazewm whkd main/clink starship lua
+scoop install neovim nodejs pnpm git nerd-fonts/JetBrains-Mono wezterm glazewm whkd main/clink starship lua lazygit bat tldr fzf duf sd gron
+```
+
+```powershell
+npm install --global trash-cli
 ```
 
 ### Clink Setup
@@ -54,23 +61,18 @@ Enhance `cmd.exe` which is used by wezterm with extra features which make it fan
 "C:\%USERPROFILE%\scoop\apps\clink\current\clink.bat" inject --autorun & "C:\%USERPROFILE%\dotfiles\cmdrc.bat"
 ```
 
-### Env Variables
+### Env Variable
 
-Set the following environment variables.
+Set the following environment variable.
 
 1. Open quick start menu.
 1. Open `"Edit environment variables for your account"`.
 1. Under `Environment Variables > User Variables` click on `New` to add additional variables.
 1. For the `PATH` variable, click `Edit` and then `Add` the respective value.
 
-| Name                | Value                                  |
-| ------------------- | -------------------------------------- |
-| PATH                | `%USERPROFILE%\AppData\Local\clink`    |
-| PATH                | `%USERPROFILE%\dotfiles\scripts`       |
-| CLINK_PATH          | `%USERPROFILE%\dotfiles\scripts`       |
-| WEZTERM_CONFIG_FILE | `%USERPROFILE%\dotfiles\wezterm.lua`   |
-| STARSHIP_CONFIG     | `%USERPROFILE%\dotfiles\starship.toml` |
-| GIT_CONFIG_GLOBAL   | `%USERPROFILE%\dotfiles\git.ini`       |
+| Name                | Value                                |
+| ------------------- | ------------------------------------ |
+| WEZTERM_CONFIG_FILE | `%USERPROFILE%\dotfiles\wezterm.lua` |
 
 ### Git
 
