@@ -5,8 +5,8 @@ My personal ideal dev environment in Windows 11 including:
 - Neovim
 - Wezterm
 - GlazeWM
-- Starship
 - LazyGit
+- Clink
 - Command Prompt
 - Git
 
