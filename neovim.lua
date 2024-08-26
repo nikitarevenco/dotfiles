@@ -1175,13 +1175,12 @@ local plugins = {
 		end,
 	},
 	{
-		-- !mason
-		"williamboman/mason.nvim",
-		cond = true,
+		"williamboman/mason-lspconfig.nvim",
 		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
+			"williamboman/mason.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 		},
+
 		config = function()
 			require("mason").setup({
 				ui = {
@@ -3376,4 +3375,3 @@ local lazy_options = {
 
 -- most important line
 require("lazy").setup(plugins, lazy_options)
-
