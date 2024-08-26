@@ -96,6 +96,8 @@ keybindings:
 
   - commands: ['toggle-fullscreen']
     bindings: ['alt+m']
+  - commands: ['toggle-tiling-direction']
+    bindings: ['alt+h']
 
   - commands: ['close']
     bindings: ['alt+t']
@@ -106,6 +108,8 @@ keybindings:
     bindings: ['alt+s']
   - commands: ['shell-exec chrome']
     bindings: ['alt+r']
+  - commands: ['sharex -RectangleLight -s']
+    bindings: ['alt+k']
 
   - commands: ['focus --recent-workspace']
     bindings: ['alt+v']
