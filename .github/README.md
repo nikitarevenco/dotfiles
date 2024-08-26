@@ -1,13 +1,13 @@
 # Nikita Revenco Windows 11 Dotfiles
 
-My personal ideal dev environment in Windows 11 including:
+My ideal dev environment in Windows 11 with config files for:
 
 - Neovim
 - Wezterm
 - GlazeWM
 - LazyGit
-- Clink
 - Command Prompt
+- Clink
 - Git
 
 ## Setup
@@ -42,37 +42,20 @@ scoop bucket add extras nerd-fonts
 Install the packages:
 
 ```powershell
-scoop install neovim nodejs pnpm git nerd-fonts/JetBrains-Mono wezterm glazewm whkd main/clink starship lua lazygit bat tldr fzf duf sd gron
+scoop install 7zip autohotkey bat clink diff-so-fancy duf eza fzf git gron lazygit neovim nodejs lua make pnpm python s sd go sharex wezterm zoxide
 ```
 
 ```powershell
 npm install --global trash-cli
 ```
 
-### Clink Setup
-
-Enhance `cmd.exe` which is used by wezterm with extra features which make it fancy like the other terminals.
-
-1. Open the Registry Editor.
-1. Go to `HKEY_CURRENT_USER > Software > Microsoft > Command Processor`.
-1. Add a new entry for `AutoRun` with the following value:
-
-```powershell
-"C:\%USERPROFILE%\scoop\apps\clink\current\clink.bat" inject --autorun & "C:\%USERPROFILE%\dotfiles\cmdrc.bat"
-```
-
 ### Env Variable
 
 Set the following environment variable.
 
-1. Open quick start menu.
-1. Open `"Edit environment variables for your account"`.
-1. Under `Environment Variables > User Variables` click on `New` to add additional variables.
-1. For the `PATH` variable, click `Edit` and then `Add` the respective value.
-
-| Name                | Value                                |
-| ------------------- | ------------------------------------ |
-| WEZTERM_CONFIG_FILE | `%USERPROFILE%\dotfiles\wezterm.lua` |
+```powershell
+setx WEZTERM_CONFIG_FILE "%USERPROFILE%\dotfiles\wezterm.lua"
+```
 
 ### Git
 
