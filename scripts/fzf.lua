@@ -403,7 +403,7 @@ local function get_fzf(mode, addl_options)
 		options = join_str("--reverse --scheme=path", options)
 		options = join_str(options, os.getenv("FZF_ALT_C_OPTS"))
 	elseif mode == "path" then
-		options = join_str("--reverse --scheme=path", options)
+		options = join_str("--reverse --ansi --scheme=path", options)
 		options = join_str(options, os.getenv("FZF_CTRL_T_OPTS"))
 	elseif mode == "history" then
 		options = join_str("--scheme=history --bind=ctrl-r:toggle-sort", options)
@@ -527,7 +527,7 @@ end
 
 local function is_dir_command(line_state)
 	local command = line_state:getword(1)
-	local dir_commands = os.getenv("FZF_COMPLETION_DIR_COMMANDS") or "cd chdir rd rmdir pushd"
+	local dir_commands = os.getenv("FZF_COMPLETION_DIR_COMMANDS") or "cd chdir rd rmdir pushd t"
 	for _, c in ipairs(string.explode(dir_commands)) do
 		if string.equalsi(c, command) then
 			return true
