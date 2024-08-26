@@ -420,4 +420,21 @@ config.selection_word_boundary = " \t\n{}[]()\"'`,;:@│┃*…$"
 config.audible_bell = "Disabled"
 config.hide_tab_bar_if_only_one_tab = true
 
+local USERPROFILE = os.getenv("USERPROFILE")
+local PATH = os.getenv("PATH")
+
+config.set_environment_variables = {
+	PATH = PATH .. ";\\AppData\\Local\\clink" .. ";\\dotfiles\\scripts",
+	CLINK_PATH = USERPROFILE .. "\\dotfiles\\scripts",
+  CLINK_SETTINGS = USERPROFILE .. "\\dotfiles",
+	STARSHIP_CONFIG = USERPROFILE .. "\\dotfiles\\starship.toml",
+	GIT_CONFIG_GLOBAL = USERPROFILE .. "\\dotfiles\\git.ini",
+	LG_CONFIG_FILE = USERPROFILE .. "\\dotfiles\\lazygit.yml",
+	FZF_DEFAULT_OPTS = "--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 --color=selected-bg:#45475a --multi",
+}
+
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+	config.default_prog = { "cmd.exe", "/s", "/k", "clink", "inject", "-q" }
+end
+
 return config
