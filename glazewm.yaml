@@ -108,7 +108,7 @@ keybindings:
     bindings: ['alt+s']
   - commands: ['shell-exec chrome']
     bindings: ['alt+r']
-  - commands: ['sharex -RectangleLight -s']
+  - commands: ['shell-exec sharex -RectangleLight -s']
     bindings: ['alt+k']
 
   - commands: ['focus --recent-workspace']
