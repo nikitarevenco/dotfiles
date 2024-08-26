@@ -12,10 +12,10 @@ doskey r=trash $*
 doskey b=bat --style=plain --theme ansi $*
 doskey g=git $*
 doskey n=nvim -u %USERPROFILE%\dotfiles\neovim.lua $*
-doskey ?=tldr --static $*
 doskey dns=nslookup $*
 doskey s=s -p google $*
 doskey zip=7z a -t7z $*
+doskey ps=powershell -ExecutionPolicy Bypass -File $1
 
 ::
 :: ZOXIDE ALIASES
@@ -33,7 +33,6 @@ doskey ..=cd /d ..\.. ^& eza --icons --git-ignore --sort=changed --across --clas
 doskey ...=cd /d ..\..\.. ^& eza --icons --git-ignore --sort=changed --across --classify
 doskey ....=cd /d ..\..\..\.. ^& eza --icons --git-ignore --sort=changed --across --classify
 doskey .....=cd /d ..\..\..\..\.. ^& eza --icons --git-ignore --sort=changed --across --classify
-
 ::
 :: UNIX ALIASES
 ::
