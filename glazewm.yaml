@@ -33,12 +33,12 @@ window_behavior:
     floating:
       centered: true
 
-      shown_on_top: false
+      shown_on_top: true
 
     fullscreen:
-      maximized: false
+      maximized: true
 
-      shown_on_top: false
+      shown_on_top: true
 
 workspaces:
   - name: "1"
@@ -141,7 +141,7 @@ keybindings:
 
   - commands: ["shell-exec wezterm-gui"]
     bindings: ["alt+s"]
-  - commands: ["shell-exec chrome"]
+  - commands: ["shell-exec firefox"]
     bindings: ["alt+r"]
   - commands: ["shell-exec sharex -RectangleLight -s"]
     bindings: ["alt+k"]
