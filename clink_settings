@@ -4,6 +4,7 @@ clink.paste_crlf = ampersand
 cmd.auto_answer = answer_yes
 fzf.default_bindings = true
 
+color.envvars = yellow
 color.doskey = green
 color.executable = green
 color.cmd = green
