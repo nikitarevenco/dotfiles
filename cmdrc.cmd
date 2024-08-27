@@ -5,19 +5,27 @@
 :: ALIASES
 ::
 ::
-
+doskey js=node -e "console.log($*)"
 doskey norg=gron --ungron
 doskey l=lazygit $*
 doskey r=trash $*
 doskey b=bat --style=plain --theme ansi $*
 doskey g=git $*
-doskey p=pnpm $*
-doskey px=pnpm dlx $*
 doskey n=nvim -u %USERPROFILE%\dotfiles\neovim.lua $*
 doskey dns=nslookup $*
 doskey s=s -p google $*
 doskey zip=7z a -t7z $*
 doskey ps=powershell -ExecutionPolicy Bypass -File $1
+doskey rm=rd /S $*
+
+::
+:: PNPM ALIASES
+::
+
+doskey p=pnpm $*
+doskey pi=pnpm add $*
+doskey pid=pnpm add -D $*
+doskey px=pnpm dlx $*
 
 ::
 :: ZOXIDE ALIASES
