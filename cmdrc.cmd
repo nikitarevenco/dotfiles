@@ -5,10 +5,10 @@
 :: ALIASES
 ::
 ::
+
 doskey js=node -e "console.log($*)"
 doskey norg=gron --ungron
 doskey l=lazygit $*
-doskey r=trash $*
 doskey b=bat --style=plain --theme ansi $*
 doskey g=git $*
 doskey n=nvim -u %USERPROFILE%\dotfiles\neovim.lua $*
@@ -17,6 +17,8 @@ doskey s=s -p google $*
 doskey zip=7z a -t7z $*
 doskey ps=powershell -ExecutionPolicy Bypass -File $1
 doskey rm=rd /S $*
+doskey r=powershell -command "& {param($args) %USERPROFILE%\dotfiles\scripts\trash.ps1 $args}" $*
+doskey get=curl -s $* 2>nul
 
 ::
 :: PNPM ALIASES
@@ -33,8 +35,6 @@ doskey px=pnpm dlx $*
 
 doskey t=zoxide add $1 ^& cd /d $1 ^& eza --icons --git-ignore --sort=changed --across --classify
 doskey z=for /f "delims=" %d in ('zoxide query $*') do @cd "%d" ^& eza --icons --git-ignore --sort=changed --across --classify
-::
-:: doskey t=zoxide add $1  cd /d $1  
 
 ::
 :: FAST TRAVEL ALIASES
