@@ -12,37 +12,23 @@ My ideal dev environment in Windows 11 with config files for:
 
 ## Setup
 
-### Download
+### Debloating
 
-Open PowerShell as an administrator.
-Run the following command which downloads this repo's files into `dotfiles` directory within your home directory:
+Debloat Windows for increased privacy and better performance.
+
+1. Open PowerShell as an administrator.
+1. Run this script ([Win11Debloat](https://github.com/Raphire/Win11Debloat)) and choose the default settings:
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/nikitarevenco/dotfiles/archive/refs/heads/main.zip" -OutFile "$env:USERPROFILE\dotfiles.zip"; Expand-Archive -Path "$env:USERPROFILE\dotfiles.zip" -DestinationPath "$env:USERPROFILE\dotfiles" -Force; Move-Item -Path "$env:USERPROFILE\dotfiles\dotfiles-main\*" -Destination "$env:USERPROFILE\dotfiles" -Force; Remove-Item "$env:USERPROFILE\dotfiles\dotfiles-main" -Recurse; Remove-Item "$env:USERPROFILE\dotfiles.zip"
+& ([scriptblock]::Create((irm "https://win11debloat.raphi.re/")))
 ```
 
 ### Package Installations
 
-Run the following two commands to install `scoop` package manager:
+Run the following command to install `scoop` package manager and install all the packages:
 
 ```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-```powershell
-Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-```
-
-Add scoop buckets:
-
-```powershell
-scoop bucket add extras nerd-fonts
-```
-
-Install the packages:
-
-```powershell
-scoop install 7zip autohotkey bat clink deno diff-so-fancy duf dust eza firefox fzf git go gron jq lazygit lua make neovim nodejs nomino pnpm python restic rustup s sd sharex wezterm yazi zig zoxide
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression ; scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install 7zip autohotkey bat clink deno diff-so-fancy duf dust eza firefox fzf git go gron jq lazygit lua make neovim nodejs nomino pnpm python restic rustup s sd sharex wezterm yazi zig zoxide JetBrainsMono-NF
 ```
 
 | Package                                                    | Description                                                                                               |
@@ -80,10 +66,6 @@ scoop install 7zip autohotkey bat clink deno diff-so-fancy duf dust eza firefox 
 | [zig](https://ziglang.org/)                                | General-purpose programming language designed for robustness, optimality, and maintainability.            |
 | [zoxide](https://github.com/ajeetdsouza/zoxide)            | A faster way to navigate your filesystem                                                                  |
 
-```powershell
-npm install --global trash-cli
-```
-
 ### Env Variable
 
 Set the following environment variable.
@@ -94,31 +76,16 @@ setx WEZTERM_CONFIG_FILE "%USERPROFILE%\dotfiles\wezterm.lua"
 
 ### Git
 
-Generate ssh keys:
-
-```powershell
-ssh-keygen -t ed25519
-```
-
 Copy the following output into `GitHub > Settings > SSH Keys > New SSH Key`
 
 ```powershell
-type %USERPROFILE%\.ssh\id_ed25519.pub
+New-Item -ItemType Directory -Path $env:USERPROFILE\.ssh -Force; ssh-keygen -t ed25519 -f "$env:USERPROFILE\.ssh\id_ed25519" -N '""' ; type "$env:USERPROFILE\.ssh\id_ed25519.pub" | clip
 ```
 
-Then test the connection:
+### Download
+
+Clone this repository
 
 ```powershell
-ssh -T git@github.com
-```
-
-### Debloating
-
-Debloat Windows for increased privacy and better performance.
-
-1. Open PowerShell as an administrator.
-1. Run this script ([Win11Debloat](https://github.com/Raphire/Win11Debloat)) and choose the default settings:
-
-```powershell
-& ([scriptblock]::Create((irm "https://win11debloat.raphi.re/")))
+git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
 ```
