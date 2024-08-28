@@ -19,7 +19,7 @@ doskey ps=powershell -ExecutionPolicy Bypass -File $1
 doskey rm=rd /S $*
 doskey r=powershell -command "& {param($args) %USERPROFILE%\dotfiles\scripts\trash.ps1 $args}" $*
 doskey get=curl -s $* 2>nul
-doskey mit=git clone https://github.com/nikitarevenco/github-template.git .github ^& rd /S /Q .github\.git
+doskey mit=curl -s https://raw.githubusercontent.com/nikitarevenco/github-template/main/LICENSE ^> LICENSE
 
 ::
 :: PNPM ALIASES
