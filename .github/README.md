@@ -2,9 +2,6 @@
 
 My ideal windows 11 dev setup
 
-> [!WARNING]
-> Use at your own risk
-
 win11debloat
 
 ```powershell
