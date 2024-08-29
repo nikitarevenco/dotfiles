@@ -2,6 +2,8 @@
 
 My ideal windows 11 dev setup
 
+---
+ 
 win11debloat
 
 ```powershell
@@ -11,7 +13,7 @@ win11debloat
 scoop
 
 ```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression ; scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install 7zip autohotkey bat clink deno diff-so-fancy duf dust eza firefox fzf git go gron jq lazygit lua make neovim nodejs nomino pnpm python restic rustup s sd sharex wezterm yazi zig zoxide JetBrainsMono-NF
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression ; scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install 7zip autohotkey bat clink deno diff-so-fancy duf dust eza fd firefox fzf git go grep gron imagemagick JetBrainsMono-NF jq lazygit lua make neovim nodejs nomino pnpm poppler python qbittorrent ripgrep s sd sharex wezterm yazi zig zoxide
 ```
 
 env variable
