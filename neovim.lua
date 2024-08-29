@@ -79,6 +79,11 @@ vim.cmd("let g:netrw_liststyle = 3")
 -- <leader> is space
 vim.g.mapleader = " "
 
+-- { "cmd.exe", "/s", "/k", "clink inject -q && " .. DOTFILES .. "\\cmdrc.cmd" }
+
+-- if on windows
+vim.o.shellcmdflag = "/s /k clink inject -q && " .. os.getenv("DOTS") .. "\\cmdrc.cmd"
+
 -- vim.filetype.add({
 -- 	extension = {
 -- 		mdx = "mdx",
@@ -2268,7 +2273,7 @@ local plugins = {
 			},
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
-        -- Note the plugin is bugged. Go to the plugin's repo at %localappdata%/nvim-data/telescope-fzf-native.nvim and run this command
+				-- Note the plugin is bugged. Go to the plugin's repo at %localappdata%/nvim-data/telescope-fzf-native.nvim and run this command
 				build = "zig cc -O3 -Wall -Werror -fpic -std=gnu99 -shared src/fzf.c -o build/libfzf.dll",
 			},
 			{ "nvim-tree/nvim-web-devicons" },
@@ -3022,9 +3027,44 @@ local plugins = {
 			vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = false, underline = false })
 		end,
 	},
+	-- {
+	-- 	"akinsho/toggleterm.nvim",
+	-- 	event = { "BufReadPre", "BufNewFile" },
+	-- 	version = "*",
+	-- 	config = function()
+	-- 		local init_or_toggle = function()
+	-- 			vim.cmd([[ ToggleTermToggleAll ]])
+	--
+	-- 			-- list current buffers
+	-- 			local buffers = vim.api.nvim_list_bufs()
+	--
+	-- 			-- check if toggleterm buffer exists. If not then create one by vim.cmd [[ exe 1 . "ToggleTerm" ]]
+	-- 			local toggleterm_exists = false
+	-- 			for _, buf in ipairs(buffers) do
+	-- 				local buf_name = vim.api.nvim_buf_get_name(buf)
+	-- 				if buf_name:find("toggleterm#") then
+	-- 					toggleterm_exists = true
+	-- 					break
+	-- 				end
+	-- 			end
+	--
+	-- 			if not toggleterm_exists then
+	-- 				vim.cmd([[ exe 1 . "ToggleTerm" ]])
+	-- 			end
+	-- 		end
+	--
+	-- 		vim.keymap.set(
+	-- 			{ "n" },
+	-- 			keymaps.terminal_toggle_vertical,
+	-- 			init_or_toggle,
+	-- 			{ desc = icons.keymaps.terminal .. "toggle terminal" }
+	-- 		)
+	-- 	end,
+	-- },
 	{
 		-- !nvterm
 		"NvChad/nvterm",
+		cond = true,
 		event = { "BufReadPre", "BufNewFile" },
 		keys = {
 			{
