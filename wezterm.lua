@@ -420,10 +420,16 @@ config.selection_word_boundary = " \t\n{}[]()\"'`,;:@│┃*…$"
 config.audible_bell = "Disabled"
 config.hide_tab_bar_if_only_one_tab = true
 
-local DOTFILES = os.getenv("USERPROFILE") .. "\\dotfiles"
+local HOME = os.getenv("USERPROFILE")
+local DOTFILES = HOME .. "\\dotfiles"
 local PATH = os.getenv("PATH")
 
+config.default_cwd = HOME .. "\\repos"
+
 config.set_environment_variables = {
+	DOTS = HOME .. "\\dotfiles",
+	REPO = HOME .. "\\repos",
+	RAND = HOME .. "\\random",
 	PATH = PATH .. ";" .. DOTFILES .. "\\scripts",
 	FZF_CTRL_T_COMMAND = "eza --oneline --absolute --color=always --no-quotes $dir",
 	CLINK_PATH = DOTFILES .. "\\scripts",
