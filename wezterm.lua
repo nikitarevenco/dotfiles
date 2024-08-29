@@ -431,6 +431,8 @@ config.set_environment_variables = {
 	REPO = HOME .. "\\repos",
 	RAND = HOME .. "\\random",
 	PATH = PATH .. ";" .. DOTFILES .. "\\scripts",
+	EDITOR = "nvim",
+	YAZI_FILE_ONE = os.getenv("USERPROFILE") .. "\\scoop\\apps\\git\\current\\usr\\bin\\file.exe",
 	FZF_CTRL_T_COMMAND = "eza --oneline --absolute --color=always --no-quotes $dir",
 	CLINK_PATH = DOTFILES .. "\\scripts",
 	CLINK_SETTINGS = DOTFILES,

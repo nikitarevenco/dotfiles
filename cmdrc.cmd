@@ -29,6 +29,9 @@ doskey p=pnpm $*
 doskey pi=pnpm add $*
 doskey pid=pnpm add -D $*
 doskey px=pnpm dlx $*
+doskey po=pnpm outdated $*
+doskey pu=pnpm update $*
+doskey pl=pnpm list $*
 
 ::
 :: ZOXIDE ALIASES
