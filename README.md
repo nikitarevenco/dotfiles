@@ -30,7 +30,7 @@ This is possible because all of the apps allow custom configuration path to be p
 
 You can most others in the [`doskeys.cmd`](https://github.com/nikitarevenco/dotfiles/blob/main/doskeys.cmd) file (doskeys are like `alias` in bash). For more complicated commands, they can be found in the `scripts/` folder (e.g. the `t` command which is in `t.lua` as we have to use clink to integrate zoxide with cmd.exe since zoxide does not provide official support). 
 
-Scripts starting with `_` do not correspond to any command in particular but rather change behaviour of the terminal (e.g. highlight a specific pattern)
+Scripts starting with `_` do not correspond to any command in particular but rather change behaviour of the terminal (e.g. highlight environmental variables)
 
 ### Quick Setup
  
