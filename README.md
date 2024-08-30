@@ -16,9 +16,13 @@ This is possible because all of the apps allow custom configuration path to be p
 
 ### Common commands I use
 - `t` and `ti`: zoxide which is a superior alternative to the `cd` command
+
 ![ti command being used](https://github.com/user-attachments/assets/01eb38e4-b14e-4dd3-ac28-098f4da11165)
+
 - `e`: Eza which is like `ls` but with icons and color
+
 ![e command being used](https://github.com/user-attachments/assets/f5d79c60-b839-4395-ac5c-3df3fb03092e)
+
 - `n`: open `nvim`
 - `r`: sends all of its arguments to the trash
 
