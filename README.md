@@ -1,7 +1,7 @@
 # Nikita Revenco Windows 11 Dotfiles
 
 - [Overview](#overview)
-- [Common commands](#common-commands-that-i-use)
+- [Common commands](#common-commands-i-use)
 - [Quick setup](#quick-setup)
 
 ### Overview
