@@ -7,8 +7,7 @@ My ideal windows 11 dev setup! 💖🪟😃
 - [Quick setup](#quick-setup)
 
 ### Overview
-
-![preview image](https://github.com/user-attachments/assets/430ec915-b828-433b-9d9b-cbe1c33f562a)
+![preview image](https://github.com/user-attachments/assets/eb71f763-1449-4232-8521-da587793c09a)
 
 - Tiling Window Manager -> [GlazeWM](https://github.com/glzr-io/glazewm)
 - Neovim
