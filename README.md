@@ -1,4 +1,4 @@
-# Nikita Revenco Windows 11 Dotfiles
+## Nikita Revenco Windows 11 Dotfiles
 
 - [Overview](#overview)
 - [Common commands](#common-commands-i-use)
