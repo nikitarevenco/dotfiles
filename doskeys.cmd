@@ -1,37 +1,31 @@
 @echo off
 
-::
-::
-:: ALIASES
-::
-::
-
-doskey l=lazygit $*
-doskey js=node -e "console.log($*)"
-doskey norg=gron --ungron
-doskey b=bat --style=plain --theme ansi $*
-doskey g=git $*
-doskey n=nvim -u %USERPROFILE%\dotfiles\neovim.lua $*
-doskey s=s -p google $*
 doskey zip=7z a -t7z $*
-doskey ps=powershell -ExecutionPolicy Bypass -File $1
-doskey dus=dust -bX .git
-doskey r=powershell -command "& {param($args) %USERPROFILE%\dotfiles\scripts\trash.ps1 $args}" $*
-doskey mit=curl -s https://raw.githubusercontent.com/nikitarevenco/github-template/main/LICENSE ^> LICENSE
+doskey r=powershell -ExecutionPolicy Bypass -Command "& {%USERPROFILE%\dotfiles\scripts\trash.ps1 $*}"
 
-::
-:: I LIKE THESE NAMES MORE
-::
+:: Shorter to write
 
+doskey s=s -p google $*
+doskey e=eza --icons --git-ignore --sort=changed --across --classify $*
+doskey p=pnpm $*
+doskey b=bat --style=plain --theme ansi $*
+doskey n=nvim -u %USERPROFILE%\dotfiles\neovim.lua $*
+doskey l=lazygit $*
+doskey g=git $*
 doskey dns=doggo $*
 doskey fetch=curlie $*
 doskey bench=hyperfine $*
 
-::
-:: PNPM ALIASES
-::
+:: Utilities
 
-doskey p=pnpm $*
+doskey dus=dust -bX .git
+doskey js=node -e "console.log($*)"
+doskey ps=powershell -ExecutionPolicy Bypass -File $1
+doskey norg=gron --ungron
+doskey mit=curl -s https://raw.githubusercontent.com/nikitarevenco/github-template/main/LICENSE ^> LICENSE
+
+:: pnpm
+
 doskey pi=pnpm add $*
 doskey pid=pnpm add -D $*
 doskey px=pnpm dlx $*
@@ -39,17 +33,7 @@ doskey po=pnpm outdated $*
 doskey pu=pnpm update $*
 doskey pl=pnpm list $*
 
-::
-:: ZOXIDE ALIASES
-::
-
-REM doskey t=z $* ^& eza --icons --git-ignore --sort=changed --across --classify
-REM doskey t=zoxide add $1 ^& cd /d $1 ^& eza --icons --git-ignore --sort=changed --across --classify
-REM doskey z=for /f "delims=" %d in ('zoxide query $*') do @cd "%d" ^& eza --icons --git-ignore --sort=changed --across --classify
-
-::
-:: FAST TRAVEL ALIASES
-::
+:: fast travel
 
 doskey .=cd /d .. ^& eza --icons --git-ignore --sort=changed --across --classify
 doskey ..=cd /d ..\.. ^& eza --icons --git-ignore --sort=changed --across --classify
@@ -58,10 +42,9 @@ doskey ....=cd /d ..\..\..\.. ^& eza --icons --git-ignore --sort=changed --acros
 doskey .....=cd /d ..\..\..\..\.. ^& eza --icons --git-ignore --sort=changed --across --classify
 
 ::
-:: EZA ALIASES
+:: eza
 ::
 
-doskey e=eza --icons --git-ignore --sort=changed --across --classify $*
 doskey ea=eza --icons --sort=changed --across --classify --all $*
 
 doskey er=eza --icons --git-ignore --sort=changed --across --classify --recurse --level=2 $*
