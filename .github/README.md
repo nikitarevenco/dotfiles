@@ -1,6 +1,15 @@
 # Nikita Revenco Windows 11 Dotfiles
 
-My ideal windows 11 dev setup
+My ideal windows 11 dev setup.
+
+## Screenshots
+
+![two firefox tabs](https://github.com/user-attachments/assets/7cd6c6db-758c-4dd1-ac09-7583d6f768f9)
+
+![neovim setup](https://github.com/user-attachments/assets/7cd00475-b671-4658-a168-6bd11327ab45)
+
+![terminal picture](https://github.com/user-attachments/assets/c55860f9-87c2-4b3e-9c2f-26e3d7c9448c)
+
 
 ---
  
