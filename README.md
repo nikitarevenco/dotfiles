@@ -40,11 +40,15 @@ Windows comes in with hundreds of packages I don't use and that slow down my com
 & ([scriptblock]::Create((irm "https://win11debloat.raphi.re/")))
 ```
 
+---
+
 I use scoop package manager which is my favorite one I've tried. Here's the command that will automatically install Scoop and every single package that I use
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression ; scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install 7zip autohotkey bat clink deno diff-so-fancy duf dust eza fd firefox fzf git go grep gron imagemagick JetBrainsMono-NF jq lazygit lua make neovim nodejs nomino pnpm poppler python qbittorrent ripgrep s sd sharex wezterm yazi zig zoxide jid yq doggo gping
 ```
+
+---
 
 In my `wezterm.lua` I set the env variables for all other apps like `lazygit`, but the below command is required so that that config file can be loaded in the first place. It permanently sets the environment variable in the system
 
@@ -52,14 +56,20 @@ In my `wezterm.lua` I set the env variables for all other apps like `lazygit`, b
 setx WEZTERM_CONFIG_FILE "%USERPROFILE%\dotfiles\wezterm.lua"
 ```
 
+---
+
 This single command will generate Git SSH keys and copy them into clipboard so I can easily setup Git and GitHub on a new computer in just 2 seconds
 
 ```powershell
 New-Item -ItemType Directory -Path $env:USERPROFILE\.ssh -Force; ssh-keygen -t ed25519 -f "$env:USERPROFILE\.ssh\id_ed25519" -N '""' ; type "$env:USERPROFILE\.ssh\id_ed25519.pub" | clip
 ```
 
+---
+
 Now just clone this repo into `~/dotfiles` (it needs to be there since all the env variables in `wezterm.lua` point to that place) and launch wezterm
 
 ```powershell
 git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
 ```
+
+---
