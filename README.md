@@ -23,10 +23,14 @@ This is possible because all of the apps allow custom configuration path to be p
 
 ![e command being used](https://github.com/user-attachments/assets/f5d79c60-b839-4395-ac5c-3df3fb03092e)
 
+- `w`: spawns a wezterm window with working directory same as current
 - `n`: open `nvim`
 - `r`: sends all of its arguments to the trash
+- `i`: runs a one-off command in a folder without `cd`ing into it
 
-You can most others in the [`doskeys.cmd`](https://github.com/nikitarevenco/dotfiles/blob/main/doskeys.cmd) file (doskeys are like `alias` in bash). For more complicated commands, they can be found in the `scripts/` folder (e.g. the `t` command which is in `t.lua` as we have to use clink to integrate zoxide with cmd.exe since zoxide does not provide official support)
+You can most others in the [`doskeys.cmd`](https://github.com/nikitarevenco/dotfiles/blob/main/doskeys.cmd) file (doskeys are like `alias` in bash). For more complicated commands, they can be found in the `scripts/` folder (e.g. the `t` command which is in `t.lua` as we have to use clink to integrate zoxide with cmd.exe since zoxide does not provide official support). 
+
+Scripts starting with `_` do not correspond to any command in particular but rather change behaviour of the terminal (e.g. highlight a specific pattern)
 
 ### Quick Setup
  
@@ -54,7 +58,7 @@ This single command will generate Git SSH keys and copy them into clipboard so I
 New-Item -ItemType Directory -Path $env:USERPROFILE\.ssh -Force; ssh-keygen -t ed25519 -f "$env:USERPROFILE\.ssh\id_ed25519" -N '""' ; type "$env:USERPROFILE\.ssh\id_ed25519.pub" | clip
 ```
 
-Now just clone this repo into `~/dotfiles` (it needs to be there since all the env variables in `wezterm.lua` point to that place) and launch wezterm.
+Now just clone this repo into `~/dotfiles` (it needs to be there since all the env variables in `wezterm.lua` point to that place) and launch wezterm
 
 ```powershell
 git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
