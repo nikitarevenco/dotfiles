@@ -436,7 +436,6 @@ config.set_environment_variables = {
 	FZF_CTRL_T_COMMAND = "eza --oneline --absolute --color=always --no-quotes $dir",
 	CLINK_PATH = DOTFILES .. "\\scripts",
 	CLINK_SETTINGS = DOTFILES,
-	CLINK_INPUTRC = DOTFILES,
 	GIT_CONFIG_GLOBAL = DOTFILES .. "\\git.ini",
 	LG_CONFIG_FILE = DOTFILES .. "\\lazygit.yml",
 	FZF_DEFAULT_OPTS = "--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 --color=selected-bg:#45475a --multi",
@@ -445,7 +444,7 @@ config.set_environment_variables = {
 config.default_cursor_style = "SteadyBar"
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-	config.default_prog = { "cmd.exe", "/s", "/k", "clink inject -q && " .. DOTFILES .. "\\cmdrc.cmd" }
+	config.default_prog = { "cmd.exe", "/s", "/k", "clink inject -q && " .. DOTFILES .. "\\doskeys.cmd" }
 end
 
 return config

@@ -6,20 +6,26 @@
 ::
 ::
 
+doskey l=lazygit $*
 doskey js=node -e "console.log($*)"
 doskey norg=gron --ungron
-doskey l=lazygit $*
 doskey b=bat --style=plain --theme ansi $*
 doskey g=git $*
 doskey n=nvim -u %USERPROFILE%\dotfiles\neovim.lua $*
-doskey dns=nslookup $*
 doskey s=s -p google $*
 doskey zip=7z a -t7z $*
 doskey ps=powershell -ExecutionPolicy Bypass -File $1
-doskey rm=rd /S $*
+doskey dus=dust -bX .git
 doskey r=powershell -command "& {param($args) %USERPROFILE%\dotfiles\scripts\trash.ps1 $args}" $*
-doskey get=curl -s $* 2>nul
 doskey mit=curl -s https://raw.githubusercontent.com/nikitarevenco/github-template/main/LICENSE ^> LICENSE
+
+::
+:: I LIKE THESE NAMES MORE
+::
+
+doskey dns=doggo $*
+doskey fetch=curlie $*
+doskey bench=hyperfine $*
 
 ::
 :: PNPM ALIASES
@@ -37,8 +43,9 @@ doskey pl=pnpm list $*
 :: ZOXIDE ALIASES
 ::
 
-doskey t=zoxide add $1 ^& cd /d $1 ^& eza --icons --git-ignore --sort=changed --across --classify
-doskey z=for /f "delims=" %d in ('zoxide query $*') do @cd "%d" ^& eza --icons --git-ignore --sort=changed --across --classify
+REM doskey t=z $* ^& eza --icons --git-ignore --sort=changed --across --classify
+REM doskey t=zoxide add $1 ^& cd /d $1 ^& eza --icons --git-ignore --sort=changed --across --classify
+REM doskey z=for /f "delims=" %d in ('zoxide query $*') do @cd "%d" ^& eza --icons --git-ignore --sort=changed --across --classify
 
 ::
 :: FAST TRAVEL ALIASES
@@ -49,13 +56,6 @@ doskey ..=cd /d ..\.. ^& eza --icons --git-ignore --sort=changed --across --clas
 doskey ...=cd /d ..\..\.. ^& eza --icons --git-ignore --sort=changed --across --classify
 doskey ....=cd /d ..\..\..\.. ^& eza --icons --git-ignore --sort=changed --across --classify
 doskey .....=cd /d ..\..\..\..\.. ^& eza --icons --git-ignore --sort=changed --across --classify
-::
-:: UNIX ALIASES
-::
-
-doskey cp=robocopy $*
-doskey mv=move $*
-doskey pwd=cd
 
 ::
 :: EZA ALIASES

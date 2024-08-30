@@ -1282,7 +1282,7 @@ local plugin_toggleterm = {
 			direction = "vertical",
 			shell = function()
 				if is_os_windows() then
-					return 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\cmdrc.cmd"'
+					return 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\doskeys.cmd"'
 				end
 			end,
 		})
