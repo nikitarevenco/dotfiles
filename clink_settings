@@ -5,6 +5,7 @@ cmd.auto_answer = answer_yes
 fzf.default_bindings = true
 
 color.envvars = yellow
+color.argmatcher = green
 color.doskey = green
 color.executable = green
 color.cmd = green
