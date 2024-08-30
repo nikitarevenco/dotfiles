@@ -1,7 +1,7 @@
 @echo off
 
 doskey zip=7z a -t7z $*
-doskey r=powershell -ExecutionPolicy Bypass -Command "& {%USERPROFILE%\dotfiles\scripts\t.ps1 $*}"
+doskey r=powershell -ExecutionPolicy Bypass -Command "& {%USERPROFILE%\dotfiles\scripts\r.ps1 $*}"
 
 :: Shorter to write
 
