@@ -85,11 +85,6 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.swapfile = false
 
-if is_os_windows() then
-	local cmdrc_location = os.getenv("DOTS") .. "\\cmdrc.cmd"
-	vim.o.shellcmdflag = "/s /k clink inject -q && " .. cmdrc_location
-end
-
 local keymaps = {
 	window_focus_left = "<leader>h",
 	window_focus_right = "<leader>l",
@@ -1275,17 +1270,22 @@ local plugin_catppuccin = {
 	end,
 }
 
-local plugin_nvterm = {
-	"NvChad/nvterm",
-	keys = {
-		{
-			keymaps.terminal_toggle_vertical,
-			'<cmd>lua require("nvterm.terminal").toggle("vertical")<cr>',
-			desc = "toggle vertical terminal",
-		},
-	},
+local plugin_toggleterm = {
+	"akinsho/toggleterm.nvim",
 	config = function()
-		require("nvterm").setup()
+		require("toggleterm").setup({
+			open_mapping = keymaps.terminal_toggle_vertical,
+			insert_mappings = false,
+			terminal_mappings = false,
+			autochdir = true,
+			size = vim.o.columns * 0.5,
+			direction = "vertical",
+			shell = function()
+				if is_os_windows() then
+					return 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\cmdrc.cmd"'
+				end
+			end,
+		})
 	end,
 }
 
@@ -1574,7 +1574,6 @@ local plugins_meta = {
 	["lewis6991/gitsigns.nvim"] = { true, "899e993850084ea33d001ec229d237bc020c19ae", plugin_gitsigns },
 	["nvim-lualine/lualine.nvim"] = { true, "b431d228b7bbcdaea818bdc3e25b8cdbe861f056", plugin_lualine },
 	["catppuccin/nvim"] = { true, "4fd72a9ab64b393c2c22b168508fd244877fec96", plugin_catppuccin },
-	["NvChad/nvterm"] = { true, "9d7ba3b6e368243175d38e1ec956e0476fd86ed9", plugin_nvterm },
 	["monaqa/dial.nvim"] = { true, "ed4d6a5bbd5e479b4c4a3019d148561a2e6c1490", plugin_dial },
 	["lukas-reineke/indent-blankline.nvim"] = {
 		true,
@@ -1585,6 +1584,7 @@ local plugins_meta = {
 	["folke/which-key.nvim"] = { true, "0539da005b98b02cf730c1d9da82b8e8edb1c2d2", plugin_which_key },
 	["kdheepak/lazygit.nvim"] = { true, "2432b447483f42ff2e18b2d392cb2bb27e495c08", plugin_lazygit },
 	["folke/noice.nvim"] = { true, "448bb9c524a7601035449210838e374a30153172", plugin_noice },
+	["akinsho/toggleterm.nvim"] = { true, "137d06fb103952a0fb567882bb8527e2f92d327d", plugin_toggleterm },
 }
 
 local plugins = {}
