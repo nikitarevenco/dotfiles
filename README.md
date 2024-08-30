@@ -1,5 +1,7 @@
 ## Nikita Revenco Windows 11 Dotfiles
 
+My ideal windows 11 dev setup! 💖🪟😃
+
 - [Overview](#overview)
 - [Common commands](#common-commands-i-use)
 - [Quick setup](#quick-setup)
@@ -7,8 +9,6 @@
 ### Overview
 
 ![preview image](https://github.com/user-attachments/assets/430ec915-b828-433b-9d9b-cbe1c33f562a)
-
-My ideal windows 11 dev setup! 💖🪟😃
 
 - Tiling Window Manager -> [GlazeWM](https://github.com/glzr-io/glazewm)
 - Neovim
