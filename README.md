@@ -20,6 +20,7 @@ This is possible because all of the apps allow custom configuration path to be p
 - `e`: Eza which is like `ls` but with icons and color
 ![e command being used](https://github.com/user-attachments/assets/f5d79c60-b839-4395-ac5c-3df3fb03092e)
 - `n`: open `nvim`
+- `r`: sends all of its arguments to the trash
 
 You can most others in the [`doskeys.cmd`](https://github.com/nikitarevenco/dotfiles/blob/main/doskeys.cmd) file (doskeys are like `alias` in bash). For more complicated commands, they can be found in the `scripts/` folder (e.g. the `t` command which is in `t.lua` as we have to use clink to integrate zoxide with cmd.exe since zoxide does not provide official support)
 
