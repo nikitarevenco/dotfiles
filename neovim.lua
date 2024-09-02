@@ -114,6 +114,7 @@ local keymaps = {
 	grep_file = "<leader>ie",
 	grep_cwd = "<leader>in",
 	lsp_ts_goto_definition = "<leader>oa",
+	lsp_goto_definition = "<leader>os",
 	lsp_goto_type_definition = "<leader>or",
 	toggle_diagnostic_lines = "<leader>we",
 	ts_rename_file = "<leader>uu",
@@ -289,6 +290,7 @@ local plugin_treesitter = {
 				"tmux",
 				"toml",
 				"vim",
+				"ninja",
 				"dockerfile",
 				"gitignore",
 				"query",
@@ -537,12 +539,14 @@ local plugin_mason_lspconfig = {
 				"tailwindcss",
 				"bashls",
 				"mdx_analyzer",
+				"powershell_es",
 				"svelte",
 				"lua_ls",
 				"graphql",
 				"emmet_ls",
 				"prismals",
-				"pyright",
+				"pyright", -- LSP for python
+				"taplo", -- LSP for toml
 			},
 		})
 
@@ -550,9 +554,10 @@ local plugin_mason_lspconfig = {
 			ensure_installed = {
 				"prettierd",
 				"stylua",
-				"isort",
+				"isort", -- Python import organizer
+				"ruff", -- Python linter
 				"shfmt",
-				"black",
+				"black", -- Python formatter
 				"pylint",
 				"eslint_d",
 				"js-debug-adapter",
@@ -648,9 +653,6 @@ local plugin_lspconfig = {
 					"n",
 					opts
 				)
-				keybind("restart lsp", keymaps.lsp_restart, "<cmd>LspRestart<cr>", "n", opts)
-				keybind("go to implementation", keymaps.lsp_goto_implementation, vim.lsp.buf.implementation, "n", opts)
-				keybind("go to declaration", keymaps.lsp_goto_declaration, vim.lsp.buf.declaration, "n", opts)
 			end,
 		})
 
@@ -665,6 +667,16 @@ local plugin_lspconfig = {
 			function(server_name)
 				lspconfig[server_name].setup({
 					capabilities = capabilities,
+				})
+			end,
+			["ruff"] = function()
+				lspconfig["ruff"].setup({
+					settings = {
+						organizeImports = false,
+					},
+					on_attach = function(client)
+						client.server_capabilities.hoverProvider = false
+					end,
 				})
 			end,
 			["mdx_analyzer"] = function()
@@ -688,6 +700,13 @@ local plugin_lspconfig = {
 							},
 						},
 					},
+				})
+			end,
+			["powershell_es"] = function()
+				lspconfig["powershell_es"].setup({
+					filetypes = { "ps1", "psm1", "psd1" },
+					capabilities = capabilities,
+					bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
 				})
 			end,
 			["bashls"] = function()
@@ -751,17 +770,34 @@ local plugin_lspconfig = {
 				})
 			end,
 			["lua_ls"] = function()
-				lspconfig["lua_ls"].setup({
-					capabilities = capabilities,
+				require("lspconfig").lua_ls.setup({
+					on_init = function(client)
+						local path = client.workspace_folders[1].name
+						if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+							return
+						end
+						client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+							runtime = {
+								-- Tell the language server which version of Lua you're using
+								-- (most likely LuaJIT in the case of Neovim)
+								version = "LuaJIT",
+							},
+							-- Make the server aware of Neovim runtime files
+							workspace = {
+								checkThirdParty = false,
+								library = {
+									vim.env.VIMRUNTIME,
+									-- Depending on the usage, you might want to add additional paths here.
+									"${3rd}/luv/library",
+									-- "${3rd}/busted/library",
+								},
+								-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+								-- library = vim.api.nvim_get_runtime_file("", true)
+							},
+						})
+					end,
 					settings = {
-						Lua = {
-							diagnostics = {
-								globals = { "vim" },
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
+						Lua = {},
 					},
 				})
 			end,
@@ -812,7 +848,7 @@ local plugin_conform = {
 			html = { "prettierd" },
 			json = { "prettierd" },
 			yaml = { "prettierd" },
-			markdown = { "prettierd" },
+			markdown = { "prettierd", "inject" },
 			graphql = { "prettierd" },
 			liquid = { "prettierd" },
 			lua = { "stylua" },
@@ -1532,9 +1568,7 @@ local plugin_noice = {
 }
 
 local plugins_meta = {
-	["windwp/nvim-ts-autotag"] = { true, "323a3e16ed603e2e17b26b1c836d1e86c279f726", plugin_ts_autotag },
-	["davidmh/mdx.nvim"] = { true, "61b93f6576cb5229020723c7a81f5a01d2667d05", plugin_mdx },
-	["nvim-treesitter/nvim-treesitter"] = { true, "585860a1865853d2c287c8ef534297da8115818e", plugin_treesitter },
+	["windwp/nvim-ts-autotag"] = { false, "323a3e16ed603e2e17b26b1c836d1e86c279f726", plugin_ts_autotag },
 	["nvim-treesitter/nvim-treesitter-textobjects"] = {
 		true,
 		"41e3abf6bfd9a9a681eb1f788bdeba91c9004b2b",
