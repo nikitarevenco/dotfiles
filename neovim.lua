@@ -601,6 +601,7 @@ local plugin_yazi = {
 		keymaps = {
 			show_help = "<f1>",
 		},
+		floating_window_scaling_factor = 1,
 	},
 }
 
@@ -1630,7 +1631,7 @@ for plugin_name, plugin_settings in pairs(plugins_meta) do
 	config[1] = plugin_name
 	config.cond = plugin_settings[1]
 	config.commit = plugin_settings[2]
-	config.event = config.event or { "BufReadPre", "BufNewFile", "BufWritePre" }
+	-- config.event = config.event or { "BufReadPre", "BufNewFile", "BufWritePre" }
 
 	table.insert(plugins, config)
 end
