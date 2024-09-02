@@ -3,8 +3,6 @@
 -- Settings copied from 'zoxide init'. Run `clink set` to modify these options, e.g. `clink set zoxide.cmd f`
 --
 
-clink.argmatcher("t")
-clink.argmatcher("ti")
 settings.add("zoxide.cmd", "t", "Changes the prefix of the aliases")
 settings.add("zoxide.hook", { "pwd", "prompt", "none" }, "Changes when directory scores are incremented")
 settings.add("zoxide.no_aliases", false, "Don't define aliases")
@@ -108,6 +106,47 @@ end
 --
 -- Clink input text filter.
 --
+
+local ev = clink.classifier(1)
+function ev:classify(commands)
+	local color = settings.get("color.doskey") or ""
+	if color ~= "" and commands and commands[1] then
+		local line_state = commands[1].line_state
+		local classifications = commands[1].classifications
+		local text = line_state:getline()
+		args = string.explode(text, " ", '"')
+		if #args == 0 then
+			return
+		end
+
+		-- settings
+		zoxide_cmd = settings.get("zoxide.cmd")
+		zoxide_no_aliases = settings.get("zoxide.no_aliases")
+
+		-- edge case:
+		-- * zoxide command prefix is 'cd'
+		-- * clink converted 'cd -' -> 'cd /d "some_directory"'
+		local cd_regex = '^%s*cd%s+/d%s+"(.-)"%s*$'
+		if zoxide_cmd == "cd" and text:match(cd_regex) then
+			if zoxide_no_aliases then
+				-- clink handles it
+				return
+			else
+				-- zoxide handles it
+				return __zoxide_cd(text:gsub(cd_regex, "%1")), false
+			end
+		end
+
+		local cmd = table.remove(args, 1)
+		if cmd == "__zoxide_z" or (cmd == zoxide_cmd and not zoxide_no_aliases) then
+			classifications:applycolor(1, #cmd, color)
+		elseif cmd == "__zoxide_zi" or (cmd == zoxide_cmd .. "i" and not zoxide_no_aliases) then
+			classifications:applycolor(1, #cmd + 1, color)
+		else
+			return
+		end
+	end
+end
 
 local function onfilterinput(text)
 	args = string.explode(text, " ", '"')
