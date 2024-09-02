@@ -289,6 +289,7 @@ local plugin_treesitter = {
 				"lua",
 				"tmux",
 				"toml",
+				"python",
 				"vim",
 				"ninja",
 				"dockerfile",
