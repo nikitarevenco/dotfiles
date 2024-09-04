@@ -27,34 +27,6 @@ local function exit_terminal_mode()
 	end
 end
 
-local function telescroll(prompt_bufnr, opts)
-	local telescope_state = require("telescope.state")
-	local telescope_action_state = require("telescope.actions.state")
-	local previewer = telescope_action_state.get_current_picker(prompt_bufnr).previewer
-	local status = telescope_state.get_status(prompt_bufnr)
-
-	if type(previewer) ~= "table" or previewer.scroll_fn == nil or status.preview_win == nil then
-		return
-	end
-
-	local speed, direction
-
-	if opts.direction == "down" then
-		direction = -1
-	end
-	if opts.direction == "up" then
-		direction = 1
-	end
-	if opts.amount == "page" then
-		speed = vim.api.nvim_win_get_height(status.preview_win)
-	end
-	if type(opts.amount) == "number" then
-		speed = opts.amount
-	end
-
-	previewer:scroll_fn(speed * direction)
-end
-
 local autocmd = vim.api.nvim_create_autocmd
 
 vim.g.markdown_recommended_style = 0
@@ -1032,16 +1004,6 @@ local plugin_telescope = {
 
 				sorting_strategy = "ascending",
 				path_display = { "smart" },
-				mappings = {
-					n = {
-						["n"] = function(bufnr)
-							telescroll(bufnr, { amount = 4, direction = "down" })
-						end,
-						["e"] = function(bufnr)
-							telescroll(bufnr, { amount = 4, direction = "up" })
-						end,
-					},
-				},
 			},
 		})
 
