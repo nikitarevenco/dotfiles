@@ -122,7 +122,7 @@ keybindings:
     bindings: ["alt+g"]
 
   - commands: ["toggle-fullscreen"]
-    bindings: ["alt+m"]
+    bindings: []
 
   - commands: ["toggle-minimized"]
     bindings: []
