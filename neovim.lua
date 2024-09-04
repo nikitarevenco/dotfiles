@@ -61,8 +61,6 @@ vim.g.markdown_recommended_style = 0
 vim.g.mapleader = " "
 vim.o.updatetime = 750
 vim.opt.showtabline = 0
-vim.opt.relativenumber = true
-vim.opt.number = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
@@ -78,12 +76,19 @@ vim.opt.cursorline = true
 vim.opt.mouse = ""
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
-vim.opt.signcolumn = "yes"
 vim.opt.backspace = "indent,eol,start"
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.swapfile = false
+
+vim.wo.number = false
+vim.wo.relativenumber = false
+vim.o.laststatus = 0
+vim.cmd("hi! link StatusLine Normal")
+vim.cmd("hi! link StatusLineNC Normal")
+vim.cmd("set statusline=%{repeat('─',winwidth('.'))}")
+vim.wo.signcolumn = "yes:1"
 
 local keymaps = {
 	window_focus_left = "<leader>h",
@@ -118,6 +123,7 @@ local keymaps = {
 	lsp_goto_type_definition = "<leader>or",
 	toggle_diagnostic_lines = "<leader>we",
 	ts_rename_file = "<leader>uu",
+	toggle_left_panel = "<leader>z",
 	window_decrease_width = "<C-Left>",
 	window_decrease_height = "<C-Down>",
 	window_increase_width = "<C-Right>",
@@ -137,6 +143,7 @@ local keymaps = {
 
 local HIDDEN_KEYBIND = "which_key_ignore"
 
+keybind("toggle left panel", keymaps.toggle_left_panel, toggleLeftPanel, "n")
 keybind("page down", keymaps.movement_page_down, "<C-d>", "n", { noremap = true, silent = true })
 keybind("page up", keymaps.movement_page_up, "<C-u>", "n", { noremap = true, silent = true })
 keybind(HIDDEN_KEYBIND, "j", "v:count == 0 ? 'gj' : 'j'", { "n", "x" }, { expr = true, silent = true })
@@ -156,7 +163,7 @@ keybind("focus buffer left", keymaps.window_focus_left, "<C-w>h", "n", { remap =
 keybind("focus buffer right", keymaps.window_focus_right, "<C-w>l", "n", { remap = true })
 keybind("toggle conceal", keymaps.info_toggle_conceal, toggle_conceal)
 keybind("hover", keymaps.lsp_hover, vim.lsp.buf.hover)
-keybind("format", keymaps.code_action_write_file, "<cmd>w<cr><esc>")
+keybind("format", keymaps.code_action_write_file, "<cmd>w<cr>")
 keybind(
 	"leave terminal mode",
 	keymaps.terminal_exit_terminal_mode,
@@ -850,7 +857,8 @@ local plugin_conform = {
 			html = { "prettierd" },
 			json = { "prettierd" },
 			yaml = { "prettierd" },
-			markdown = { "prettierd", "inject" },
+			md = { "prettierd" },
+			markdown = { "prettierd" },
 			graphql = { "prettierd" },
 			liquid = { "prettierd" },
 			lua = { "stylua" },
@@ -1184,102 +1192,6 @@ local plugin_gitsigns = {
 	end,
 }
 
-local plugin_lualine = {
-	"nvim-lualine/lualine.nvim",
-	event = "VeryLazy",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons",
-	},
-	opts = {
-		options = {
-			theme = "auto",
-			globalstatus = true,
-			disabled_filetypes = { statusline = { "dashboard" } },
-		},
-		sections = {
-			lualine_a = {
-				"mode",
-			},
-			lualine_b = {
-				"branch",
-				"diff",
-				{
-					"diagnostics",
-				},
-			},
-			lualine_c = {
-				{
-					"progress",
-				},
-				{
-					function()
-						local words = vim.fn.wordcount()["words"]
-						return "Words: " .. words
-					end,
-					cond = function()
-						local ft = vim.opt_local.filetype:get()
-						local count = {
-							latex = true,
-							tex = true,
-							text = true,
-							markdown = true,
-							vimwiki = true,
-						}
-						return count[ft] ~= nil
-					end,
-				},
-			},
-			lualine_x = {},
-			lualine_y = {
-				{
-					function()
-						local type = vim.api.nvim_get_option_value("filetype", { buf = 0 })
-						local file = vim.fn.expand("%:p:t")
-						local path = vim.fn.expand("%:p:h:t")
-						local the_file = path .. "/" .. file
-						local icon = require("nvim-web-devicons").get_icon(vim.fn.expand("%:t"))
-
-						if file == "" then
-							the_file = ""
-						end -- Buffer
-						if file == "[packer]" then
-							the_file = "[packer]"
-						end
-						if file == "[BOXdash]" then
-							the_file = "[BOXdash]"
-						end
-						if type == "help" then
-							the_file = "[help]: " .. file
-						end
-						if type == "lazy" then
-							the_file = "[lazy.nvim]"
-						end
-						if the_file == ".git/COMMIT_EDITMSG" then
-							the_file = "[Git commit]"
-						end
-
-						return the_file .. " " .. icon .. " "
-					end,
-				},
-			},
-			lualine_z = {
-				function()
-					local timeformat = os.date("%I") .. ":" .. os.date("%M") .. " " .. os.date("%p")
-
-					local function starts(String, Start)
-						return string.sub(String, 1, string.len(Start)) == Start
-					end
-
-					if starts(timeformat, "0") then
-						return string.sub(timeformat, 2, -1)
-					end
-					return timeformat
-				end,
-			},
-		},
-	},
-}
-
 local plugin_catppuccin = {
 	"catppuccin/nvim",
 	opts = {
@@ -1570,7 +1482,7 @@ local plugin_noice = {
 }
 
 local plugins_meta = {
-	["windwp/nvim-ts-autotag"] = { false, "323a3e16ed603e2e17b26b1c836d1e86c279f726", plugin_ts_autotag },
+	["windwp/nvim-ts-autotag"] = { true, "323a3e16ed603e2e17b26b1c836d1e86c279f726", plugin_ts_autotag },
 	["nvim-treesitter/nvim-treesitter-textobjects"] = {
 		true,
 		"41e3abf6bfd9a9a681eb1f788bdeba91c9004b2b",
@@ -1608,7 +1520,6 @@ local plugins_meta = {
 	},
 	["NvChad/nvim-colorizer.lua"] = { true, "194ec600488f7c7229668d0e80bd197f3a2b84ff", plugin_colorizer },
 	["lewis6991/gitsigns.nvim"] = { true, "899e993850084ea33d001ec229d237bc020c19ae", plugin_gitsigns },
-	["nvim-lualine/lualine.nvim"] = { true, "b431d228b7bbcdaea818bdc3e25b8cdbe861f056", plugin_lualine },
 	["catppuccin/nvim"] = { true, "4fd72a9ab64b393c2c22b168508fd244877fec96", plugin_catppuccin },
 	["monaqa/dial.nvim"] = { true, "ed4d6a5bbd5e479b4c4a3019d148561a2e6c1490", plugin_dial },
 	["lukas-reineke/indent-blankline.nvim"] = {
@@ -1621,6 +1532,7 @@ local plugins_meta = {
 	["kdheepak/lazygit.nvim"] = { true, "2432b447483f42ff2e18b2d392cb2bb27e495c08", plugin_lazygit },
 	["folke/noice.nvim"] = { true, "448bb9c524a7601035449210838e374a30153172", plugin_noice },
 	["akinsho/toggleterm.nvim"] = { true, "137d06fb103952a0fb567882bb8527e2f92d327d", plugin_toggleterm },
+	["nvim-treesitter/nvim-treesitter"] = { true, "a1573a9135c608e68cb383f752623527be84bdce", plugin_treesitter },
 }
 
 local plugins = {}
