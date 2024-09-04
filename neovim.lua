@@ -11,6 +11,16 @@ local function keybind(description, shortcut, action, modes, opts)
 	vim.keymap.set(new_modes, shortcut, action, new_opts)
 end
 
+local function toggle_line_numbers()
+	if vim.wo.number then
+		vim.wo.number = false
+		vim.wo.relativenumber = false
+	else
+		vim.wo.number = true
+		vim.wo.relativenumber = true
+	end
+end
+
 local function toggle_conceal()
 	if vim.wo.conceallevel == 2 then
 		vim.opt.conceallevel = 0
@@ -95,7 +105,7 @@ local keymaps = {
 	lsp_goto_type_definition = "<leader>or",
 	toggle_diagnostic_lines = "<leader>we",
 	ts_rename_file = "<leader>uu",
-	toggle_left_panel = "<leader>z",
+	toggle_line_numbers = "<leader>z",
 	window_decrease_width = "<C-Left>",
 	window_decrease_height = "<C-Down>",
 	window_increase_width = "<C-Right>",
@@ -115,7 +125,7 @@ local keymaps = {
 
 local HIDDEN_KEYBIND = "which_key_ignore"
 
-keybind("toggle left panel", keymaps.toggle_left_panel, toggleLeftPanel, "n")
+keybind("toggle left panel", keymaps.toggle_line_numbers, toggle_line_numbers, "n")
 keybind("page down", keymaps.movement_page_down, "<C-d>", "n", { noremap = true, silent = true })
 keybind("page up", keymaps.movement_page_up, "<C-u>", "n", { noremap = true, silent = true })
 keybind(HIDDEN_KEYBIND, "j", "v:count == 0 ? 'gj' : 'j'", { "n", "x" }, { expr = true, silent = true })
