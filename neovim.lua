@@ -63,7 +63,7 @@ vim.opt.clipboard:append("unnamedplus")
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.swapfile = false
-
+vim.opt.shortmess:append("I")
 vim.wo.number = false
 vim.wo.relativenumber = false
 vim.o.laststatus = 0
