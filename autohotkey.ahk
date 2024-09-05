@@ -1,5 +1,18 @@
-; Bind Alt + Left Arrow to the Home key
+#NoEnv
+#Persistent
+SendMode Input
+SetWorkingDir %A_ScriptDir%
+
 !Left::Send {Home}
 
-; Bind Alt + Right Arrow to the End key
 !Right::Send {End}
+
+!m::Send {F11}
+
+F1::return
+
+Menu, Tray, Add, Exit, ExitScript
+return
+
+ExitScript:
+ExitApp
