@@ -300,26 +300,50 @@ local plugin_treesitter_textobjects = {
 					enable = true,
 					lookahead = true,
 					keymaps = {
-						["ah"] = { query = "@assignment.outer", desc = "assignment" },
-						["ih"] = { query = "@assignment.inner", desc = "assignment" },
+						-- const 🔢myThing = "foobar"🔢;
+						["r"] = { query = "@assignment.outer", desc = "assignment" },
+						-- const 🔢myThing🔢 = "foobar";
+						["as"] = { query = "@assignment.lhs", desc = "left assignment" },
+						-- const myThing = 🔢"foobar"🔢;
+						["is"] = { query = "@assignment.rhs", desc = "right assignment" },
 
-						["as"] = { query = "@assignment.lhs", desc = "LHS assignment" },
-						["is"] = { query = "@assignment.rhs", desc = "RHS assignment" },
+						-- 🔢function sumArray(arr) {...}🔢
+						["ac"] = { query = "@block.outer", desc = "block" },
+						-- function sumArray(arr) 🔢{...}🔢
+						["ic"] = { query = "@block.inner", desc = "block" },
 
-						["ai"] = { query = "@conditional.outer", desc = "conditional" },
-						["ii"] = { query = "@conditional.inner", desc = "conditional" },
-
-						["al"] = { query = "@loop.outer", desc = "loop" },
-						["il"] = { query = "@loop.inner", desc = "loop" },
-
+						-- 🔢Math.floor(Math.random() * (max - min + 1))🔢
 						["af"] = { query = "@call.outer", desc = "function call" },
+						-- Math.floor(🔢Math.random() * (max - min + 1)🔢)
 						["if"] = { query = "@call.inner", desc = "function call" },
 
-						["aa"] = { query = "@parameter.outer", desc = "argument" },
-						["ia"] = { query = "@parameter.inner", desc = "argument" },
+						-- 🔢class Thing {...}🔢
+						["aC"] = { query = "@class.outer", desc = "class" },
+						-- class Thing 🔢{...}🔢
+						["iC"] = { query = "@class.inner", desc = "class" },
 
+						-- 🔢if (...) {...}🔢
+						["ai"] = { query = "@conditional.outer", desc = "conditional" },
+						-- if (...) {🔢...🔢}
+						["ii"] = { query = "@conditional.inner", desc = "conditional" },
+
+						-- function thing() {🔢...🔢}
 						["am"] = { query = "@function.outer", desc = "function" },
+						-- 🔢function thing() {...}🔢
 						["im"] = { query = "@function.inner", desc = "function" },
+
+						-- 🔢for (...) {...}🔢
+						["al"] = { query = "@loop.outer", desc = "loop" },
+						-- for (...) {🔢...🔢}
+						["il"] = { query = "@loop.inner", desc = "loop" },
+
+						-- const noeita = 🔢241_214_414🔢
+						["N"] = { query = "@number.inner", desc = "number" },
+
+						-- getRandomNumber(0🔢, 10🔢)
+						["aa"] = { query = "@parameter.outer", desc = "argument" },
+						-- getRandomNumber(0, 🔢10🔢)
+						["ia"] = { query = "@parameter.inner", desc = "argument" },
 					},
 				},
 			},
@@ -335,39 +359,13 @@ local plugin_various_textobjs = {
 		textobjs.setup({
 			useDefaultKeymaps = false,
 		})
-		keybind("open url", "gx", function()
-			textobjs.url()
-			local foundURL = vim.fn.mode():find("v")
-			if foundURL then
-				vim.cmd.normal('"zy')
-				local url = vim.fn.getreg("z")
-				vim.ui.open(url)
-			else
-				local urlPattern = require("various-textobjs.charwise-textobjs").urlPattern
-				local bufText = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n")
-				local urls = {}
-				for url in bufText:gmatch(urlPattern) do
-					table.insert(urls, url)
-				end
-				if #urls == 0 then
-					return
-				end
-
-				vim.ui.select(urls, { prompt = "Select URL:" }, function(choice)
-					if choice then
-						vim.ui.open(choice)
-					end
-				end)
-			end
-		end, "n")
-
 		local opts = { "o", "x" }
 
-		keybind("subword (inner)", "ir", function()
+		keybind("subword", "ir", function()
 			textobjs.subword("inner")
 		end, opts)
 
-		keybind("subword (outer)", "ar", function()
+		keybind("subword", "ar", function()
 			textobjs.subword("outer")
 		end, opts)
 
@@ -379,7 +377,7 @@ local plugin_various_textobjs = {
 			textobjs.toNextQuotationMark()
 		end, opts)
 
-		keybind("entire buffer", "A", function()
+		keybind("file", "A", function()
 			textobjs.entireBuffer()
 		end, opts)
 
@@ -387,59 +385,52 @@ local plugin_various_textobjs = {
 			textobjs.nearEoL()
 		end, opts)
 
-		keybind("line characterwise (inner)", "n", function()
+		keybind("line characterwise", "n", function()
 			textobjs.lineCharacterwise("inner")
 		end, opts)
 
-		keybind("markdown emphasis (inner)", "ij", function()
-			textobjs.mdEmphasis("inner")
-		end, opts)
-
-		keybind("markdown emphasis (outer)", "aj", function()
-			textobjs.mdEmphasis("outer")
-		end, opts)
-
-		keybind("markdown code (inner)", "ij", function()
-			textobjs.mdFencedCodeBlock("inner")
-		end, opts)
-
-		keybind("markdown code (outer)", "aj", function()
-			textobjs.mdFencedCodeBlock("outer")
-		end, opts)
-
-		keybind("tag attribute (inner)", "in", function()
+		-- <img src="🔢forkit.gif🔢"  alt="" />
+		keybind("attribute", "in", function()
 			textobjs.htmlAttribute("inner")
 		end, opts)
 
-		keybind("tag attribute (outer)", "an", function()
+		-- <img 🔢src="forkit.gif"🔢  alt="" />
+		keybind("attribute", "an", function()
 			textobjs.htmlAttribute("outer")
 		end, opts)
 
-		keybind("value (inner)", "io", function()
+		-- { make🔢: "Toyota",🔢 model: "Corolla" }
+		keybind("value", "io", function()
 			textobjs.value("inner")
 		end, opts)
 
-		keybind("value (outer)", "ao", function()
+		-- { make: 🔢"Toyota"🔢, model: "Corolla" }
+		keybind("value", "ao", function()
 			textobjs.value("outer")
 		end, opts)
 
-		keybind("key (inner)", "ie", function()
+		-- { 🔢make🔢: "Toyota", model: "Corolla" }
+		keybind("key", "ie", function()
 			textobjs.key("inner")
 		end, opts)
 
-		keybind("key (outer)", "ae", function()
+		-- { 🔢make: 🔢"Toyota", model: "Corolla" }
+		keybind("key", "ae", function()
 			textobjs.key("outer")
 		end, opts)
 
+		-- 🔢https://github.com/chrisgrieser/nvim-various-textobjs🔢
 		keybind("url", "u", function()
 			textobjs.url()
 		end, opts)
 
-		keybind("chain (inner)", "ig", function()
+		-- console.🔢log(str.toUpperCase())🔢;
+		keybind("chain", "ig", function()
 			textobjs.chainMember("inner")
 		end, opts)
 
-		keybind("chain (outer)", "ag", function()
+		-- console🔢.log(str.toUpperCase())🔢;
+		keybind("chain", "ag", function()
 			textobjs.chainMember("outer")
 		end, opts)
 	end,
@@ -1023,7 +1014,6 @@ local plugin_telescope = {
 			"heading",
 			"undo",
 			"import",
-			"noice",
 			"media_files",
 		}
 
@@ -1170,7 +1160,6 @@ local plugin_catppuccin = {
 		integrations = {
 			neotest = true,
 			noice = true,
-			which_key = true,
 			mason = true,
 		},
 		styles = {
