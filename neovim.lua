@@ -523,11 +523,13 @@ local plugin_mason_lspconfig = {
 				"powershell_es",
 				"svelte",
 				"lua_ls",
+				"jsonls",
+				"yamlls",
 				"graphql",
 				"emmet_ls",
 				"prismals",
-				"pyright", -- LSP for python
-				"taplo", -- LSP for toml
+				"pyright",
+				"taplo",
 			},
 		})
 
@@ -535,10 +537,10 @@ local plugin_mason_lspconfig = {
 			ensure_installed = {
 				"prettierd",
 				"stylua",
-				"isort", -- Python import organizer
-				"ruff", -- Python linter
+				"isort",
+				"ruff",
 				"shfmt",
-				"black", -- Python formatter
+				"black",
 				"pylint",
 				"eslint_d",
 				"js-debug-adapter",
@@ -589,6 +591,7 @@ local plugin_lspconfig = {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
+		"b0o/schemastore.nvim",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/neodev.nvim", opts = {} },
 	},
@@ -649,6 +652,29 @@ local plugin_lspconfig = {
 			function(server_name)
 				lspconfig[server_name].setup({
 					capabilities = capabilities,
+				})
+			end,
+			["yamlls"] = function()
+				lspconfig["yamlls"].setup({
+					settings = {
+						yaml = {
+							schemaStore = {
+								enable = false,
+								url = "",
+							},
+							schemas = require("schemastore").yaml.schemas(),
+						},
+					},
+				})
+			end,
+			["jsonls"] = function()
+				lspconfig["jsonls"].setup({
+					settings = {
+						json = {
+							schemas = require("schemastore").json.schemas(),
+							validate = { enable = true },
+						},
+					},
 				})
 			end,
 			["ruff"] = function()
