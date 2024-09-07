@@ -106,7 +106,7 @@ local keymaps = {
 	window_increase_width = "<C-Right>",
 	window_increase_height = "<C-Up>",
 	cmp_abort = "<C-e>",
-	cmp_confirm = "<CR>",
+	cmp_confirm = "<tab>",
 	signature_help = "<c-s>",
 	execute_normal_command = "<C-z>",
 	code_action_delete_word = "<C-BS>",
@@ -115,17 +115,14 @@ local keymaps = {
 	movement_page_up = "K",
 	window_close_some_file_types = "q",
 	window_previous_file = "<bs>",
-	terminal_exit_terminal_mode = "<esc>",
 }
-
-local HIDDEN_KEYBIND = "which_key_ignore"
 
 keybind("toggle left panel", keymaps.toggle_line_numbers, toggle_line_numbers, "n")
 keybind("page down", keymaps.movement_page_down, "<C-d>", "n", { noremap = true, silent = true })
 keybind("page up", keymaps.movement_page_up, "<C-u>", "n", { noremap = true, silent = true })
-keybind(HIDDEN_KEYBIND, "j", "v:count == 0 ? 'gj' : 'j'", { "n", "x" }, { expr = true, silent = true })
-keybind(HIDDEN_KEYBIND, "k", "v:count == 0 ? 'gk' : 'k'", { "n", "x" }, { expr = true, silent = true })
-keybind(HIDDEN_KEYBIND, keymaps.execute_normal_command, "<C-o>", "i")
+keybind("move down", "j", "v:count == 0 ? 'gj' : 'j'", { "n", "x" }, { expr = true, silent = true })
+keybind("move up", "k", "v:count == 0 ? 'gk' : 'k'", { "n", "x" }, { expr = true, silent = true })
+keybind("execute normal command", keymaps.execute_normal_command, "<C-o>", "i")
 keybind("increase buffer height", keymaps.window_increase_height, "<cmd>resize +2<cr>")
 keybind("increase buffer width", keymaps.window_increase_width, "<cmd>resize +2<cr>")
 keybind("decrease buffer height", keymaps.window_decrease_height, "<cmd>resize +2<cr>")
@@ -141,13 +138,7 @@ keybind("focus buffer right", keymaps.window_focus_right, "<C-w>l", "n", { remap
 keybind("toggle conceal", keymaps.info_toggle_conceal, toggle_conceal)
 keybind("hover", keymaps.lsp_hover, vim.lsp.buf.hover)
 keybind("format", keymaps.code_action_write_file, "<cmd>w<cr>")
-keybind(
-	"leave terminal mode",
-	keymaps.terminal_exit_terminal_mode,
-	exit_terminal_mode,
-	"t",
-	{ expr = true, noremap = true, silent = true }
-)
+keybind("leave terminal mode", "<esc>", exit_terminal_mode, "t", { expr = true, noremap = true, silent = true })
 keybind("show signature", keymaps.signature_help, vim.lsp.buf.signature_help)
 
 autocmd(
@@ -221,73 +212,7 @@ autocmd("FileType", {
 	end,
 })
 
--- local plugin_ts_autotag =
-
--- local plugin_mdx =
-
--- local plugin_treesitter =
-
--- local plugin_treesitter_textobjects =
-
--- local plugin_various_textobjs =
-
--- local plugin_cmp =
-
--- local plugin_mason_lspconfig =
-
--- local plugin_helpview =
-
--- local plugin_yazi =
-
--- local plugin_lspconfig =
-
--- local plugin_lint =
---
--- local plugin_conform =
-
-local plugin_follow_md_links = {
-	"jghauser/follow-md-links.nvim",
-}
-
--- local plugin_autopairs =
-
--- local plugin_comments =
-
--- local plugin_substitute =
-
--- local plugin_surround =
-
--- local plugin_dial =
-
--- local plugin_lsp_lines =
-
--- local plugin_telescope =
-
--- local plugin_spider =
-
--- local plugin_numb =
-
--- local plugin_lazygit =
-
--- local plugin_rainbow_delimiters =
-
--- local plugin_colorizer =
-
--- local plugin_gitsigns =
-
--- local plugin_catppuccin =
-
--- local plugin_toggleterm =
-
--- local plugin_indent_blankline =
-
--- local plugin_typescript_tools =
-
--- local plugin_noice =
-
-local plugins_meta = {}
-
-local pluginz = {
+local plugins = {
 	{
 		"windwp/nvim-ts-autotag",
 		config = function()
@@ -303,10 +228,11 @@ local pluginz = {
 	{
 		"davidmh/mdx.nvim",
 		config = true,
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		dependencies = { "nikitarevenco/nvim-treesitter" },
 	},
 	{
 		"nikitarevenco/nvim-treesitter-textobjects",
+		dependencies = { "nikitarevenco/nvim-treesitter" },
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				textobjects = {
@@ -314,52 +240,24 @@ local pluginz = {
 						enable = true,
 						lookahead = true,
 						keymaps = {
-							-- const 🔢myThing = "foobar"🔢;
-							["at"] = { query = "@assignment.outer", desc = "assignment" },
+							["r"] = { query = "@assignment.outer", desc = "assignment" },
 							["it"] = { query = "@assignment.inner", desc = "assignment" },
-							-- const 🔢myThing🔢 = "foobar";
 							["as"] = { query = "@assignment.lhs", desc = "assignment lhs" },
-							-- const myThing = 🔢"foobar"🔢;
 							["is"] = { query = "@assignment.rhs", desc = "assignment rhs" },
-							-- ["ih"] = { query = "@return.inner", desc = "return" },
-							-- ["ah"] = { query = "@return.outer", desc = "return" },
-
-							-- 🔢function sumArray(arr) {...}🔢
 							["ac"] = { query = "@block.outer", desc = "block" },
-							-- function sumArray(arr) 🔢{...}🔢
 							["ic"] = { query = "@block.inner", desc = "block" },
-
-							-- 🔢Math.floor(Math.random() * (max - min + 1))🔢
 							["af"] = { query = "@call.outer", desc = "function call" },
-							-- Math.floor(🔢Math.random() * (max - min + 1)🔢)
 							["if"] = { query = "@call.inner", desc = "function call" },
-
-							-- 🔢class Thing {...}🔢
 							["aC"] = { query = "@class.outer", desc = "class" },
-							-- class Thing 🔢{...}🔢
 							["iC"] = { query = "@class.inner", desc = "class" },
-
-							-- 🔢if (...) {...}🔢
 							["ai"] = { query = "@conditional.outer", desc = "conditional" },
-							-- if (...) {🔢...🔢}
 							["ii"] = { query = "@conditional.inner", desc = "conditional" },
-
-							-- function thing() {🔢...🔢}
 							["am"] = { query = "@function.outer", desc = "function" },
-							-- 🔢function thing() {...}🔢
 							["im"] = { query = "@function.inner", desc = "function" },
-
-							-- 🔢for (...) {...}🔢
 							["al"] = { query = "@loop.outer", desc = "loop" },
-							-- for (...) {🔢...🔢}
 							["il"] = { query = "@loop.inner", desc = "loop" },
-
-							-- const noeita = 🔢241_214_414🔢
 							["N"] = { query = "@number.inner", desc = "number" },
-
-							-- getRandomNumber(0🔢, 10🔢)
 							["aa"] = { query = "@parameter.outer", desc = "argument" },
-							-- getRandomNumber(0, 🔢10🔢)
 							["ia"] = { query = "@parameter.inner", desc = "argument" },
 						},
 					},
@@ -370,85 +268,26 @@ local pluginz = {
 	{
 		"chrisgrieser/nvim-various-textobjs",
 		config = function()
-			local textobjs = require("various-textobjs")
-
-			textobjs.setup({
+			require("various-textobjs").setup({
 				useDefaultKeymaps = false,
 			})
 			local opts = { "o", "x" }
-
-			keybind("subword", "ir", function()
-				textobjs.subword("inner")
-			end, opts)
-
-			keybind("subword", "ar", function()
-				textobjs.subword("outer")
-			end, opts)
-
-			keybind("to next bracket", "(", function()
-				textobjs.toNextClosingBracket()
-			end, opts)
-
-			keybind("to next quotation mark", '"', function()
-				textobjs.toNextQuotationMark()
-			end, opts)
-
-			keybind("file", "A", function()
-				textobjs.entireBuffer()
-			end, opts)
-
-			keybind("near end of line", "o", function()
-				textobjs.nearEoL()
-			end, opts)
-
-			keybind("line characterwise", "n", function()
-				textobjs.lineCharacterwise("inner")
-			end, opts)
-
-			-- <img src="🔢forkit.gif🔢"  alt="" />
-			keybind("attribute", "in", function()
-				textobjs.htmlAttribute("inner")
-			end, opts)
-
-			-- <img 🔢src="forkit.gif"🔢  alt="" />
-			keybind("attribute", "an", function()
-				textobjs.htmlAttribute("outer")
-			end, opts)
-
-			-- { make🔢: "Toyota",🔢 model: "Corolla" }
-			keybind("value", "io", function()
-				textobjs.value("inner")
-			end, opts)
-
-			-- { make: 🔢"Toyota"🔢, model: "Corolla" }
-			keybind("value", "ao", function()
-				textobjs.value("outer")
-			end, opts)
-
-			-- { 🔢make🔢: "Toyota", model: "Corolla" }
-			keybind("key", "ie", function()
-				textobjs.key("inner")
-			end, opts)
-
-			-- { 🔢make: 🔢"Toyota", model: "Corolla" }
-			keybind("key", "ae", function()
-				textobjs.key("outer")
-			end, opts)
-
-			-- 🔢https://github.com/chrisgrieser/nvim-various-textobjs🔢
-			keybind("url", "u", function()
-				textobjs.url()
-			end, opts)
-
-			-- console.🔢log(str.toUpperCase())🔢;
-			keybind("chain", "ig", function()
-				textobjs.chainMember("inner")
-			end, opts)
-
-			-- console🔢.log(str.toUpperCase())🔢;
-			keybind("chain", "ag", function()
-				textobjs.chainMember("outer")
-			end, opts)
+			keybind("subword", "ir", "<cmd>lua require('various-textobjs').subword('inner')<cr>", opts)
+			keybind("subword", "ar", "<cmd>lua require('various-textobjs').subword('outer')<cr>", opts)
+			keybind("to next bracket", "(", "<cmd>lua require('various-textobjs').toNextClosingBracket()<cr>", opts)
+			keybind("to next quotation", '"', "<cmd>lua require('various-textobjs').toNextQuotationMark()<cr>", opts)
+			keybind("file", "A", "<cmd>lua require('various-textobjs').entireBuffer()<cr>", opts)
+			keybind("near end of line", "o", "<cmd>lua require('various-textobjs').nearEoL()<cr>", opts)
+			keybind("line chars", "n", "<cmd>lua require('various-textobjs').lineCharacterwise('inner')<cr>", opts)
+			keybind("attribute", "in", "<cmd>lua require('various-textobjs').htmlAttribute('inner')<cr>", opts)
+			keybind("attribute", "an", "<cmd>lua require('various-textobjs').htmlAttribute('outer')<cr>", opts)
+			keybind("value", "io", "<cmd>lua require('various-textobjs').value('inner')<cr>", opts)
+			keybind("value", "ao", "<cmd>lua require('various-textobjs').value('outer')<cr>", opts)
+			keybind("key", "ie", "<cmd>lua require('various-textobjs').key('inner')<cr>", opts)
+			keybind("key", "ae", "<cmd>lua require('various-textobjs').key('outer')<cr>", opts)
+			keybind("url", "u", "<cmd>lua require('various-textobjs').url()<cr>", opts)
+			keybind("chain", "ig", "<cmd>lua require('various-textobjs').chainMember('inner')<cr>", opts)
+			keybind("chain", "ag", "<cmd>lua require('various-textobjs').chainMember('outer')<cr>", opts)
 		end,
 	},
 	{
@@ -472,7 +311,6 @@ local pluginz = {
 		config = function()
 			local cmp = require("cmp")
 			require("luasnip.loaders.from_vscode").lazy_load()
-
 			cmp.setup({
 				performance = {
 					max_view_entries = 3,
@@ -480,12 +318,10 @@ local pluginz = {
 				completion = {
 					completeopt = "menu,menuone,preview,noselect",
 				},
-
 				mapping = cmp.mapping.preset.insert({
 					[keymaps.cmp_abort] = cmp.mapping.abort(),
 					[keymaps.cmp_confirm] = cmp.mapping.confirm({ select = true }),
 				}),
-
 				sources = cmp.config.sources({
 					{
 						name = "nvim_lsp",
@@ -497,14 +333,12 @@ local pluginz = {
 					{ name = "buffer" },
 					{ name = "path" },
 				}),
-
 				formatting = {
 					format = function(entry, item)
 						item = require("lspkind").cmp_format({
 							maxwidth = 50,
 							ellipsis_char = "...",
 						})(entry, item)
-
 						return require("tailwindcss-colorizer-cmp").formatter(entry, item)
 					end,
 				},
@@ -518,14 +352,7 @@ local pluginz = {
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 		},
 		config = function()
-			require("mason").setup({
-				ui = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
-				},
-			})
-
+			require("mason").setup()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"astro",
@@ -535,6 +362,7 @@ local pluginz = {
 					"tsserver",
 					"tailwindcss",
 					"bashls",
+					"harper_ls",
 					"mdx_analyzer",
 					"gopls",
 					"powershell_es",
@@ -550,11 +378,11 @@ local pluginz = {
 					"taplo",
 				},
 			})
-
 			require("mason-tool-installer").setup({
 				ensure_installed = {
 					"prettierd",
 					"stylua",
+          "luacheck",
 					"isort",
 					"ruff",
 					"shfmt",
@@ -565,42 +393,6 @@ local pluginz = {
 				},
 			})
 		end,
-	},
-	{
-		"OXY2DEV/helpview.nvim",
-		lazy = false,
-		ft = "help",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-		},
-	},
-	{
-		"mikavilpas/yazi.nvim",
-		event = "VeryLazy",
-		keys = {
-			{
-				keymaps.explorer_cwd,
-				"<cmd>Yazi<cr>",
-				desc = "Open yazi at the current file",
-			},
-			{
-				keymaps.explorer_project,
-				"<cmd>Yazi cwd<cr>",
-				desc = "Open the file manager in nvim's working directory",
-			},
-			{
-				"<c-up>",
-				"<cmd>Yazi toggle<cr>",
-				desc = "Resume the last yazi session",
-			},
-		},
-		opts = {
-			open_for_directories = true,
-			keymaps = {
-				show_help = "<f1>",
-			},
-			floating_window_scaling_factor = 1,
-		},
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -627,12 +419,10 @@ local pluginz = {
 				end
 				return new_diagnostics
 			end
-
 			vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
 				result.diagnostics = filter_diagnostics(result.diagnostics)
 				vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
 			end
-
 			local mason_lspconfig = require("mason-lspconfig")
 			local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
@@ -844,6 +634,42 @@ local pluginz = {
 		end,
 	},
 	{
+		"OXY2DEV/helpview.nvim",
+		lazy = false,
+		ft = "help",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		},
+	},
+	{
+		"mikavilpas/yazi.nvim",
+		event = "VeryLazy",
+		keys = {
+			{
+				keymaps.explorer_cwd,
+				"<cmd>Yazi<cr>",
+				desc = "Open yazi at the current file",
+			},
+			{
+				keymaps.explorer_project,
+				"<cmd>Yazi cwd<cr>",
+				desc = "Open the file manager in nvim's working directory",
+			},
+			{
+				"<c-up>",
+				"<cmd>Yazi toggle<cr>",
+				desc = "Resume the last yazi session",
+			},
+		},
+		opts = {
+			open_for_directories = true,
+			keymaps = {
+				show_help = "<f1>",
+			},
+			floating_window_scaling_factor = 1,
+		},
+	},
+	{
 		"mfussenegger/nvim-lint",
 		config = function()
 			local lint = require("lint")
@@ -851,6 +677,7 @@ local pluginz = {
 			lint.linters_by_ft = {
 				javascript = { "eslint_d" },
 				typescript = { "eslint_d" },
+        lua = { "luacheck" },
 				mdx = { "eslint_d" },
 				javascriptreact = { "eslint_d" },
 				typescriptreact = { "eslint_d" },
@@ -1285,8 +1112,6 @@ local pluginz = {
 					},
 					view = "mini",
 				},
-				-- Simply not show the messages that I gave up trying to fix.
-				-- Feel free to PR if you find a fix for them
 				{
 					filter = {
 						any = {
@@ -1298,17 +1123,6 @@ local pluginz = {
 								event = "msg_show",
 								find = " ",
 							},
-							-- INFO: This message happens when we try to format a package.json file
-							{
-								find = "method workspace/executeCommand is not supported by any of the servers registered for the current buffer",
-							},
-							{
-								find = "Judging",
-							},
-							-- INFO: This message happens when we try to exit out of lazygit. The message doesn't appear if we remove the NvTerm plugin.
-							{ find = "lazygit.lua:29:" },
-							-- INFO: This message is the plugin author's misttake
-							{ find = "attempt to call field 'iter'" },
 						},
 					},
 					opts = { skip = true },
@@ -1381,23 +1195,6 @@ local pluginz = {
 		end,
 	},
 }
-
-local plugins = {}
-
-for plugin_name, plugin_settings in pairs(plugins_meta) do
-	local config = plugin_settings[3]
-
-	config[1] = plugin_name
-	config.cond = plugin_settings[1]
-	config.commit = plugin_settings[2]
-	-- config.event = config.event or { "BufReadPre", "BufNewFile", "BufWritePre" }
-
-	table.insert(plugins, config)
-end
-
-for _, plugin in ipairs(pluginz) do
-	table.insert(plugins, plugin)
-end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
