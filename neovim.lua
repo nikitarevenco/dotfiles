@@ -517,6 +517,7 @@ local plugin_mason_lspconfig = {
 				"html",
 				"cssls",
 				"julials",
+        "tsserver",
 				"tailwindcss",
 				"bashls",
 				"mdx_analyzer",
