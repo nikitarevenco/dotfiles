@@ -12,6 +12,7 @@ doskey b=bat --style=plain --theme ansi $*
 doskey n=nvim -u %USERPROFILE%\dotfiles\neovim.lua $*
 doskey l=lazygit $*
 doskey g=git $*
+doskey gr=grep --color=always
 doskey dns=doggo $*
 doskey fetch=curlie $*
 doskey bench=hyperfine $*
