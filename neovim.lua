@@ -106,39 +106,43 @@ local textobjects = {
 }
 
 local keymaps = {
+	lazygit_file = "<leader>l",
+	lsp_hover = "<leader>t",
+	window_close = "<leader>a",
+	window_quit = "<leader>q",
+	lsp_rename = "<leader>r",
 	window_focus_left = "<leader>h",
 	window_focus_right = "<leader>l",
 	window_focus_above = "<leader>k",
 	window_focus_below = "<leader>j",
-	terminal_toggle_vertical = "<leader>an",
-	git_blame_toggle = "<leader>rn",
-	lazygit_file = "<leader>rt",
-	window_quit = "<leader>so",
-	window_close = "<leader>ss",
-	window_split_vertically = "<leader>sm",
-	info_toggle_conceal = "<leader>tr",
-	spider_forward = "e",
-	spider_backward = "m",
-	lsp_hover = "<leader>tt",
+	toggle_line_numbers = "<leader>z",
+	toggle_diagnostic_lines = "<leader>a",
+	explorer_cwd = "<leader>o",
+	explorer_project = "<leader>O",
+	open_diagnostic = "<leader>m",
+
+	window_split_vertically = "<leader>nv",
+	info_toggle_conceal = "<leader>nz",
+	terminal_toggle_vertical = "<leader>nt",
 	lsp_code_actions = "<leader>na",
-	lsp_rename = "<leader>nr",
 	dial_increment = "<leader>ns",
 	ts_remove_unused_imports = "<leader>nn",
+	git_blame_toggle = "<leader>ng",
 	ts_add_missing_imports = "<leader>np",
-	buffers = "<leader>ea",
-	recent_files = "<leader>ee",
-	find_files = "<leader>ei",
-	explorer_cwd = "<leader>eo",
-	explorer_project = "<leader>et",
-	symbols_project = "<leader>ia",
-	grep_file = "<leader>ie",
-	grep_cwd = "<leader>in",
-	lsp_ts_goto_definition = "<leader>oa",
-	lsp_goto_definition = "<leader>os",
-	lsp_goto_type_definition = "<leader>or",
-	toggle_diagnostic_lines = "<leader>we",
-	ts_rename_file = "<leader>uu",
-	toggle_line_numbers = "<leader>z",
+	ts_rename_file = "<leader>nu",
+
+	symbols_project = "<leader>ii",
+	grep_file = "<leader>iq",
+	grep_cwd = "<leader>iw",
+	buffers = "<leader>if",
+	recent_files = "<leader>if",
+	find_files = "<leader>ip",
+	lsp_ts_goto_definition = "<leader>il",
+	lsp_goto_definition = "<leader>iy",
+	lsp_goto_type_definition = "<leader>io",
+
+	spider_forward = "e",
+	spider_backward = "m",
 	window_decrease_width = "<C-Left>",
 	window_decrease_height = "<C-Down>",
 	window_increase_width = "<C-Right>",
@@ -266,11 +270,11 @@ local plugins = {
 	{
 		"davidmh/mdx.nvim",
 		config = true,
-		dependencies = { "nikitarevenco/nvim-treesitter" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 	},
 	{
 		"nikitarevenco/nvim-treesitter-textobjects",
-		dependencies = { "nikitarevenco/nvim-treesitter" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				textobjects = {
@@ -477,6 +481,9 @@ local plugins = {
 					keybind("rename", keymaps.lsp_rename, vim.lsp.buf.rename, "n", opts)
 					keybind("go to previous diagnostic", "[d", vim.diagnostic.goto_prev, "n", opts)
 					keybind("go to next diagnostic", "]d", vim.diagnostic.goto_next, "n", opts)
+					keybind("open diagnostic", keymaps.open_diagnostic, vim.diagnostic.open_float)
+					keybind("previous diagnostic", textobjects.previous_diagnostic, vim.diagnostic.goto_prev)
+					keybind("next diagnostic", textobjects.next_diagnostic, vim.diagnostic.goto_next)
 					keybind("go to definition", keymaps.lsp_goto_definition, vim.lsp.buf.definition, "n", opts)
 					keybind(
 						"go to type definition",
@@ -821,27 +828,6 @@ local plugins = {
 		config = true,
 	},
 	{
-		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-		lazy = false,
-		config = function()
-			require("lsp_lines").setup()
-			vim.diagnostic.config({
-				virtual_text = false,
-			})
-			vim.diagnostic.config({ virtual_lines = false }, require("lazy.core.config").ns)
-
-			vim.diagnostic.config({ virtual_lines = false })
-		end,
-		keys = {
-			{
-				keymaps.toggle_diagnostic_lines,
-				'<cmd>lua require("lsp_lines").toggle()<CR>',
-				mode = "n",
-				desc = "toggle line diagnostics",
-			},
-		},
-	},
-	{
 		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
 		cmd = { "Telescope", "TodoTelescope" },
@@ -949,14 +935,9 @@ local plugins = {
 	{
 		"chrisgrieser/nvim-spider",
 		config = function()
+			keybind("forward", keymaps.spider_forward, "<cmd>lua require('spider').motion('w')<CR>", { "n", "o", "x" })
 			keybind(
-				HIDDEN_KEYBIND,
-				keymaps.spider_forward,
-				"<cmd>lua require('spider').motion('w')<CR>",
-				{ "n", "o", "x" }
-			)
-			keybind(
-				HIDDEN_KEYBIND,
+				"backward",
 				keymaps.spider_backward,
 				"<cmd>lua require('spider').motion('b')<CR>",
 				{ "n", "o", "x" }
