@@ -259,6 +259,7 @@ local plugin_treesitter = {
 				"json",
 				"javascript",
 				"typescript",
+				"go",
 				"tsx",
 				"yaml",
 				"html",
@@ -292,7 +293,7 @@ local plugin_treesitter = {
 }
 
 local plugin_treesitter_textobjects = {
-	"nvim-treesitter/nvim-treesitter-textobjects",
+	"nikitarevenco/nvim-treesitter-textobjects",
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			textobjects = {
@@ -301,11 +302,14 @@ local plugin_treesitter_textobjects = {
 					lookahead = true,
 					keymaps = {
 						-- const 🔢myThing = "foobar"🔢;
-						["r"] = { query = "@assignment.outer", desc = "assignment" },
+						["at"] = { query = "@assignment.outer", desc = "assignment" },
+						["it"] = { query = "@assignment.inner", desc = "assignment" },
 						-- const 🔢myThing🔢 = "foobar";
-						["as"] = { query = "@assignment.lhs", desc = "left assignment" },
+						["as"] = { query = "@assignment.lhs", desc = "assignment lhs" },
 						-- const myThing = 🔢"foobar"🔢;
-						["is"] = { query = "@assignment.rhs", desc = "right assignment" },
+						["is"] = { query = "@assignment.rhs", desc = "assignment rhs" },
+						-- ["ih"] = { query = "@return.inner", desc = "return" },
+						-- ["ah"] = { query = "@return.outer", desc = "return" },
 
 						-- 🔢function sumArray(arr) {...}🔢
 						["ac"] = { query = "@block.outer", desc = "block" },
@@ -517,10 +521,13 @@ local plugin_mason_lspconfig = {
 				"astro",
 				"html",
 				"cssls",
+				"julials",
 				"tailwindcss",
 				"bashls",
 				"mdx_analyzer",
+				"gopls",
 				"powershell_es",
+				"nimls",
 				"svelte",
 				"lua_ls",
 				"jsonls",
@@ -684,6 +691,17 @@ local plugin_lspconfig = {
 					},
 					on_attach = function(client)
 						client.server_capabilities.hoverProvider = false
+					end,
+				})
+			end,
+			["julials"] = function()
+				lspconfig["julials"].setup({
+					on_new_config = function(new_config, _)
+						local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
+						if require("lspconfig").util.path.is_file(julia) then
+							vim.notify("Hello!")
+							new_config.cmd[1] = julia
+						end
 					end,
 				})
 			end,
