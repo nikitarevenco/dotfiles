@@ -67,6 +67,44 @@ vim.cmd("hi! link StatusLineNC Normal")
 vim.cmd("set statusline=%{repeat('─',winwidth('.'))}")
 vim.wo.signcolumn = "yes:1"
 
+local textobjects = {
+	assignment_outer = "r",
+	assignment_inner = "it",
+	assignment_lhs = "as",
+	assignment_rhs = "is",
+	block_outer = "ac",
+	block_inner = "ic",
+	function_call_outer = "af",
+	function_call_inner = "if",
+	class_outer = "aC",
+	class_inner = "iC",
+	conditional_outer = "ai",
+	conditional_inner = "ii",
+	function_outer = "am",
+	function_inner = "im",
+	loop_outer = "al",
+	loop_inner = "il",
+	number_inner = "N",
+	argument_outer = "aa",
+	argument_inner = "ia",
+	subword_inner = "ir",
+	subword_outer = "ar",
+	to_next_closing_bracket = "(",
+	to_next_quotation_mark = '"',
+	entire_buffer = "A",
+	near_end_of_line = "o",
+	line_characterwise_inner = "n",
+	html_attribute_inner = "in",
+	html_attribute_outer = "an",
+	value_inner = "io",
+	value_outer = "ao",
+	key_inner = "ie",
+	key_outer = "ae",
+	url = "u",
+	chain_member_inner = "ig",
+	chain_member_outer = "ag",
+}
+
 local keymaps = {
 	window_focus_left = "<leader>h",
 	window_focus_right = "<leader>l",
@@ -240,25 +278,25 @@ local plugins = {
 						enable = true,
 						lookahead = true,
 						keymaps = {
-							["r"] = { query = "@assignment.outer", desc = "assignment" },
-							["it"] = { query = "@assignment.inner", desc = "assignment" },
-							["as"] = { query = "@assignment.lhs", desc = "assignment lhs" },
-							["is"] = { query = "@assignment.rhs", desc = "assignment rhs" },
-							["ac"] = { query = "@block.outer", desc = "block" },
-							["ic"] = { query = "@block.inner", desc = "block" },
-							["af"] = { query = "@call.outer", desc = "function call" },
-							["if"] = { query = "@call.inner", desc = "function call" },
-							["aC"] = { query = "@class.outer", desc = "class" },
-							["iC"] = { query = "@class.inner", desc = "class" },
-							["ai"] = { query = "@conditional.outer", desc = "conditional" },
-							["ii"] = { query = "@conditional.inner", desc = "conditional" },
-							["am"] = { query = "@function.outer", desc = "function" },
-							["im"] = { query = "@function.inner", desc = "function" },
-							["al"] = { query = "@loop.outer", desc = "loop" },
-							["il"] = { query = "@loop.inner", desc = "loop" },
-							["N"] = { query = "@number.inner", desc = "number" },
-							["aa"] = { query = "@parameter.outer", desc = "argument" },
-							["ia"] = { query = "@parameter.inner", desc = "argument" },
+							[textobjects.assignment_outer] = { query = "@assignment.outer", desc = "assignment" },
+							[textobjects.assignment_inner] = { query = "@assignment.inner", desc = "assignment" },
+							[textobjects.assignment_lhs] = { query = "@assignment.lhs", desc = "assignment lhs" },
+							[textobjects.assignment_rhs] = { query = "@assignment.rhs", desc = "assignment rhs" },
+							[textobjects.block_outer] = { query = "@block.outer", desc = "block" },
+							[textobjects.block_inner] = { query = "@block.inner", desc = "block" },
+							[textobjects.function_call_outer] = { query = "@call.outer", desc = "function call" },
+							[textobjects.function_call_inner] = { query = "@call.inner", desc = "function call" },
+							[textobjects.class_outer] = { query = "@class.outer", desc = "class" },
+							[textobjects.class_inner] = { query = "@class.inner", desc = "class" },
+							[textobjects.conditional_outer] = { query = "@conditional.outer", desc = "conditional" },
+							[textobjects.conditional_inner] = { query = "@conditional.inner", desc = "conditional" },
+							[textobjects.function_outer] = { query = "@function.outer", desc = "function" },
+							[textobjects.function_inner] = { query = "@function.inner", desc = "function" },
+							[textobjects.loop_outer] = { query = "@loop.outer", desc = "loop" },
+							[textobjects.loop_inner] = { query = "@loop.inner", desc = "loop" },
+							[textobjects.number_inner] = { query = "@number.inner", desc = "number" },
+							[textobjects.argument_outer] = { query = "@parameter.outer", desc = "argument" },
+							[textobjects.argument_inner] = { query = "@parameter.inner", desc = "argument" },
 						},
 					},
 				},
@@ -271,23 +309,27 @@ local plugins = {
 			require("various-textobjs").setup({
 				useDefaultKeymaps = false,
 			})
-			local opts = { "o", "x" }
-			keybind("subword", "ir", "<cmd>lua require('various-textobjs').subword('inner')<cr>", opts)
-			keybind("subword", "ar", "<cmd>lua require('various-textobjs').subword('outer')<cr>", opts)
-			keybind("to next bracket", "(", "<cmd>lua require('various-textobjs').toNextClosingBracket()<cr>", opts)
-			keybind("to next quotation", '"', "<cmd>lua require('various-textobjs').toNextQuotationMark()<cr>", opts)
-			keybind("file", "A", "<cmd>lua require('various-textobjs').entireBuffer()<cr>", opts)
-			keybind("near end of line", "o", "<cmd>lua require('various-textobjs').nearEoL()<cr>", opts)
-			keybind("line chars", "n", "<cmd>lua require('various-textobjs').lineCharacterwise('inner')<cr>", opts)
-			keybind("attribute", "in", "<cmd>lua require('various-textobjs').htmlAttribute('inner')<cr>", opts)
-			keybind("attribute", "an", "<cmd>lua require('various-textobjs').htmlAttribute('outer')<cr>", opts)
-			keybind("value", "io", "<cmd>lua require('various-textobjs').value('inner')<cr>", opts)
-			keybind("value", "ao", "<cmd>lua require('various-textobjs').value('outer')<cr>", opts)
-			keybind("key", "ie", "<cmd>lua require('various-textobjs').key('inner')<cr>", opts)
-			keybind("key", "ae", "<cmd>lua require('various-textobjs').key('outer')<cr>", opts)
-			keybind("url", "u", "<cmd>lua require('various-textobjs').url()<cr>", opts)
-			keybind("chain", "ig", "<cmd>lua require('various-textobjs').chainMember('inner')<cr>", opts)
-			keybind("chain", "ag", "<cmd>lua require('various-textobjs').chainMember('outer')<cr>", opts)
+
+			local textobj = function(desc, mapping, command)
+				keybind(desc, mapping, "<cmd>lua require('various-textobjs')." .. command .. "<cr>", { "o", "x" })
+			end
+
+			textobj("subword", textobjects.subword_inner, "subword('inner')")
+			textobj("subword", textobjects.subword_outer, "subword('outer')")
+			textobj("to next bracket", textobjects.to_next_closing_bracket, "toNextClosingBracket()")
+			textobj("to next quotation", textobjects.to_next_quotation_mark, "toNextQuotationMark()")
+			textobj("file", textobjects.entire_buffer, "entireBuffer()")
+			textobj("near end of line", textobjects.near_end_of_line, "nearEoL()")
+			textobj("line chars", textobjects.line_characterwise_inner, "lineCharacterwise('inner')")
+			textobj("attribute", textobjects.html_attribute_inner, "htmlAttribute('inner')")
+			textobj("attribute", textobjects.html_attribute_outer, "htmlAttribute('outer')")
+			textobj("value", textobjects.value_inner, "value('inner')")
+			textobj("value", textobjects.value_outer, "value('outer')")
+			textobj("key", textobjects.key_inner, "key('inner')")
+			textobj("key", textobjects.key_outer, "key('outer')")
+			textobj("url", textobjects.url, "url()")
+			textobj("chain", textobjects.chain_member_inner, "chainMember('inner')")
+			textobj("chain", textobjects.chain_member_outer, "chainMember('outer')")
 		end,
 	},
 	{
@@ -382,7 +424,7 @@ local plugins = {
 				ensure_installed = {
 					"prettierd",
 					"stylua",
-          "luacheck",
+					"luacheck",
 					"isort",
 					"ruff",
 					"shfmt",
@@ -677,7 +719,7 @@ local plugins = {
 			lint.linters_by_ft = {
 				javascript = { "eslint_d" },
 				typescript = { "eslint_d" },
-        lua = { "luacheck" },
+				lua = { "luacheck" },
 				mdx = { "eslint_d" },
 				javascriptreact = { "eslint_d" },
 				typescriptreact = { "eslint_d" },
