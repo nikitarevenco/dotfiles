@@ -1,8 +1,3 @@
-local function is_os_windows()
-	local path_separator = package.config:sub(1, 1)
-	return path_separator == "\\"
-end
-
 local function keybind(description, shortcut, action, modes, opts)
 	local new_modes = modes or "n"
 	local new_opts = opts or {}
@@ -1236,7 +1231,7 @@ local plugin_toggleterm = {
 			size = vim.o.columns * 0.5,
 			direction = "vertical",
 			shell = function()
-				if is_os_windows() then
+				if package.config:sub(1, 1) == "\\" then
 					return 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\doskeys.cmd"'
 				end
 			end,
