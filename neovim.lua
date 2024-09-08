@@ -739,6 +739,10 @@ local plugins = {
 			"nvim-telescope/telescope.nvim",
 			"ibhagwan/fzf-lua",
 		},
+		opts = {
+			disable_hint = true,
+			graph_style = "unicode",
+		},
 		config = true,
 	},
 	{
@@ -753,6 +757,7 @@ local plugins = {
 				mdx = { "eslint_d" },
 				javascriptreact = { "eslint_d" },
 				typescriptreact = { "eslint_d" },
+
 				svelte = { "eslint_d" },
 				python = { "pylint" },
 			}
