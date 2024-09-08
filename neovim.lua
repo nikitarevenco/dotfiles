@@ -244,10 +244,10 @@ local plugins = {
 						enable = true,
 						lookahead = true,
 						keymaps = {
-							["r"] = { query = "@assignment.outer", desc = "assignment" },
+							["S"] = { query = "@assignment.outer", desc = "assignment" },
 							["n"] = { query = "@statement.outer", desc = "statement" },
-							["it"] = { query = "@annotation.inner", desc = "type annotation" },
-							["at"] = { query = "@annotation.outer", desc = "type annotation" },
+							["io"] = { query = "@annotation.inner", desc = "type annotation" },
+							["ao"] = { query = "@annotation.outer", desc = "type annotation" },
 							["ih"] = { query = "@return.inner", desc = "return" },
 							["ah"] = { query = "@return.outer", desc = "return" },
 							["as"] = { query = "@assignment.lhs", desc = "assignment lhs" },
@@ -256,8 +256,8 @@ local plugins = {
 							["ic"] = { query = "@block.inner", desc = "block" },
 							["af"] = { query = "@call.outer", desc = "function call" },
 							["if"] = { query = "@call.inner", desc = "function call" },
-							["aC"] = { query = "@class.outer", desc = "class" },
-							["iC"] = { query = "@class.inner", desc = "class" },
+							["ak"] = { query = "@class.outer", desc = "class" },
+							["ik"] = { query = "@class.inner", desc = "class" },
 							["ai"] = { query = "@conditional.outer", desc = "conditional" },
 							["ii"] = { query = "@conditional.inner", desc = "conditional" },
 							["am"] = { query = "@function.outer", desc = "function" },
@@ -282,20 +282,16 @@ local plugins = {
 			local opts = { "o", "x" }
 			keybind("subword", "ir", "<cmd>lua require('various-textobjs').subword('inner')<cr>", opts)
 			keybind("subword", "ar", "<cmd>lua require('various-textobjs').subword('outer')<cr>", opts)
-			keybind("to next bracket", "(", "<cmd>lua require('various-textobjs').toNextClosingBracket()<cr>", opts)
-			keybind("to next quotation", '"', "<cmd>lua require('various-textobjs').toNextQuotationMark()<cr>", opts)
 			keybind("file", "A", "<cmd>lua require('various-textobjs').entireBuffer()<cr>", opts)
 			keybind("near end of line", "o", "<cmd>lua require('various-textobjs').nearEoL()<cr>", opts)
 			keybind("line chars", "n", "<cmd>lua require('various-textobjs').lineCharacterwise('inner')<cr>", opts)
-			keybind("attribute", "in", "<cmd>lua require('various-textobjs').htmlAttribute('inner')<cr>", opts)
-			keybind("attribute", "an", "<cmd>lua require('various-textobjs').htmlAttribute('outer')<cr>", opts)
-			keybind("value", "io", "<cmd>lua require('various-textobjs').value('inner')<cr>", opts)
-			keybind("value", "ao", "<cmd>lua require('various-textobjs').value('outer')<cr>", opts)
-			keybind("key", "ie", "<cmd>lua require('various-textobjs').key('inner')<cr>", opts)
-			keybind("key", "ae", "<cmd>lua require('various-textobjs').key('outer')<cr>", opts)
-			keybind("url", "u", "<cmd>lua require('various-textobjs').url()<cr>", opts)
-			keybind("chain", "ig", "<cmd>lua require('various-textobjs').chainMember('inner')<cr>", opts)
-			keybind("chain", "ag", "<cmd>lua require('various-textobjs').chainMember('outer')<cr>", opts)
+			keybind("value", "iv", "<cmd>lua require('various-textobjs').value('inner')<cr>", opts)
+			keybind("value", "av", "<cmd>lua require('various-textobjs').value('outer')<cr>", opts)
+			keybind("key", "ik", "<cmd>lua require('various-textobjs').key('inner')<cr>", opts)
+			keybind("key", "ak", "<cmd>lua require('various-textobjs').key('outer')<cr>", opts)
+			keybind("url", "U", "<cmd>lua require('various-textobjs').url()<cr>", opts)
+			keybind("chain", "ie", "<cmd>lua require('various-textobjs').chainMember('inner')<cr>", opts)
+			keybind("chain", "ae", "<cmd>lua require('various-textobjs').chainMember('outer')<cr>", opts)
 		end,
 	},
 	{
@@ -444,8 +440,8 @@ local plugins = {
 					keybind("go to previous diagnostic", "[d", vim.diagnostic.goto_prev, "n", opts)
 					keybind("go to next diagnostic", "]d", vim.diagnostic.goto_next, "n", opts)
 					keybind("open diagnostic", keymaps.open_diagnostic, vim.diagnostic.open_float)
-					keybind("previous diagnostic", textobjects.previous_diagnostic, vim.diagnostic.goto_prev)
-					keybind("next diagnostic", textobjects.next_diagnostic, vim.diagnostic.goto_next)
+					-- keybind("previous diagnostic", textobjects.previous_diagnostic, vim.diagnostic.goto_prev)
+					-- keybind("next diagnostic", textobjects.next_diagnostic, vim.diagnostic.goto_next)
 					keybind("go to definition", keymaps.lsp_goto_definition, vim.lsp.buf.definition, "n", opts)
 					keybind(
 						"go to type definition",
@@ -656,22 +652,85 @@ local plugins = {
 		"stevearc/oil.nvim",
 		opts = {},
 		config = function()
+			-- helper function to parse output
+			local function parse_output(proc)
+				local result = proc:wait()
+				local ret = {}
+				if result.code == 0 then
+					for line in vim.gsplit(result.stdout, "\n", { plain = true, trimempty = true }) do
+						-- Remove trailing slash
+						line = line:gsub("/$", "")
+						ret[line] = true
+					end
+				end
+				return ret
+			end
+
+			-- build git status cache
+			local function new_git_status()
+				return setmetatable({}, {
+					__index = function(self, key)
+						local ignore_proc = vim.system(
+							{ "git", "ls-files", "--ignored", "--exclude-standard", "--others", "--directory" },
+							{
+								cwd = key,
+								text = true,
+							}
+						)
+						local tracked_proc = vim.system({ "git", "ls-tree", "HEAD", "--name-only" }, {
+							cwd = key,
+							text = true,
+						})
+						local ret = {
+							ignored = parse_output(ignore_proc),
+							tracked = parse_output(tracked_proc),
+						}
+
+						rawset(self, key, ret)
+						return ret
+					end,
+				})
+			end
+			local git_status = new_git_status()
+
+			-- Clear git status cache on refresh
+			local refresh = require("oil.actions").refresh
+			local orig_refresh = refresh.callback
+			refresh.callback = function(...)
+				git_status = new_git_status()
+				orig_refresh(...)
+			end
+
 			keybind("file manager", keymaps.explorer_cwd, "<cmd>Oil<cr>")
-      keybind("n", "<leader>me", ":w<cr>")
+			keybind("n", "<leader>me", ":w<cr>")
 			require("oil").setup({
-				columns = {},
 				delete_to_trash = true,
 				skip_confirm_for_simple_edits = true,
 				keymaps = {
 					["<left>"] = "actions.parent",
 					["<right>"] = "actions.select",
 					["<esc>"] = "actions.close",
-					["leader"] = { callback = ":w"},
+					["<leader>"] = { callback = ":w" },
 				},
 				view_options = {
+					is_hidden_file = function(name, bufnr)
+						local dir = require("oil").get_current_dir(bufnr)
+						local is_dotfile = vim.startswith(name, ".")
+						if not dir then
+							return is_dotfile
+						end
+						if is_dotfile then
+							return not git_status[dir].tracked[name]
+						else
+							return git_status[dir].ignored[name]
+						end
+					end,
 					is_always_hidden = function(name)
 						return name == ".."
 					end,
+					sort = {
+						{ "mtime", "desc" },
+					},
 				},
 			})
 		end,
