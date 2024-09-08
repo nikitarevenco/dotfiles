@@ -3,6 +3,12 @@ git:
     colorArg: always
     pager: diff-so-fancy
 gui:
+  showCommandLog: false
+  showBottomLine: false
+  border: single
+  mouseEvents: false
+  nerdFontsVersion: "3"
+  commitHashLength: 0
   theme:
     activeBorderColor:
       - "#cba6f7"
