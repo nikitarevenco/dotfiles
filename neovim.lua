@@ -67,26 +67,27 @@ vim.cmd("hi! link StatusLineNC Normal")
 vim.cmd("set statusline=%{repeat('─',winwidth('.'))}")
 vim.wo.signcolumn = "yes:1"
 
+vim.diagnostic.config({ virtual_text = false })
+
 local keymaps = {
-	lazygit_file = "<leader>u",
-	lsp_hover = "<leader>t",
-	window_close = "<leader>a",
-	window_quit = "<leader>q",
-	lsp_rename = "<leader>r",
-	window_focus_left = "<leader>h",
-	window_focus_right = "<leader>l",
-	window_focus_above = "<leader>k",
-	window_focus_below = "<leader>j",
+	lazygit = "<leader>u",
+	hover = "<leader>t",
+	close_window = "<leader>a",
+	quit = "<leader>q",
+	rename = "<leader>r",
+	focus_left = "<leader>h",
+	focus_right = "<leader>l",
+	focus_above = "<leader>k",
+	focus_below = "<leader>j",
 	toggle_line_numbers = "<leader>z",
 	toggle_diagnostic_lines = "<leader>a",
-	explorer_cwd = "<leader>o",
-	explorer_cwd_preview = "<leader>O",
-	open_diagnostic = "<leader>m",
+	file_explorer = "<leader>o",
+	open_diagnostic = "<left>",
+	toggle_terminal = "<leader>g",
 
-	window_split_vertically = "<leader>nv",
-	info_toggle_conceal = "<leader>nz",
-	terminal_toggle_vertical = "<leader>nt",
-	lsp_code_actions = "<leader>na",
+	create_vsplit = "<leader>nv",
+	toggle_conceal = "<leader>nz",
+	code_actions = "<leader>na",
 	dial_increment = "<leader>ns",
 	ts_remove_unused_imports = "<leader>nn",
 	git_blame_toggle = "<leader>ng",
@@ -131,19 +132,21 @@ keybind("increase buffer height", keymaps.window_increase_height, "<cmd>resize +
 keybind("increase buffer width", keymaps.window_increase_width, "<cmd>resize +2<cr>")
 keybind("decrease buffer height", keymaps.window_decrease_height, "<cmd>resize +2<cr>")
 keybind("decrease buffer width", keymaps.window_decrease_width, "<cmd>resize +2<cr>")
-keybind("split buffer vertically", keymaps.window_split_vertically, "<C-w>s")
-keybind("close buffer", keymaps.window_close, "<cmd>close<cr>")
-keybind("quit neovim", keymaps.window_quit, "<cmd>qa!<cr>")
+keybind("split buffer vertically", keymaps.create_vsplit, "<C-w>s")
+keybind("close buffer", keymaps.close_window, "<cmd>close<cr>")
+keybind("quit neovim", keymaps.quit, "<cmd>qa!<cr>")
 keybind("alternate buffer", keymaps.window_previous_file, "<cmd>edit #<cr>", "n", { silent = true })
-keybind("focus buffer below", keymaps.window_focus_below, "<C-w>j", "n", { remap = true })
-keybind("focus buffer above", keymaps.window_focus_above, "<C-w>k", "n", { remap = true })
-keybind("focus buffer left", keymaps.window_focus_left, "<C-w>h", "n", { remap = true })
-keybind("focus buffer right", keymaps.window_focus_right, "<C-w>l", "n", { remap = true })
-keybind("toggle conceal", keymaps.info_toggle_conceal, toggle_conceal)
-keybind("hover", keymaps.lsp_hover, vim.lsp.buf.hover)
+keybind("focus buffer below", keymaps.focus_below, "<C-w>j", "n", { remap = true })
+keybind("focus buffer above", keymaps.focus_above, "<C-w>k", "n", { remap = true })
+keybind("focus buffer left", keymaps.focus_left, "<C-w>h", "n", { remap = true })
+keybind("focus buffer right", keymaps.focus_right, "<C-w>l", "n", { remap = true })
+keybind("toggle conceal", keymaps.toggle_conceal, toggle_conceal)
+keybind("hover", keymaps.hover, vim.lsp.buf.hover)
 keybind("format", keymaps.code_action_write_file, "<cmd>w<cr>")
 keybind("leave terminal mode", "<esc>", exit_terminal_mode, "t", { expr = true, noremap = true, silent = true })
 keybind("show signature", keymaps.signature_help, vim.lsp.buf.signature_help)
+
+keybind("diagnostic", keymaps.open_diagnostic, vim.diagnostic.show)
 
 autocmd(
 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
@@ -366,11 +369,9 @@ local plugins = {
 					"tsserver",
 					"tailwindcss",
 					"bashls",
-					"harper_ls",
 					"mdx_analyzer",
 					"gopls",
 					"powershell_es",
-					"nimls",
 					"svelte",
 					"lua_ls",
 					"jsonls",
@@ -408,7 +409,7 @@ local plugins = {
 		},
 		opts = {
 			diagnostics = {
-				underline = false,
+				-- underline = false,
 			},
 		},
 		config = function()
@@ -429,14 +430,13 @@ local plugins = {
 			end
 			local mason_lspconfig = require("mason-lspconfig")
 			local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
 			autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 				callback = function(ev)
 					local opts = { buffer = ev.buf, silent = true }
 
-					keybind("code actions", keymaps.lsp_code_actions, vim.lsp.buf.code_action, { "n", "v" }, opts)
-					keybind("rename", keymaps.lsp_rename, vim.lsp.buf.rename, "n", opts)
+					keybind("code actions", keymaps.code_actions, vim.lsp.buf.code_action, { "n", "v" }, opts)
+					keybind("rename", keymaps.rename, vim.lsp.buf.rename, "n", opts)
 					keybind("go to previous diagnostic", "[d", vim.diagnostic.goto_prev, "n", opts)
 					keybind("go to next diagnostic", "]d", vim.diagnostic.goto_next, "n", opts)
 					keybind("open diagnostic", keymaps.open_diagnostic, vim.diagnostic.open_float)
@@ -652,13 +652,11 @@ local plugins = {
 		"stevearc/oil.nvim",
 		opts = {},
 		config = function()
-			-- helper function to parse output
 			local function parse_output(proc)
 				local result = proc:wait()
 				local ret = {}
 				if result.code == 0 then
 					for line in vim.gsplit(result.stdout, "\n", { plain = true, trimempty = true }) do
-						-- Remove trailing slash
 						line = line:gsub("/$", "")
 						ret[line] = true
 					end
@@ -666,7 +664,6 @@ local plugins = {
 				return ret
 			end
 
-			-- build git status cache
 			local function new_git_status()
 				return setmetatable({}, {
 					__index = function(self, key)
@@ -693,7 +690,6 @@ local plugins = {
 			end
 			local git_status = new_git_status()
 
-			-- Clear git status cache on refresh
 			local refresh = require("oil.actions").refresh
 			local orig_refresh = refresh.callback
 			refresh.callback = function(...)
@@ -701,7 +697,7 @@ local plugins = {
 				orig_refresh(...)
 			end
 
-			keybind("file manager", keymaps.explorer_cwd, "<cmd>Oil<cr>")
+			keybind("file manager", keymaps.file_explorer, "<cmd>Oil<cr>")
 			keybind("n", "<leader>me", ":w<cr>")
 			require("oil").setup({
 				delete_to_trash = true,
@@ -734,6 +730,18 @@ local plugins = {
 				},
 			})
 		end,
+	},
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integration
+
+			-- Only one of these is needed, not both.
+			"nvim-telescope/telescope.nvim", -- optional
+			"ibhagwan/fzf-lua", -- optional
+		},
+		config = true,
 	},
 	{
 		"mfussenegger/nvim-lint",
@@ -1104,7 +1112,7 @@ local plugins = {
 		},
 		keys = {
 			{
-				keymaps.lazygit_file,
+				keymaps.lazygit,
 				"<cmd>LazyGitCurrentFile<cr>",
 				desc = "git manager (file)",
 			},
@@ -1172,17 +1180,15 @@ local plugins = {
 		"akinsho/toggleterm.nvim",
 		config = function()
 			require("toggleterm").setup({
-				open_mapping = keymaps.terminal_toggle_vertical,
+				open_mapping = keymaps.toggle_terminal,
 				insert_mappings = false,
 				terminal_mappings = false,
 				autochdir = true,
-				size = vim.o.columns * 0.5,
-				direction = "vertical",
-				shell = function()
-					if package.config:sub(1, 1) == "\\" then
-						return 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\doskeys.cmd"'
-					end
-				end,
+				size = vim.o.lines * 0.5,
+				direction = "horizontal",
+				shell = package.config:sub(1, 1) == "\\"
+						and 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\doskeys.cmd"'
+					or "zsh",
 			})
 		end,
 	},
