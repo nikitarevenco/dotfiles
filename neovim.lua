@@ -68,7 +68,7 @@ vim.cmd("set statusline=%{repeat('─',winwidth('.'))}")
 vim.wo.signcolumn = "yes:1"
 
 local keymaps = {
-	lazygit_file = "<leader>l",
+	lazygit_file = "<leader>u",
 	lsp_hover = "<leader>t",
 	window_close = "<leader>a",
 	window_quit = "<leader>q",
@@ -245,7 +245,11 @@ local plugins = {
 						lookahead = true,
 						keymaps = {
 							["r"] = { query = "@assignment.outer", desc = "assignment" },
-							["it"] = { query = "@assignment.inner", desc = "assignment" },
+							["n"] = { query = "@statement.outer", desc = "statement" },
+							["it"] = { query = "@annotation.inner", desc = "type annotation" },
+							["at"] = { query = "@annotation.outer", desc = "type annotation" },
+							["ih"] = { query = "@return.inner", desc = "return" },
+							["ah"] = { query = "@return.outer", desc = "return" },
 							["as"] = { query = "@assignment.lhs", desc = "assignment lhs" },
 							["is"] = { query = "@assignment.rhs", desc = "assignment rhs" },
 							["ac"] = { query = "@block.outer", desc = "block" },
@@ -386,7 +390,7 @@ local plugins = {
 				ensure_installed = {
 					"prettierd",
 					"stylua",
-          "luacheck",
+					"luacheck",
 					"isort",
 					"ruff",
 					"shfmt",
@@ -684,7 +688,7 @@ local plugins = {
 			lint.linters_by_ft = {
 				javascript = { "eslint_d" },
 				typescript = { "eslint_d" },
-        lua = { "luacheck" },
+				lua = { "luacheck" },
 				mdx = { "eslint_d" },
 				javascriptreact = { "eslint_d" },
 				typescriptreact = { "eslint_d" },
@@ -803,7 +807,6 @@ local plugins = {
 			{ "folke/todo-comments.nvim" },
 			{ "crispgm/telescope-heading.nvim" },
 			{ "nvim-telescope/telescope-symbols.nvim" },
-			{ "debugloop/telescope-undo.nvim" },
 			{ "piersolenski/telescope-import.nvim" },
 			-- Use regular branch once the PR gets merged
 			{
@@ -842,7 +845,6 @@ local plugins = {
 				"fzf",
 				"project",
 				"heading",
-				"undo",
 				"import",
 				"media_files",
 			}
