@@ -105,7 +105,7 @@ local keymaps = {
 	lsp_goto_type_definition = "<leader>io",
 
 	spider_forward = "e",
-	spider_backward = "m",
+	spider_backward = "b",
 	window_decrease_width = "<C-Left>",
 	window_decrease_height = "<C-Down>",
 	window_increase_width = "<C-Right>",
@@ -737,6 +737,7 @@ local plugins = {
 			"nvim-lua/plenary.nvim", -- required
 			"sindrets/diffview.nvim", -- optional - Diff integration
 
+      -- hehe
 			-- Only one of these is needed, not both.
 			"nvim-telescope/telescope.nvim", -- optional
 			"ibhagwan/fzf-lua", -- optional
@@ -1099,22 +1100,22 @@ local plugins = {
 		end,
 	},
 	{
-		"kdheepak/lazygit.nvim",
-		cmd = {
-			"LazyGit",
-			"LazyGitConfig",
-			"LazyGitCurrentFile",
-			"LazyGitFilter",
-			"LazyGitFilterCurrentFile",
-		},
+		"NeogitOrg/neogit",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integration
+
+			-- Only one of these is needed, not both.
+			"nvim-telescope/telescope.nvim", -- optional
+			"ibhagwan/fzf-lua", -- optional
 		},
+		config = true,
 		keys = {
 			{
 				keymaps.lazygit,
-				"<cmd>LazyGitCurrentFile<cr>",
-				desc = "git manager (file)",
+				"<cmd>Neogit<CR>",
+				mode = "n",
+				desc = "neogit",
 			},
 		},
 	},
