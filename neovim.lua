@@ -80,7 +80,7 @@ local keymaps = {
 	toggle_line_numbers = "<leader>z",
 	toggle_diagnostic_lines = "<leader>a",
 	explorer_cwd = "<leader>o",
-	explorer_project = "<leader>O",
+	explorer_cwd_preview = "<leader>O",
 	open_diagnostic = "<leader>m",
 
 	window_split_vertically = "<leader>nv",
@@ -653,32 +653,28 @@ local plugins = {
 		},
 	},
 	{
-		"mikavilpas/yazi.nvim",
-		event = "VeryLazy",
-		keys = {
-			{
-				keymaps.explorer_cwd,
-				"<cmd>Yazi<cr>",
-				desc = "Open yazi at the current file",
-			},
-			{
-				keymaps.explorer_project,
-				"<cmd>Yazi cwd<cr>",
-				desc = "Open the file manager in nvim's working directory",
-			},
-			{
-				"<c-up>",
-				"<cmd>Yazi toggle<cr>",
-				desc = "Resume the last yazi session",
-			},
-		},
-		opts = {
-			open_for_directories = true,
-			keymaps = {
-				show_help = "<f1>",
-			},
-			floating_window_scaling_factor = 1,
-		},
+		"stevearc/oil.nvim",
+		opts = {},
+		config = function()
+			keybind("file manager", keymaps.explorer_cwd, "<cmd>Oil<cr>")
+      keybind("n", "<leader>me", ":w<cr>")
+			require("oil").setup({
+				columns = {},
+				delete_to_trash = true,
+				skip_confirm_for_simple_edits = true,
+				keymaps = {
+					["<left>"] = "actions.parent",
+					["<right>"] = "actions.select",
+					["<esc>"] = "actions.close",
+					["leader"] = { callback = ":w"},
+				},
+				view_options = {
+					is_always_hidden = function(name)
+						return name == ".."
+					end,
+				},
+			})
+		end,
 	},
 	{
 		"mfussenegger/nvim-lint",
