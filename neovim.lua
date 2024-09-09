@@ -38,7 +38,7 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.autoindent = true
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
 vim.opt.smoothscroll = true
 vim.opt.conceallevel = 2
@@ -55,6 +55,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.swapfile = false
 vim.opt.shortmess:append("I")
+vim.opt.undofile = true
 vim.wo.number = false
 vim.wo.relativenumber = false
 vim.o.laststatus = 0
