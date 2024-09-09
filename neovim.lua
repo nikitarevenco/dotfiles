@@ -24,14 +24,6 @@ local function toggle_conceal()
 	end
 end
 
-local function exit_terminal_mode()
-	if string.find(vim.api.nvim_buf_get_name(0), "lazygit") then
-		return "<esc>"
-	else
-		return "<C-\\><C-n>"
-	end
-end
-
 local autocmd = vim.api.nvim_create_autocmd
 
 vim.g.markdown_recommended_style = 0
@@ -84,6 +76,7 @@ local keymaps = {
 	file_explorer = "<leader>o",
 	open_diagnostic = "<left>",
 	toggle_terminal = "<leader>g",
+	delete_black_hole = "<leader>d",
 
 	create_vsplit = "<leader>nv",
 	toggle_conceal = "<leader>nz",
@@ -143,10 +136,15 @@ keybind("focus buffer right", keymaps.focus_right, "<C-w>l", "n", { remap = true
 keybind("toggle conceal", keymaps.toggle_conceal, toggle_conceal)
 keybind("hover", keymaps.hover, vim.lsp.buf.hover)
 keybind("format", keymaps.code_action_write_file, "<cmd>w<cr>")
-keybind("leave terminal mode", "<esc>", exit_terminal_mode, "t", { expr = true, noremap = true, silent = true })
-keybind("show signature", keymaps.signature_help, vim.lsp.buf.signature_help)
 
+local exitTerm = function()
+	vim.cmd(":ToggleTerm")
+end
+
+keybind("exit terminal mode", "<esc>", exitTerm, "t")
+keybind("show signature", keymaps.signature_help, vim.lsp.buf.signature_help)
 keybind("diagnostic", keymaps.open_diagnostic, vim.diagnostic.show)
+keybind("delete into black hole register", keymaps.delete_black_hole, '"_d', { "n", "v" })
 
 autocmd(
 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
@@ -247,7 +245,7 @@ local plugins = {
 						enable = true,
 						lookahead = true,
 						keymaps = {
-							["S"] = { query = "@assignment.outer", desc = "assignment" },
+							["T"] = { query = "@assignment.outer", desc = "assignment" },
 							["n"] = { query = "@statement.outer", desc = "statement" },
 							["io"] = { query = "@annotation.inner", desc = "type annotation" },
 							["ao"] = { query = "@annotation.outer", desc = "type annotation" },
@@ -279,9 +277,23 @@ local plugins = {
 	{
 		"chrisgrieser/nvim-various-textobjs",
 		config = function()
+			vim.keymap.set("n", "gx", function()
+				require("various-textobjs").url()
+
+				local foundURL = vim.fn.mode():find("v")
+				if not foundURL then
+					return
+				end
+
+				vim.cmd.normal({ '"zy', bang = true })
+				local url = vim.fn.getreg("z")
+				vim.ui.open(url) -- requires nvim 0.10
+			end, { desc = "URL Opener" })
+
 			require("various-textobjs").setup({
 				useDefaultKeymaps = false,
 			})
+
 			local opts = { "o", "x" }
 			keybind("subword", "ir", "<cmd>lua require('various-textobjs').subword('inner')<cr>", opts)
 			keybind("subword", "ar", "<cmd>lua require('various-textobjs').subword('outer')<cr>", opts)
@@ -1102,6 +1114,30 @@ local plugins = {
 		end,
 	},
 	{
+		"b0o/incline.nvim",
+		config = function()
+			require("incline").setup({
+				window = {
+					padding = 0,
+					margin = { horizontal = 0 },
+				},
+				render = function(props)
+					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+					if filename == "" then
+						filename = "[No Name]"
+					end
+
+					local modified = vim.bo[props.buf].modified
+					return {
+						{ filename, gui = modified and "bold,italic" or "bold" },
+						guibg = "#181825",
+						guifg = "#cdd6f4",
+					}
+				end,
+			})
+		end,
+	},
+	{
 		"NeogitOrg/neogit",
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- required
@@ -1187,13 +1223,16 @@ local plugins = {
 				insert_mappings = false,
 				terminal_mappings = false,
 				autochdir = true,
-				size = vim.o.lines * 0.5,
-				direction = "horizontal",
-				shell = package.config:sub(1, 1) == "\\"
+				shade_terminals = false,
+				direction = "tab",
+				shell = vim.fn.has("win32")
 						and 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\doskeys.cmd"'
 					or "zsh",
 			})
 		end,
+	},
+	{
+		"samjwill/nvim-unception",
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
