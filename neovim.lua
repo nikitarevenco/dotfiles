@@ -6,6 +6,10 @@ local function keybind(description, shortcut, action, modes, opts)
 	vim.keymap.set(new_modes, shortcut, action, new_opts)
 end
 
+local function exitTerm()
+	vim.cmd(":ToggleTerm")
+end
+
 local function toggle_line_numbers()
 	if vim.wo.number then
 		vim.wo.number = false
@@ -94,7 +98,6 @@ local keymaps = {
 	recent_files = "<leader>if",
 	find_files = "<leader>ip",
 	lsp_ts_goto_definition = "<leader>il",
-	lsp_goto_definition = "<leader>iy",
 	lsp_goto_type_definition = "<leader>io",
 
 	spider_forward = "e",
@@ -108,19 +111,28 @@ local keymaps = {
 	signature_help = "<c-s>",
 	execute_normal_command = "<C-z>",
 	code_action_delete_word = "<C-BS>",
-	code_action_write_file = "<cr>",
+	format = "<cr>",
 	movement_page_down = "J",
 	movement_page_up = "K",
 	window_close_some_file_types = "q",
 	window_previous_file = "<bs>",
 }
-
+keybind("add undo breakpoint", ",", ",<C-g>u", "i")
+keybind("add undo breakpoint", ".", ".<C-g>u", "i")
+keybind("add undo breakpoint", ";", ";<C-g>u", "i")
+keybind("next search result", "n", "'Nn'[v:searchforward].'zv'", "n", { expr = true })
+keybind("next search result", "n", "'Nn'[v:searchforward].'zv'", "x", { expr = true })
+keybind("next search result", "n", "'Nn'[v:searchforward].'zv'", "o", { expr = true })
+keybind("prev search result", "N", "'nN'[v:searchforward].'zv'", "n", { expr = true })
+keybind("prev search result", "N", "'nN'[v:searchforward].'zv'", "x", { expr = true })
+keybind("prev search result", "N", "'nN'[v:searchforward].'zv'", "o", { expr = true })
 keybind("toggle left panel", keymaps.toggle_line_numbers, toggle_line_numbers, "n")
 keybind("page down", keymaps.movement_page_down, "<C-d>", "n", { noremap = true, silent = true })
 keybind("page up", keymaps.movement_page_up, "<C-u>", "n", { noremap = true, silent = true })
 keybind("move down", "j", "v:count == 0 ? 'gj' : 'j'", { "n", "x" }, { expr = true, silent = true })
 keybind("move up", "k", "v:count == 0 ? 'gk' : 'k'", { "n", "x" }, { expr = true, silent = true })
 keybind("execute normal command", keymaps.execute_normal_command, "<C-o>", "i")
+keybind("escape and clear hlsearch", "<esc>", "<cmd>noh<cr><esc>", { "i", "n" })
 keybind("increase buffer height", keymaps.window_increase_height, "<cmd>resize +2<cr>")
 keybind("increase buffer width", keymaps.window_increase_width, "<cmd>resize +2<cr>")
 keybind("decrease buffer height", keymaps.window_decrease_height, "<cmd>resize +2<cr>")
@@ -135,16 +147,17 @@ keybind("focus buffer left", keymaps.focus_left, "<C-w>h", "n", { remap = true }
 keybind("focus buffer right", keymaps.focus_right, "<C-w>l", "n", { remap = true })
 keybind("toggle conceal", keymaps.toggle_conceal, toggle_conceal)
 keybind("hover", keymaps.hover, vim.lsp.buf.hover)
-keybind("format", keymaps.code_action_write_file, "<cmd>w<cr>")
-
-local exitTerm = function()
-	vim.cmd(":ToggleTerm")
-end
-
+keybind("format", keymaps.format, "<cmd>w<cr>")
 keybind("exit terminal mode", "<esc>", exitTerm, "t")
 keybind("show signature", keymaps.signature_help, vim.lsp.buf.signature_help)
 keybind("diagnostic", keymaps.open_diagnostic, vim.diagnostic.show)
 keybind("delete into black hole register", keymaps.delete_black_hole, '"_d', { "n", "v" })
+keybind("undo", "<C-z>", "<C-o><cmd>undo<cr>", "i")
+keybind("delete line", "<C-d>", "<C-o><cmd>d<CR>", "i")
+keybind("indent", "<", "<gv", "v")
+keybind("dedent", ">", ">gv", "v")
+keybind("add comment below", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", "n")
+keybind("add comment above", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", "n")
 
 autocmd(
 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
@@ -192,11 +205,11 @@ autocmd("FileType", {
 	desc = "close some file types with q",
 	pattern = {
 		"PlenaryTestPopup",
+		"grug-far",
 		"help",
 		"lspinfo",
 		"notify",
 		"qf",
-		"query",
 		"spectre_panel",
 		"startuptime",
 		"tsplayground",
@@ -204,6 +217,8 @@ autocmd("FileType", {
 		"checkhealth",
 		"neotest-summary",
 		"neotest-output-panel",
+		"dbout",
+		"gitsigns.blame",
 	},
 	callback = function(event)
 		vim.bo[event.buf].buflisted = false
@@ -214,6 +229,13 @@ autocmd("FileType", {
 			"n",
 			{ buffer = event.buf, silent = true }
 		)
+	end,
+})
+autocmd({ "FileType" }, {
+	desc = "disable conceal for json files",
+	pattern = { "json", "jsonc", "json5" },
+	callback = function()
+		vim.opt_local.conceallevel = 0
 	end,
 })
 
@@ -239,14 +261,51 @@ local plugins = {
 		"nikitarevenco/nvim-treesitter-textobjects",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
+			local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+
+			vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+			vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+			vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
+			vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
+			vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
+			vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
 			require("nvim-treesitter.configs").setup({
 				textobjects = {
+					move = {
+						enable = true,
+						goto_next_start = {
+							["]a"] = "@parameter.inner",
+							["]l"] = "@loop.outer",
+							["]m"] = "@function.outer",
+							["]i"] = "@conditional.outer",
+							["]k"] = "@class.outer",
+							["]f"] = "@call.outer",
+							["]c"] = "@block.outer",
+							["]T"] = "@assignment.outer",
+							["]h"] = "@return.outer",
+							["]o"] = "@annotation.outer",
+							["]O"] = "@annotation.outer",
+						},
+						goto_previous_start = {
+							["[a"] = "@parameter.inner",
+							["[l"] = "@loop.outer",
+							["[m"] = "@function.outer",
+							["[i"] = "@conditional.outer",
+							["[k"] = "@class.outer",
+							["[f"] = "@call.outer",
+							["[c"] = "@block.outer",
+							["[T"] = "@assignment.outer",
+							["[h"] = "@return.outer",
+							["[o"] = "@annotation.outer",
+							["[O"] = "@annotation.outer",
+						},
+					},
 					select = {
 						enable = true,
 						lookahead = true,
 						keymaps = {
 							["T"] = { query = "@assignment.outer", desc = "assignment" },
-							["n"] = { query = "@statement.outer", desc = "statement" },
+							["O"] = { query = "@statement.outer", desc = "statement" },
 							["io"] = { query = "@annotation.inner", desc = "type annotation" },
 							["ao"] = { query = "@annotation.outer", desc = "type annotation" },
 							["ih"] = { query = "@return.inner", desc = "return" },
@@ -273,6 +332,24 @@ local plugins = {
 				},
 			})
 		end,
+	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
 	},
 	{
 		"chrisgrieser/nvim-various-textobjs",
@@ -307,6 +384,12 @@ local plugins = {
 			keybind("url", "U", "<cmd>lua require('various-textobjs').url()<cr>", opts)
 			keybind("chain", "ie", "<cmd>lua require('various-textobjs').chainMember('inner')<cr>", opts)
 			keybind("chain", "ae", "<cmd>lua require('various-textobjs').chainMember('outer')<cr>", opts)
+		end,
+	},
+	{
+		"MagicDuck/grug-far.nvim",
+		config = function()
+			require("grug-far").setup({})
 		end,
 	},
 	{
@@ -406,6 +489,8 @@ local plugins = {
 					"black",
 					"pylint",
 					"eslint_d",
+					"markdownlint-cli2",
+					"markdown-toc",
 					"js-debug-adapter",
 				},
 			})
@@ -454,7 +539,7 @@ local plugins = {
 					keybind("open diagnostic", keymaps.open_diagnostic, vim.diagnostic.open_float)
 					-- keybind("previous diagnostic", textobjects.previous_diagnostic, vim.diagnostic.goto_prev)
 					-- keybind("next diagnostic", textobjects.next_diagnostic, vim.diagnostic.goto_next)
-					keybind("go to definition", keymaps.lsp_goto_definition, vim.lsp.buf.definition, "n", opts)
+					keybind("go to definition", "gd", vim.lsp.buf.definition, "n", opts)
 					keybind(
 						"go to type definition",
 						keymaps.lsp_goto_type_definition,
@@ -755,7 +840,14 @@ local plugins = {
 			disable_hint = true,
 			graph_style = "unicode",
 		},
-		config = true,
+		keys = {
+			{
+				keymaps.lazygit,
+				"<cmd>Neogit<CR>",
+				mode = "n",
+				desc = "neogit",
+			},
+		},
 	},
 	{
 		"mfussenegger/nvim-lint",
@@ -766,7 +858,6 @@ local plugins = {
 				javascript = { "eslint_d" },
 				typescript = { "eslint_d" },
 				lua = { "luacheck" },
-				mdx = { "eslint_d" },
 				javascriptreact = { "eslint_d" },
 				typescriptreact = { "eslint_d" },
 
@@ -809,10 +900,12 @@ local plugins = {
 				python = { "isort", "black" },
 				sh = { "shfmt" },
 			},
-			format_on_save = {
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1000,
+		},
+		keys = {
+			{
+				keymaps.format,
+				'<cmd>lua require("conform").format({ async = true, lsp_format = "fallback" })<cr>',
+				desc = "format",
 			},
 		},
 	},
@@ -836,19 +929,9 @@ local plugins = {
 		end,
 	},
 	{
-		"numToStr/Comment.nvim",
-		dependencies = {
-			"JoosepAlviste/nvim-ts-context-commentstring",
-		},
-		config = function()
-			local comment = require("Comment")
-
-			local ts_context_commentstring = require("ts_context_commentstring.integrations.comment_nvim")
-
-			comment.setup({
-				pre_hook = ts_context_commentstring.create_pre_hook(),
-			})
-		end,
+		"folke/ts-comments.nvim",
+		opts = {},
+		event = "VeryLazy",
 	},
 	{
 		"gbprod/substitute.nvim",
@@ -1041,8 +1124,8 @@ local plugins = {
 		"catppuccin/nvim",
 		opts = {
 			integrations = {
-				neotest = true,
 				noice = true,
+				grug_far = true,
 				mason = true,
 			},
 			styles = {
@@ -1136,26 +1219,6 @@ local plugins = {
 				end,
 			})
 		end,
-	},
-	{
-		"NeogitOrg/neogit",
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
-
-			-- Only one of these is needed, not both.
-			"nvim-telescope/telescope.nvim", -- optional
-			"ibhagwan/fzf-lua", -- optional
-		},
-		config = true,
-		keys = {
-			{
-				keymaps.lazygit,
-				"<cmd>Neogit<CR>",
-				mode = "n",
-				desc = "neogit",
-			},
-		},
 	},
 	{
 		"folke/noice.nvim",
