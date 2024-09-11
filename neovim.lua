@@ -83,6 +83,31 @@ local keymaps = {
 	toggle_terminal = "<leader>g",
 	delete_black_hole = "<leader>d",
 
+	typescript_goto_source_definition = "gD",
+	typescript_file_references = "gR",
+	typescript_organize_imports = "<leader>co",
+	typescript_add_missing_imports = "<leader>cM",
+	typescript_remove_unused_imports = "<leader>cu",
+	typescript_fix_all = "<leader>cD",
+	typescript_select_ts_version = "<leader>cV",
+
+	cmp_select_next_item = "<C-n>",
+	cmp_select_prev_item = "<C-p>",
+	cmp_scroll_docs_up = "<C-b>",
+	cmp_scroll_docs_down = "<C-f>",
+	cmp_goto_next_snippet_placeholder = "<C-l>",
+	cmp_goto_prev_snippet_placeholder = "<C-h>",
+
+	lsp_format = "<cr>",
+	lsp_toggle_diagnostics = "<leader>ud",
+	lsp_toggle_inlay_hints = "<leader>uh",
+	lsp_goto_definition = "gd",
+	lsp_goto_references = "gr",
+	lsp_goto_implementation = "gI",
+	lsp_code_rename = "<leader>cr",
+	lsp_code_action = "<leader>ca",
+	lsp_goto_declaration = "gD",
+
 	create_vsplit = "<leader>nv",
 	toggle_conceal = "<leader>nz",
 	code_actions = "<leader>na",
@@ -99,7 +124,7 @@ local keymaps = {
 	recent_files = "<leader>if",
 	find_files = "<leader>ip",
 	lsp_ts_goto_definition = "<leader>il",
-	lsp_goto_type_definition = "<leader>io",
+	lsp_goto_type_definition = "gt",
 
 	spider_forward = "e",
 	spider_backward = "b",
@@ -113,11 +138,10 @@ local keymaps = {
 	execute_normal_command = "<C-z>",
 	code_action_delete_word = "<C-BS>",
 	format = "<cr>",
-	movement_page_down = "J",
-	movement_page_up = "K",
 	window_close_some_file_types = "q",
 	window_previous_file = "<bs>",
 }
+
 keybind("add undo breakpoint", ",", ",<C-g>u", "i")
 keybind("add undo breakpoint", ".", ".<C-g>u", "i")
 keybind("add undo breakpoint", ";", ";<C-g>u", "i")
@@ -128,8 +152,6 @@ keybind("prev search result", "N", "'nN'[v:searchforward].'zv'", "n", { expr = t
 keybind("prev search result", "N", "'nN'[v:searchforward].'zv'", "x", { expr = true })
 keybind("prev search result", "N", "'nN'[v:searchforward].'zv'", "o", { expr = true })
 keybind("toggle left panel", keymaps.toggle_line_numbers, toggle_line_numbers, "n")
-keybind("page down", keymaps.movement_page_down, "<C-d>", "n", { noremap = true, silent = true })
-keybind("page up", keymaps.movement_page_up, "<C-u>", "n", { noremap = true, silent = true })
 keybind("move down", "j", "v:count == 0 ? 'gj' : 'j'", { "n", "x" }, { expr = true, silent = true })
 keybind("move up", "k", "v:count == 0 ? 'gk' : 'k'", { "n", "x" }, { expr = true, silent = true })
 keybind("execute normal command", keymaps.execute_normal_command, "<C-o>", "i")
@@ -240,26 +262,62 @@ autocmd({ "FileType" }, {
 	end,
 })
 
+local instant_lsp_path = vim.fn.stdpath("data") .. "/lazy/instant-lsp.nvim"
+if not vim.loop.fs_stat(instant_lsp_path) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/nikitarevenco/instant-lsp.nvim",
+		instant_lsp_path,
+	})
+end
+vim.opt.rtp:prepend(instant_lsp_path)
+
 local plugins = {
-	{
-		"windwp/nvim-ts-autotag",
-		config = function()
-			require("nvim-ts-autotag").setup({
-				opts = {
-					enable_close = true,
-					enable_rename = true,
-					enable_close_on_slash = false,
-				},
-			})
-		end,
-	},
-	{
-		"davidmh/mdx.nvim",
-		config = true,
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-	},
+	require("instant-lsp").setup({
+		"typescript",
+		"lua",
+		"tailwind",
+		"mdx",
+		keys = {
+			typescript_goto_source_definition = keymaps.typescript_goto_source_definition,
+			typescript_file_references = keymaps.typescript_file_references,
+			typescript_organize_imports = keymaps.typescript_organize_imports,
+			typescript_add_missing_imports = keymaps.typescript_add_missing_imports,
+			typescript_remove_unused_imports = keymaps.typescript_remove_unused_imports,
+			typescript_fix_all = keymaps.typescript_fix_all,
+			typescript_select_ts_version = keymaps.typescript_select_ts_version,
+			cmp_select_next_item = keymaps.cmp_select_next_item,
+			cmp_select_prev_item = keymaps.cmp_select_prev_item,
+			cmp_scroll_docs_up = keymaps.cmp_scroll_docs_up,
+			cmp_scroll_docs_down = keymaps.cmp_scroll_docs_down,
+			cmp_confirm = keymaps.cmp_confirm,
+			cmp_abort = keymaps.cmp_abort,
+			cmp_goto_next_snippet_placeholder = keymaps.cmp_goto_next_snippet_placeholder,
+			cmp_goto_prev_snippet_placeholder = keymaps.cmp_goto_prev_snippet_placeholder,
+			lsp_format = keymaps.lsp_format,
+			lsp_toggle_diagnostics = keymaps.lsp_toggle_diagnostics,
+			lsp_toggle_inlay_hints = keymaps.lsp_toggle_inlay_hints,
+			lsp_goto_definition = keymaps.lsp_goto_definition,
+			lsp_goto_references = keymaps.lsp_goto_references,
+			lsp_goto_implementation = keymaps.lsp_goto_implementation,
+			lsp_goto_type_definition = keymaps.lsp_goto_type_definition,
+			lsp_code_rename = keymaps.lsp_code_rename,
+			lsp_code_action = keymaps.lsp_code_action,
+			lsp_hover_documentation = keymaps.lsp_hover_documentation,
+			lsp_goto_declaration = keymaps.lsp_goto_declaration,
+		},
+		disable_feature = {
+			snippets = true,
+			virtual_text = true,
+			ts_context = true,
+			cmp_border = true,
+		},
+	}),
 	{
 		"nikitarevenco/nvim-treesitter-textobjects",
+    branch = "personal",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
@@ -394,351 +452,6 @@ local plugins = {
 		end,
 	},
 	{
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		dependencies = {
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			{
-				"L3MON4D3/LuaSnip",
-				version = "v2.*",
-				build = "make install_jsregexp",
-				opts = { updateevents = "TextChanged,TextChangedI" },
-				keys = {},
-			},
-			"saadparwaiz1/cmp_luasnip",
-			"rafamadriz/friendly-snippets",
-			"onsails/lspkind.nvim",
-			{ "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
-		},
-		config = function()
-			local cmp = require("cmp")
-			require("luasnip.loaders.from_vscode").lazy_load()
-			cmp.setup({
-				performance = {
-					max_view_entries = 3,
-				},
-				completion = {
-					completeopt = "menu,menuone,preview,noselect",
-				},
-				mapping = cmp.mapping.preset.insert({
-					[keymaps.cmp_abort] = cmp.mapping.abort(),
-					[keymaps.cmp_confirm] = cmp.mapping.confirm({ select = true }),
-				}),
-				sources = cmp.config.sources({
-					{
-						name = "nvim_lsp",
-						entry_filter = function(entry)
-							return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind()
-						end,
-					},
-					{ name = "luasnip" },
-					{ name = "buffer" },
-					{ name = "path" },
-				}),
-				formatting = {
-					format = function(entry, item)
-						item = require("lspkind").cmp_format({
-							maxwidth = 50,
-							ellipsis_char = "...",
-						})(entry, item)
-						return require("tailwindcss-colorizer-cmp").formatter(entry, item)
-					end,
-				},
-			})
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-		},
-		config = function()
-			require("mason").setup()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"astro",
-					"html",
-					"cssls",
-					"julials",
-					"tsserver",
-					"tailwindcss",
-					"bashls",
-					"mdx_analyzer",
-					"gopls",
-					"powershell_es",
-					"svelte",
-					"lua_ls",
-					"jsonls",
-					"yamlls",
-					"graphql",
-					"emmet_ls",
-					"prismals",
-					"pyright",
-					"taplo",
-				},
-			})
-			require("mason-tool-installer").setup({
-				ensure_installed = {
-					"prettierd",
-					"stylua",
-					"luacheck",
-					"isort",
-					"ruff",
-					"shfmt",
-					"black",
-					"pylint",
-					"eslint_d",
-					"markdownlint-cli2",
-					"markdown-toc",
-					"js-debug-adapter",
-				},
-			})
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"b0o/schemastore.nvim",
-			{ "antosha417/nvim-lsp-file-operations", config = true },
-			{ "folke/neodev.nvim", opts = {} },
-		},
-		opts = {
-			diagnostics = {
-				-- underline = false,
-			},
-		},
-		config = function()
-			local lspconfig = require("lspconfig")
-
-			local function filter_diagnostics(diagnostics)
-				local new_diagnostics = {}
-				for _, diagnostic in ipairs(diagnostics) do
-					if diagnostic.code ~= 6133 and diagnostic.code ~= 6196 then
-						table.insert(new_diagnostics, diagnostic)
-					end
-				end
-				return new_diagnostics
-			end
-			vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
-				result.diagnostics = filter_diagnostics(result.diagnostics)
-				vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
-			end
-			local mason_lspconfig = require("mason-lspconfig")
-			local cmp_nvim_lsp = require("cmp_nvim_lsp")
-			autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-				callback = function(ev)
-					local opts = { buffer = ev.buf, silent = true }
-
-					keybind("code actions", keymaps.code_actions, vim.lsp.buf.code_action, { "n", "v" }, opts)
-					keybind("rename", keymaps.rename, vim.lsp.buf.rename, "n", opts)
-					keybind("go to previous diagnostic", "[d", vim.diagnostic.goto_prev, "n", opts)
-					keybind("go to next diagnostic", "]d", vim.diagnostic.goto_next, "n", opts)
-					keybind("open diagnostic", keymaps.open_diagnostic, vim.diagnostic.open_float)
-					-- keybind("previous diagnostic", textobjects.previous_diagnostic, vim.diagnostic.goto_prev)
-					-- keybind("next diagnostic", textobjects.next_diagnostic, vim.diagnostic.goto_next)
-					keybind("go to definition", "gd", vim.lsp.buf.definition, "n", opts)
-					keybind(
-						"go to type definition",
-						keymaps.lsp_goto_type_definition,
-						vim.lsp.buf.type_definition,
-						"n",
-						opts
-					)
-				end,
-			})
-
-			local capabilities = cmp_nvim_lsp.default_capabilities()
-
-			for type, icon in pairs({ Error = " ", Warn = " ", Hint = " ", Info = " " }) do
-				local hl = "DiagnosticSign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-			end
-
-			mason_lspconfig.setup_handlers({
-				function(server_name)
-					if server_name == "tsserver" then
-						server_name = "ts_ls"
-					end
-					lspconfig[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
-				["yamlls"] = function()
-					lspconfig["yamlls"].setup({
-						settings = {
-							yaml = {
-								schemaStore = {
-									enable = false,
-									url = "",
-								},
-								schemas = require("schemastore").yaml.schemas(),
-							},
-						},
-					})
-				end,
-				["jsonls"] = function()
-					lspconfig["jsonls"].setup({
-						settings = {
-							json = {
-								schemas = require("schemastore").json.schemas(),
-								validate = { enable = true },
-							},
-						},
-					})
-				end,
-				["ruff"] = function()
-					lspconfig["ruff"].setup({
-						settings = {
-							organizeImports = false,
-						},
-						on_attach = function(client)
-							client.server_capabilities.hoverProvider = false
-						end,
-					})
-				end,
-				["julials"] = function()
-					lspconfig["julials"].setup({
-						on_new_config = function(new_config, _)
-							local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
-							if require("lspconfig").util.path.is_file(julia) then
-								vim.notify("Hello!")
-								new_config.cmd[1] = julia
-							end
-						end,
-					})
-				end,
-				["mdx_analyzer"] = function()
-					lspconfig["mdx_analyzer"].setup({
-						filetypes = {
-							"mdx",
-							"markdown.mdx",
-						},
-					})
-				end,
-				["tailwindcss"] = function()
-					lspconfig["tailwindcss"].setup({
-						capabilities = capabilities,
-						settings = {
-							tailwindCSS = {
-								experimental = {
-									classRegex = {
-										{ "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
-										{ "cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
-									},
-								},
-							},
-						},
-					})
-				end,
-				["powershell_es"] = function()
-					lspconfig["powershell_es"].setup({
-						filetypes = { "ps1", "psm1", "psd1" },
-						capabilities = capabilities,
-						bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
-					})
-				end,
-				["bashls"] = function()
-					lspconfig["bashls"].setup({
-						capabilities = capabilities,
-						filetypes = { "sh", "zsh" },
-						settings = {
-							bash = {
-								format = {
-									enable = true,
-								},
-							},
-						},
-					})
-				end,
-				["svelte"] = function()
-					lspconfig["svelte"].setup({
-						capabilities = capabilities,
-						on_attach = function(client)
-							autocmd("BufWritePost", {
-								pattern = { "*.js", "*.ts" },
-								callback = function(ctx)
-									-- Here use ctx.match instead of ctx.file
-									client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-								end,
-							})
-						end,
-					})
-				end,
-				["graphql"] = function()
-					lspconfig["graphql"].setup({
-						capabilities = capabilities,
-						filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-					})
-				end,
-				["cssls"] = function()
-					lspconfig["cssls"].setup({
-						capabilities = capabilities,
-						settings = {
-							css = {
-								lint = {
-									unknownAtRules = "ignore",
-								},
-							},
-						},
-					})
-				end,
-				["emmet_ls"] = function()
-					lspconfig["emmet_ls"].setup({
-						capabilities = capabilities,
-						filetypes = {
-							"html",
-							"typescriptreact",
-							"javascriptreact",
-							"css",
-							"sass",
-							"scss",
-							"less",
-							"svelte",
-						},
-					})
-				end,
-				["lua_ls"] = function()
-					require("lspconfig").lua_ls.setup({
-						on_init = function(client)
-							local path = client.workspace_folders[1].name
-							if
-								vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc")
-							then
-								return
-							end
-							client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-								runtime = {
-									-- Tell the language server which version of Lua you're using
-									-- (most likely LuaJIT in the case of Neovim)
-									version = "LuaJIT",
-								},
-								-- Make the server aware of Neovim runtime files
-								workspace = {
-									checkThirdParty = false,
-									library = {
-										vim.env.VIMRUNTIME,
-										-- Depending on the usage, you might want to add additional paths here.
-										"${3rd}/luv/library",
-										-- "${3rd}/busted/library",
-									},
-									-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-									-- library = vim.api.nvim_get_runtime_file("", true)
-								},
-							})
-						end,
-						settings = {
-							Lua = {},
-						},
-					})
-				end,
-			})
-		end,
-	},
-	{
 		"OXY2DEV/helpview.nvim",
 		lazy = false,
 		ft = "help",
@@ -851,90 +564,6 @@ local plugins = {
 		},
 	},
 	{
-		"mfussenegger/nvim-lint",
-		config = function()
-			local lint = require("lint")
-
-			lint.linters_by_ft = {
-				javascript = { "eslint_d" },
-				typescript = { "eslint_d" },
-				lua = { "luacheck" },
-				javascriptreact = { "eslint_d" },
-				typescriptreact = { "eslint_d" },
-
-				svelte = { "eslint_d" },
-				python = { "pylint" },
-			}
-
-			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-
-			autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-				group = lint_augroup,
-				callback = function()
-					lint.try_lint()
-				end,
-			})
-		end,
-	},
-	{
-		"stevearc/conform.nvim",
-		lazy = false,
-		opts = {
-			formatters_by_ft = {
-				javascript = { "prettierd", "eslint_d" },
-				mjs = { "prettierd" },
-				mdx = { "prettierd" },
-				typescript = { "prettierd", "eslint_d" },
-				javascriptreact = { "prettierd", "eslint_d" },
-				typescriptreact = { "prettierd", "eslint_d" },
-				svelte = { "prettierd", "eslint_d" },
-				astro = { "prettierd" },
-				css = { "prettierd" },
-				html = { "prettierd" },
-				json = { "prettierd" },
-				yaml = { "prettierd" },
-				md = { "prettierd" },
-				markdown = { "prettierd" },
-				graphql = { "prettierd" },
-				liquid = { "prettierd" },
-				lua = { "stylua" },
-				python = { "isort", "black" },
-				sh = { "shfmt" },
-			},
-		},
-		keys = {
-			{
-				keymaps.format,
-				'<cmd>lua require("conform").format({ async = true, lsp_format = "fallback" })<cr>',
-				desc = "format",
-			},
-		},
-	},
-	{
-		"windwp/nvim-autopairs",
-		event = { "InsertEnter" },
-		dependencies = {
-			"hrsh7th/nvim-cmp",
-		},
-		config = function()
-			require("nvim-autopairs").setup({
-				check_ts = true,
-				ts_config = {
-					lua = { "string" },
-					javascript = { "template_string" },
-					java = false,
-				},
-			})
-
-			require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
-		end,
-	},
-	{
-		"folke/ts-comments.nvim",
-		opts = {},
-		event = "VeryLazy",
-	},
-	{
 		"gbprod/substitute.nvim",
 		config = function()
 			local substitute = require("substitute")
@@ -950,6 +579,11 @@ local plugins = {
 	{
 		"kylechui/nvim-surround",
 		config = true,
+	},
+	{
+		"folke/ts-comments.nvim",
+		opts = {},
+		event = "VeryLazy",
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -1297,52 +931,6 @@ local plugins = {
 	},
 	{
 		"samjwill/nvim-unception",
-	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		cmd = { "TSInstall", "TSUpdate", "TSUpdateSync" },
-		build = ":TSUpdate",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				highlight = {
-					enable = true,
-				},
-				indent = { enable = true },
-				ensure_installed = {
-					"json",
-					"javascript",
-					"typescript",
-					"go",
-					"tsx",
-					"yaml",
-					"html",
-					"bash",
-					"css",
-					"prisma",
-					"csv",
-					"gitcommit",
-					"gitignore",
-					"markdown",
-					"markdown_inline",
-					"regex",
-					"scss",
-					"svelte",
-					"graphql",
-					"bash",
-					"lua",
-					"tmux",
-					"toml",
-					"python",
-					"vim",
-					"ninja",
-					"dockerfile",
-					"gitignore",
-					"query",
-					"vimdoc",
-					"c",
-				},
-			})
-		end,
 	},
 }
 
