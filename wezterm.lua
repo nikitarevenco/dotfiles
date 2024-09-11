@@ -47,11 +47,6 @@ config.keys = {
 		mods = "CTRL",
 		action = wezterm.action.SendKey({ mods = "CTRL", key = "w" }),
 	},
-	{
-		key = "v",
-		mods = "CTRL",
-		action = wezterm.action.PasteFrom("Clipboard"),
-	},
 }
 
 config.char_select_font_size = 13
