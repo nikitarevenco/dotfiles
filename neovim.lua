@@ -6,10 +6,6 @@ local function keybind(description, shortcut, action, modes, opts)
 	vim.keymap.set(new_modes, shortcut, action, new_opts)
 end
 
-local function exitTerm()
-	vim.cmd(":ToggleTerm")
-end
-
 local function toggle_conceal()
 	if vim.wo.conceallevel == 2 then
 		vim.opt.conceallevel = 0
@@ -17,8 +13,6 @@ local function toggle_conceal()
 		vim.opt.conceallevel = 2
 	end
 end
-
-local autocmd = vim.api.nvim_create_autocmd
 
 vim.g.markdown_recommended_style = 0
 vim.g.mapleader = " "
@@ -55,39 +49,40 @@ vim.cmd("set statusline=%{repeat('─',winwidth('.'))}")
 vim.wo.signcolumn = "yes:1"
 vim.opt.cmdheight = 0
 
-keybind("add undo breakpoint", ",", ",<C-g>u", "i")
-keybind("add undo breakpoint", ".", ".<C-g>u", "i")
-keybind("add undo breakpoint", ";", ";<C-g>u", "i")
-keybind("next search result", "n", "'Nn'[v:searchforward].'zv'", "n", { expr = true })
-keybind("next search result", "n", "'Nn'[v:searchforward].'zv'", "x", { expr = true })
-keybind("next search result", "n", "'Nn'[v:searchforward].'zv'", "o", { expr = true })
-keybind("prev search result", "N", "'nN'[v:searchforward].'zv'", "n", { expr = true })
-keybind("prev search result", "N", "'nN'[v:searchforward].'zv'", "x", { expr = true })
-keybind("prev search result", "N", "'nN'[v:searchforward].'zv'", "o", { expr = true })
-keybind("move down", "j", "v:count == 0 ? 'gj' : 'j'", { "n", "x" }, { expr = true, silent = true })
-keybind("move up", "k", "v:count == 0 ? 'gk' : 'k'", { "n", "x" }, { expr = true, silent = true })
-keybind("indent", "<", "<gv", "v")
-keybind("dedent", ">", ">gv", "v")
-keybind("toggle left panel", "<leader>z", "<cmd>lua vim.wo.number = not vim.wo.number<cr>", "n")
-keybind("execute normal command", "<c-z>", "<C-o>", "i")
-keybind("escape and clear hlsearch", "<esc>", "<cmd>noh<cr><esc>", { "i", "n" })
-keybind("alternate buffer", "<bs>", "<cmd>edit #<cr>", "n", { silent = true })
-keybind("toggle conceal", "<leader>b", toggle_conceal)
-keybind("format", "<c-f>", "<cmd>w<cr>")
-keybind("exit terminal mode", "<esc>", exitTerm, "t")
-keybind("delete line", "<C-d>", "<C-o><cmd>d<CR>", "i")
-keybind("paste", "<C-v>", "<esc>pa", "i")
-keybind("empty line below", "gO", "<cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
-keybind("add empty line above", "go", "<cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
-keybind("search inside visual selection", "g/", "<esc>/\\%V", "x", { silent = false })
-keybind("window commands", "<right>", "<C-w>")
-keybind("join line but keep cursor position", "J", "mzJ`z")
+vim.keymap.set("i", ",", ",<C-g>u", { desc = "add undo breakpoint" })
+vim.keymap.set("i", ".", ".<C-g>u", { desc = "add undo breakpoint" })
+vim.keymap.set("i", ";", ";<C-g>u", { desc = "add undo breakpoint" })
+vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "next search result" })
+vim.keymap.set("x", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "next search result" })
+vim.keymap.set("o", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "next search result" })
+vim.keymap.set("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "prev search result" })
+vim.keymap.set("x", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "prev search result" })
+vim.keymap.set("o", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "prev search result" })
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = "move down" })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = "move up" })
+vim.keymap.set("v", "<", "<gv", { desc = "indent" })
+vim.keymap.set("v", ">", ">gv", { desc = "dedent" })
+vim.keymap.set("n", "<leader>z", "<cmd>lua vim.wo.number = not vim.wo.number<cr>", { desc = "toggle left panel" })
+vim.keymap.set("i", "<c-z>", "<C-o>", { desc = "execute normal command" })
+vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "escape and clear hlsearch" })
+vim.keymap.set("n", "<bs>", "<cmd>edit #<cr>", { silent = true, desc = "alternate buffer" })
+vim.keymap.set("n", "<leader>b", toggle_conceal, { desc = "toggle conceal" })
+vim.keymap.set("n", "<c-f>", "<cmd>w<cr>", { desc = "format" })
+vim.keymap.set("t", "<esc>", "<cmd>ToggleTerm<cr>", { desc = "exit terminal mode" })
+vim.keymap.set("i", "<C-d>", "<C-o><cmd>d<CR>", { desc = "delete line" })
+vim.keymap.set("i", "<C-v>", "<esc>pa", { desc = "paste" })
+vim.keymap.set("n", "gO", "<cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "empty line below" })
+vim.keymap.set("n", "go", "<cmd>call append(line('.'), repeat([''], v:count1))<CR>", { desc = "add empty line above" })
+vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "search inside visual selection" })
+vim.keymap.set("n", "<right>", "<C-w>", { desc = "window commands" })
+vim.keymap.set("n", "J", "mzJ`z", { desc = "join line but keep cursor position" })
 
-autocmd(
+vim.api.nvim_create_autocmd(
 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
 	{ desc = "autosave", pattern = "*", command = "silent! update" }
 )
-autocmd("BufReadPost", {
+
+vim.api.nvim_create_autocmd("BufReadPost", {
 	desc = "go to last loc when opening a buffer",
 	callback = function(event)
 		local exclude = { "gitcommit" }
@@ -103,7 +98,8 @@ autocmd("BufReadPost", {
 		end
 	end,
 })
-autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 	desc = "check if we need to reload the file when it changed",
 	callback = function()
 		if vim.o.buftype ~= "nofile" then
@@ -111,7 +107,8 @@ autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 		end
 	end,
 })
-autocmd({ "VimResized" }, {
+
+vim.api.nvim_create_autocmd({ "VimResized" }, {
 	desc = "resize splits if window got resized",
 	callback = function()
 		local current_tab = vim.fn.tabpagenr()
@@ -119,42 +116,11 @@ autocmd({ "VimResized" }, {
 		vim.cmd("tabnext " .. current_tab)
 	end,
 })
-autocmd("TextYankPost", {
+
+vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "highlight on yank",
 	callback = function()
 		vim.highlight.on_yank()
-	end,
-})
-
-autocmd("FileType", {
-	desc = "close some file types with q",
-	pattern = {
-		"PlenaryTestPopup",
-		"grug-far",
-		"help",
-		"lspinfo",
-		"notify",
-		"qf",
-		"spectre_panel",
-		"startuptime",
-		"tsplayground",
-		"neotest-output",
-		"checkhealth",
-		"neotest-summary",
-		"neotest-output-panel",
-		"dbout",
-		"gitsigns.blame",
-	},
-	callback = function(event)
-		vim.bo[event.buf].buflisted = false
-		keybind("close buffer", "q", "<cmd>close<cr>", "n", { buffer = event.buf, silent = true })
-	end,
-})
-autocmd({ "FileType" }, {
-	desc = "disable conceal for json files",
-	pattern = { "json", "jsonc", "json5" },
-	callback = function()
-		vim.opt_local.conceallevel = 0
 	end,
 })
 
@@ -172,7 +138,20 @@ autocmd({ "FileType" }, {
 
 vim.opt.rtp:prepend("C:\\Users\\micro\\repos\\instant-lsp.nvim")
 
-local plugins = {
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
 	require("instant-lsp").setup({
 		languages = { "lua" },
 		disable_feature = {
@@ -185,68 +164,68 @@ local plugins = {
 		"nikitarevenco/nvim-treesitter-textobjects",
 		branch = "personal",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
-    opts = {
-				textobjects = {
-					move = {
-						enable = true,
-						goto_next_start = {
-							["]a"] = "@parameter.inner",
-							["]l"] = "@loop.outer",
-							["]m"] = "@function.outer",
-							["]i"] = "@conditional.outer",
-							["]k"] = "@class.outer",
-							["]f"] = "@call.outer",
-							["]c"] = "@block.outer",
-							["]T"] = "@assignment.outer",
-							["]h"] = "@return.outer",
-							["]o"] = "@annotation.outer",
-							["]O"] = "@annotation.outer",
-						},
-						goto_previous_start = {
-							["[a"] = "@parameter.inner",
-							["[l"] = "@loop.outer",
-							["[m"] = "@function.outer",
-							["[i"] = "@conditional.outer",
-							["[k"] = "@class.outer",
-							["[f"] = "@call.outer",
-							["[c"] = "@block.outer",
-							["[T"] = "@assignment.outer",
-							["[h"] = "@return.outer",
-							["[o"] = "@annotation.outer",
-							["[O"] = "@annotation.outer",
-						},
+		opts = {
+			textobjects = {
+				move = {
+					enable = true,
+					goto_next_start = {
+						["]a"] = "@parameter.inner",
+						["]l"] = "@loop.outer",
+						["]m"] = "@function.outer",
+						["]i"] = "@conditional.outer",
+						["]k"] = "@class.outer",
+						["]f"] = "@call.outer",
+						["]c"] = "@block.outer",
+						["]T"] = "@assignment.outer",
+						["]h"] = "@return.outer",
+						["]o"] = "@annotation.outer",
+						["]O"] = "@annotation.outer",
 					},
-					select = {
-						enable = true,
-						lookahead = true,
-						keymaps = {
-							["T"] = { query = "@assignment.outer", desc = "assignment" },
-							["O"] = { query = "@statement.outer", desc = "statement" },
-							["io"] = { query = "@annotation.inner", desc = "type annotation" },
-							["ao"] = { query = "@annotation.outer", desc = "type annotation" },
-							["ih"] = { query = "@return.inner", desc = "return" },
-							["ah"] = { query = "@return.outer", desc = "return" },
-							["as"] = { query = "@assignment.lhs", desc = "assignment lhs" },
-							["is"] = { query = "@assignment.rhs", desc = "assignment rhs" },
-							["ac"] = { query = "@block.outer", desc = "block" },
-							["ic"] = { query = "@block.inner", desc = "block" },
-							["af"] = { query = "@call.outer", desc = "function call" },
-							["if"] = { query = "@call.inner", desc = "function call" },
-							["ak"] = { query = "@class.outer", desc = "class" },
-							["ik"] = { query = "@class.inner", desc = "class" },
-							["ai"] = { query = "@conditional.outer", desc = "conditional" },
-							["ii"] = { query = "@conditional.inner", desc = "conditional" },
-							["am"] = { query = "@function.outer", desc = "function" },
-							["im"] = { query = "@function.inner", desc = "function" },
-							["al"] = { query = "@loop.outer", desc = "loop" },
-							["il"] = { query = "@loop.inner", desc = "loop" },
-							["N"] = { query = "@number.inner", desc = "number" },
-							["aa"] = { query = "@parameter.outer", desc = "argument" },
-							["ia"] = { query = "@parameter.inner", desc = "argument" },
-						},
+					goto_previous_start = {
+						["[a"] = "@parameter.inner",
+						["[l"] = "@loop.outer",
+						["[m"] = "@function.outer",
+						["[i"] = "@conditional.outer",
+						["[k"] = "@class.outer",
+						["[f"] = "@call.outer",
+						["[c"] = "@block.outer",
+						["[T"] = "@assignment.outer",
+						["[h"] = "@return.outer",
+						["[o"] = "@annotation.outer",
+						["[O"] = "@annotation.outer",
+					},
+				},
+				select = {
+					enable = true,
+					lookahead = true,
+					keymaps = {
+						["T"] = { query = "@assignment.outer", desc = "assignment" },
+						["O"] = { query = "@statement.outer", desc = "statement" },
+						["io"] = { query = "@annotation.inner", desc = "type annotation" },
+						["ao"] = { query = "@annotation.outer", desc = "type annotation" },
+						["ih"] = { query = "@return.inner", desc = "return" },
+						["ah"] = { query = "@return.outer", desc = "return" },
+						["as"] = { query = "@assignment.lhs", desc = "assignment lhs" },
+						["is"] = { query = "@assignment.rhs", desc = "assignment rhs" },
+						["ac"] = { query = "@block.outer", desc = "block" },
+						["ic"] = { query = "@block.inner", desc = "block" },
+						["af"] = { query = "@call.outer", desc = "function call" },
+						["if"] = { query = "@call.inner", desc = "function call" },
+						["ak"] = { query = "@class.outer", desc = "class" },
+						["ik"] = { query = "@class.inner", desc = "class" },
+						["ai"] = { query = "@conditional.outer", desc = "conditional" },
+						["ii"] = { query = "@conditional.inner", desc = "conditional" },
+						["am"] = { query = "@function.outer", desc = "function" },
+						["im"] = { query = "@function.inner", desc = "function" },
+						["al"] = { query = "@loop.outer", desc = "loop" },
+						["il"] = { query = "@loop.inner", desc = "loop" },
+						["N"] = { query = "@number.inner", desc = "number" },
+						["aa"] = { query = "@parameter.outer", desc = "argument" },
+						["ia"] = { query = "@parameter.inner", desc = "argument" },
 					},
 				},
 			},
+		},
 		config = function(_, opts)
 			local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
 
@@ -258,10 +237,7 @@ local plugins = {
 			vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
 			require("nvim-treesitter.configs").setup(opts)
 		end,
-	},{
-  "ibhagwan/fzf-lua",
-    opts = {winopts={border="none",fullscreen = true }}
-},
+	},
 	{
 		"chrisgrieser/nvim-various-textobjs",
 		config = function()
@@ -275,36 +251,35 @@ local plugins = {
 
 				vim.cmd.normal({ '"zy', bang = true })
 				local url = vim.fn.getreg("z")
-				vim.ui.open(url) -- requires nvim 0.10
+				vim.ui.open(url)
 			end, { desc = "URL Opener" })
 
 			require("various-textobjs").setup({
 				useDefaultKeymaps = false,
 			})
 
-			local opts = { "o", "x" }
-			keybind("subword", "ir", "<cmd>lua require('various-textobjs').subword('inner')<cr>", opts)
-			keybind("subword", "ar", "<cmd>lua require('various-textobjs').subword('outer')<cr>", opts)
-			keybind("file", "A", "<cmd>lua require('various-textobjs').entireBuffer()<cr>", opts)
-			keybind("near end of line", "o", "<cmd>lua require('various-textobjs').nearEoL()<cr>", opts)
-			keybind("line chars", "n", "<cmd>lua require('various-textobjs').lineCharacterwise('inner')<cr>", opts)
-			keybind("value", "iv", "<cmd>lua require('various-textobjs').value('inner')<cr>", opts)
-			keybind("value", "av", "<cmd>lua require('various-textobjs').value('outer')<cr>", opts)
-			keybind("key", "ik", "<cmd>lua require('various-textobjs').key('inner')<cr>", opts)
-			keybind("key", "ak", "<cmd>lua require('various-textobjs').key('outer')<cr>", opts)
-			keybind("url", "U", "<cmd>lua require('various-textobjs').url()<cr>", opts)
-			keybind("chain", "ie", "<cmd>lua require('various-textobjs').chainMember('inner')<cr>", opts)
-			keybind("chain", "ae", "<cmd>lua require('various-textobjs').chainMember('outer')<cr>", opts)
+			vim.keymap.set({ "o", "x" }, "ir", "<cmd>lua require('various-textobjs').subword('inner')<cr>")
+			vim.keymap.set({ "o", "x" }, "ar", "<cmd>lua require('various-textobjs').subword('outer')<cr>")
+			vim.keymap.set({ "o", "x" }, "A", "<cmd>lua require('various-textobjs').entireBuffer()<cr>")
+			vim.keymap.set({ "o", "x" }, "o", "<cmd>lua require('various-textobjs').nearEoL()<cr>")
+			vim.keymap.set({ "o", "x" }, "n", "<cmd>lua require('various-textobjs').lineCharacterwise('inner')<cr>")
+			vim.keymap.set({ "o", "x" }, "iv", "<cmd>lua require('various-textobjs').value('inner')<cr>")
+			vim.keymap.set({ "o", "x" }, "av", "<cmd>lua require('various-textobjs').value('outer')<cr>")
+			vim.keymap.set({ "o", "x" }, "ik", "<cmd>lua require('various-textobjs').key('inner')<cr>")
+			vim.keymap.set({ "o", "x" }, "ak", "<cmd>lua require('various-textobjs').key('outer')<cr>")
+			vim.keymap.set({ "o", "x" }, "U", "<cmd>lua require('various-textobjs').url()<cr>", { desc = "url" })
+			vim.keymap.set({ "o", "x" }, "ie", "<cmd>lua require('various-textobjs').chainMember('inner')<cr>")
+			vim.keymap.set({ "o", "x" }, "ae", "<cmd>lua require('various-textobjs').chainMember('outer')<cr>")
 		end,
 	},
 	{
 		"MagicDuck/grug-far.nvim",
-    cmd = "GrugFar",
-    opts = {},
+		cmd = "GrugFar",
+		opts = {},
 	},
 	{
 		"stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		lazy = false,
 		opts = {
 			delete_to_trash = true,
@@ -351,7 +326,7 @@ local plugins = {
 	},
 	{
 		"gbprod/substitute.nvim",
-    opts = {},
+		opts = {},
 		keys = {
 			{ "s", "<cmd>lua require('substitute').operator()<cr>", desc = "substitute with motion" },
 			{ "ss", "<cmd>lua require('substitute').line()<cr>", desc = "substitute line" },
@@ -363,49 +338,49 @@ local plugins = {
 		"kylechui/nvim-surround",
 		config = true,
 	},
-  {
-    "numToStr/Comment.nvim",
-    opts = {},
-  },
+	{
+		"numToStr/Comment.nvim",
+		opts = {},
+	},
 	{
 		"chrisgrieser/nvim-spider",
 		config = function()
-			keybind("forward", "e", "<cmd>lua require('spider').motion('e')<CR>", { "n", "o", "x" })
-			keybind("backward", "b", "<cmd>lua require('spider').motion('b')<CR>", { "n", "o", "x" })
-			keybind("backward", "w", "<cmd>lua require('spider').motion('w')<CR>", { "n", "o", "x" })
+			vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "forward" })
+			vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "backward" })
+			vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "backward" })
 		end,
 	},
 	{
 		"HiPhish/rainbow-delimiters.nvim",
-    main = "rainbow-delimiters.setup",
-    opts = {
-				strategy = {
-					[""] = function(bufnr)
-						local large_file = vim.api.nvim_buf_line_count(bufnr) > 10000
-						return (not large_file) and require("rainbow-delimiters").strategy["global"] or nil
-					end,
-				},
-				query = {
-					[""] = "rainbow-delimiters",
-					lua = "rainbow-blocks",
-					query = function(bufnr)
-						local is_inspecttree = vim.b[bufnr].dev_base ~= nil
-						return is_inspecttree and "rainbow-blocks" or "rainbow-delimiters"
-					end,
-					latex = "rainbow-blocks",
-				},
-				priority = {
-					[""] = 110,
-					lua = 210,
-				},
-				highlight = {
-					"RainbowDelimiterRed",
-					"RainbowDelimiterYellow",
-					"RainbowDelimiterBlue",
-					"RainbowDelimiterOrange",
-					"RainbowDelimiterViolet",
-				},
+		main = "rainbow-delimiters.setup",
+		opts = {
+			strategy = {
+				[""] = function(bufnr)
+					local large_file = vim.api.nvim_buf_line_count(bufnr) > 10000
+					return (not large_file) and require("rainbow-delimiters").strategy["global"] or nil
+				end,
 			},
+			query = {
+				[""] = "rainbow-delimiters",
+				lua = "rainbow-blocks",
+				query = function(bufnr)
+					local is_inspecttree = vim.b[bufnr].dev_base ~= nil
+					return is_inspecttree and "rainbow-blocks" or "rainbow-delimiters"
+				end,
+				latex = "rainbow-blocks",
+			},
+			priority = {
+				[""] = 110,
+				lua = 210,
+			},
+			highlight = {
+				"RainbowDelimiterRed",
+				"RainbowDelimiterYellow",
+				"RainbowDelimiterBlue",
+				"RainbowDelimiterOrange",
+				"RainbowDelimiterViolet",
+			},
+		},
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
@@ -420,7 +395,7 @@ local plugins = {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-    opts = {},
+		opts = {},
 	},
 	{
 		"catppuccin/nvim",
@@ -483,59 +458,43 @@ local plugins = {
 	},
 	{
 		"b0o/incline.nvim",
-    opts = {
-				window = {
-					padding = 0,
-					margin = { horizontal = 0 },
-				},
-				render = function(props)
-					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-					if filename == "" then
-						filename = "[No Name]"
-					end
-
-					local modified = vim.bo[props.buf].modified
-					return {
-						{ filename, gui = modified and "bold,italic" or "bold" },
-						guibg = "#181825",
-						guifg = "#cdd6f4",
-					}
-				end,
+		opts = {
+			window = {
+				padding = 0,
+				margin = { horizontal = 0 },
 			},
+			render = function(props)
+				local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+				if filename == "" then
+					filename = "[No Name]"
+				end
+
+				local modified = vim.bo[props.buf].modified
+				return {
+					{ filename, gui = modified and "bold,italic" or "bold" },
+					guibg = "#181825",
+					guifg = "#cdd6f4",
+				}
+			end,
+		},
 	},
 	{
 		"akinsho/toggleterm.nvim",
-    opts = {
-				open_mapping = "<leader>e",
-				insert_mappings = false,
-				terminal_mappings = false,
-				autochdir = true,
-				shade_terminals = false,
-				direction = "tab",
-				shell = vim.fn.has("win32")
-						and 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\doskeys.cmd"'
-					or "zsh",
-			}
+		opts = {
+			open_mapping = "<leader>e",
+			insert_mappings = false,
+			terminal_mappings = false,
+			autochdir = true,
+			shade_terminals = false,
+			direction = "tab",
+			shell = vim.fn.has("win32") and 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\doskeys.cmd"'
+				or "zsh",
+		},
 	},
 	{
 		"samjwill/nvim-unception",
 	},
-}
-
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
-
-local lazy_options = {
+}, {
 	checker = {
 		enabled = true,
 		notify = false,
@@ -575,6 +534,4 @@ local lazy_options = {
 			},
 		},
 	},
-}
-
-require("lazy").setup(plugins, lazy_options)
+})

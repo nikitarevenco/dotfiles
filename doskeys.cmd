@@ -5,6 +5,7 @@ doskey r=powershell -ExecutionPolicy Bypass -Command "& {%USERPROFILE%\dotfiles\
 
 :: Shorter to write
 
+doskey ai=tgpt $*
 doskey s=s -p google $*
 doskey e=eza --icons --git-ignore --sort=changed --across --classify $*
 doskey p=pnpm $*
@@ -12,7 +13,7 @@ doskey b=bat --style=plain --theme ansi $*
 doskey n=nvim -u %USERPROFILE%\dotfiles\neovim.lua $*
 doskey l=lazygit $*
 doskey g=git $*
-doskey gr=grep --color=always
+doskey gr=grep --color=always $*
 doskey dns=doggo $*
 doskey fetch=curlie $*
 doskey bench=hyperfine $*
