@@ -7,19 +7,21 @@ My ideal windows 11 dev setup! 💖🪟😃
 - [Quick setup](#quick-setup)
 
 ### Overview
+
 ![preview image](https://github.com/user-attachments/assets/eb71f763-1449-4232-8521-da587793c09a)
 
 - Tiling Window Manager -> [GlazeWM](https://github.com/glzr-io/glazewm)
 - Neovim
 - Wezterm
 - [Clink](https://github.com/chrisant996/clink) -> Turns cmd.exe into a powerhouse of a shell. All the features of powershell and the speed of zsh
-- A *Lot* of CLI tools (grep, sd, yazi, fzf, zoxide, and dozens of others)
+- A _Lot_ of CLI tools (grep, sd, yazi, fzf, zoxide, and dozens of others)
 
 These dotfiles are unlike most others, as you can see I prefer to use 1 config file per app (see `neovim.lua`, `wezterm.lua`, etc.) as opposed to "organizing" them into folders with subdirectories and dozens of smaller files like I'd do with a project
 
 This is possible because all of the apps allow custom configuration path to be passed. I prefer having my configs in `~/dotfiles` (aka `%USERPROFILE%\dotfiles`) as opposed to `.config`. I think it's awesome having everything I need in one place
 
 ### Common commands I use
+
 - `t` and `ti`: zoxide which is a superior alternative to the `cd` command
 
 ![ti command being used](https://github.com/user-attachments/assets/01eb38e4-b14e-4dd3-ac28-098f4da11165)
@@ -33,12 +35,44 @@ This is possible because all of the apps allow custom configuration path to be p
 - `r`: sends all of its arguments to the trash
 - `i`: runs a one-off command in a folder without `cd`ing into it
 
-You can find most others in the [`doskeys.cmd`](https://github.com/nikitarevenco/dotfiles/blob/main/doskeys.cmd) file (doskeys are like `alias` in bash). For more complicated commands, they can be found in the `scripts/` folder (e.g. the `t` command which is in `t.lua` as we have to use clink to integrate zoxide with cmd.exe since zoxide does not provide official support). 
+You can find most others in the [`doskeys.cmd`](https://github.com/nikitarevenco/dotfiles/blob/main/doskeys.cmd) file (doskeys are like `alias` in bash). For more complicated commands, they can be found in the `scripts/` folder (e.g. the `t` command which is in `t.lua` as we have to use clink to integrate zoxide with cmd.exe since zoxide does not provide official support).
 
 Scripts starting with `_` do not correspond to any command in particular but rather change behaviour of the terminal (e.g. highlight environmental variables)
 
 ### Quick Setup
- 
+
+<details>
+<summary>
+  Linux
+</summary>
+
+Install `yay`:
+
+```
+tmp_dir=$(mktemp -d -t yay-XXXXXXXXXX) && git clone https://aur.archlinux.org/yay.git "$tmp_dir" && pushd "$tmp_dir" && makepkg -si --noconfirm && popd && rm -rf "$tmp_dir"
+```
+
+Install all dependencies:
+
+```
+
+yay -S --noconfirm base-devel $(lscpu | grep -q "AuthenticAMD" && echo amd-ucode || lscpu | grep -q "GenuineIntel" && echo intel-ucode) networkmanager npm git neovim cargo luarocks nodejs ruby julia yank curl unzip xclip ripgrep fzf zoxide bat zsh fd eza trash-cli wezterm yazi unarchiver jq poppler flameshot gimp noto-fonts-emoji noto-fonts libreoffice mpv firefox bspwm sxhkd dmenu nitrogen i3lock sddm
+```
+
+Symlink bspwm so it will know where to search for the file:
+
+```
+ln -s /path/to/bspwm.sh ~/.config/bspwm/bspwmrc
+```
+
+</details>
+
+<details>
+
+<summary>
+Windows
+</summary>
+
 Windows comes in with hundreds of packages I don't use and that slow down my computer. That's why I use the script below ([win11debloat](https://github.com/Raphire/Win11Debloat)) which removes all those apps and if I ever need them back I can easily reinstall through the Microsoft Store
 
 ```powershell
@@ -47,11 +81,12 @@ Windows comes in with hundreds of packages I don't use and that slow down my com
 
 ---
 
-I use scoop package manager which is my favorite one I've tried. Here's the command that will automatically install Scoop and every single package that I use [] 
+I use scoop package manager which is my favorite one I've tried. Here's the command that will automatically install Scoop and every single package that I use []
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression ; scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install 7zip autohotkey bat clink deno diff-so-fancy duf dust eza fd firefox fzf git go grep gron imagemagick JetBrainsMono-NF jq lazygit lua make neovim nodejs nomino pnpm poppler python qbittorrent ripgrep s sd sharex wezterm yazi zig zoxide jid yq doggo gping cacert clipboard curlie hyperfine paint.net procs simple-http-server uutils-coreutils luarocks ruby tgpt msys2 julia curlie dotnet-sdk
 ```
+
 ---
 
 In my `wezterm.lua` I set the env variables for all other apps like `lazygit`, but the below command is required so that that config file can be loaded in the first place. It permanently sets the environment variable in the system
@@ -76,4 +111,4 @@ Now just clone this repo into `~/dotfiles` (it needs to be there since all the e
 git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
 ```
 
----
+</details>
