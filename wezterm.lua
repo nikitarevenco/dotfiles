@@ -37,11 +37,11 @@ config.keys = {
 		mods = "CTRL",
 		action = wezterm.action.ResetFontSize,
 	},
-	-- {
-	-- 	key = "s",
-	-- 	mods = "CTRL",
-	-- 	action = wezterm.action.ActivateCopyMode,
-	-- },
+	{
+		key = "\\",
+		mods = "CTRL",
+		action = wezterm.action.ActivateCopyMode,
+	},
 	{
 		key = "Backspace",
 		mods = "CTRL",
