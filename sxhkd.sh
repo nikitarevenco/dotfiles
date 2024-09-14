@@ -1,62 +1,31 @@
 # Focus window
-alt + b
-    bspc node -f west
-alt + o
-    bspc node -f east
-alt + e
-    bspc node -f north
-alt + i
-    bspc node -f south
 
-# Move window
-alt + 2
-    bspc node -s west
-alt + 8
-    bspc node -s east
-alt + 1
-    bspc node -s north
-alt + 4
-    bspc node -s south
+alt + {n,e,i,o}
+    bspc node -f {west,south,north,east}
+
+alt + {2,8,1,4}
+    bspc node -s {west,east,north,east}
+
+alt + {b,p,f,w}
+    bspc desktop -f {1,2,3,4}
 
 # Resize window
 alt + l
-    bspc node -z right -20 0
+    bspc node -z right -20 +0 && bspc node -z left +20 +0
 alt + j
-    bspc node -z right +20 0
+    bspc node -z right +20 +0 && bspc node -z left -20 +0
 alt + u
-    bspc node -z bottom +0 +20
+    bspc node -z bottom +0 +20 && bspc node -z top +0 -20
 alt + y
-    bspc node -z bottom +0 -20
+    bspc node -z bottom +0 -20 && bspc node -z top +0 +20
 
-# Toggle floating (centered)
-alt + q
-    bspc node -t floating && bspc node -v center
-
-# Toggle tiling mode
-alt + g
-    bspc node -t tiled
-
-# Toggle fullscreen
-alt + f
-    bspc node -t fullscreen
-
-# Toggle minimized (hidden state in bspwm)
+# alternate between tiled and monocle layout
 alt + m
-    bspc node -g hidden -f
+    bspc desktop -l next
 
 # Close window
 alt + t
     bspc node -c
-
-# Switch workspace (desktop in bspwm)
-alt + b
-    bspc desktop -f 1
-alt + p
-    bspc desktop -f 2
-alt + f
-    bspc desktop -f 3
-alt + w
-    bspc desktop -f 4
 
 # Move window to workspace
 alt + 7
@@ -87,6 +56,3 @@ alt + z
 # Reload configuration
 alt + Escape
     bspc wm -r
-
-super + d
-    dmenu_run

@@ -46,27 +46,47 @@ Scripts starting with `_` do not correspond to any command in particular but rat
   Linux
 </summary>
 
+---
+
 Install `yay`:
 
 ```
 tmp_dir=$(mktemp -d -t yay-XXXXXXXXXX) && git clone https://aur.archlinux.org/yay.git "$tmp_dir" && pushd "$tmp_dir" && makepkg -si --noconfirm && popd && rm -rf "$tmp_dir"
 ```
 
-Install all dependencies:
+General tools:
 
 ```
-yay -S --noconfirm bspwm wezterm neovim openssh
+yay -S --noconfirm bspwm wezterm neovim openssh xclip ttf-jetbrains-mono-nerd eza fd firefox fzf jq sxhkd ripgrep sd yazi doggo hyperfine curlie tgpt
 ```
 
-Generate ssh key for Git and GitHub
+Language-specific stuff:
+
+```
+yay -S --noconfirm ruby julia cargo luarocks pnpm nodejs zig dotnet-sdk
+```
+
+---
+
+This single command will generate Git SSH keys and copy them into clipboard so I can easily setup Git and GitHub on a new computer in just 2 seconds
+
 ```
 mkdir -p "$HOME/.ssh" && ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" && cat "$HOME/.ssh/id_ed25519.pub"
 ```
 
-Symlink bspwm so it will know where to search for the file:
+---
+
+Now just clone this repo into `~/dotfiles` (it needs to be there since all the env variables in `wezterm.lua` point to that place) and launch wezterm
+
+```bash
+git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
+```
+---
+
+Create symlinks:
 
 ```
-ln -s /path/to/bspwm.sh ~/.config/bspwm/bspwmrc
+mkdir -p ~/.config/bspwm ~/.config/sxhkd && ln -s ~/dotfiles/.zshrc ~/.zshrc && ln -s ~/dotfiles/bspwm.sh ~/.config/bspwm/bspwmrc && ln -s ~/dotfiles/sxhkd.sh ~/.config/sxhkd/sxhkdrc
 ```
 
 </details>
