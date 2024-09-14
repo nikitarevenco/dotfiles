@@ -1,3 +1,8 @@
+setopt prompt_subst
+
+PROMPT='%F{green} ➜ %f'
+RPROMPT='%F{blue}$(pwd | sed "s|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/%F{blue}|g")%f'
+
 # Compression and scripts
 alias zip="7z a -t7z"
 alias r="powershell -ExecutionPolicy Bypass -Command '& { \$HOME/dotfiles/scripts/r.ps1 }'"
@@ -32,10 +37,11 @@ alias pu="pnpm update"
 alias pl="pnpm list"
 
 # Fast travel
-alias ..="cd .. && e"
-alias ...="cd ../.. && e"
-alias ....="cd ../../.. && e"
-alias .....="cd ../../../.. && e"
+alias .="cd .. && e"
+alias ..="cd ../.. && e"
+alias ...="cd ../../.. && e"
+alias ....="cd ../../../.. && e"
+alias .....="cd ../../../../.. && e"
 
 # eza shortcuts
 alias ea="eza --icons --sort=changed --across --classify --all"
@@ -53,3 +59,28 @@ alias eerr="ee --recurse --level=3"
 alias eerra="ee --all --recurse --level=3"
 alias eerrr="ee --recurse"
 alias eeerrra="ee --all --recurse"
+
+# suffix
+alias -s git="git clone"
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+function t() {
+  z "$@"
+  e
+}
+
+function precmd() {
+    function precmd() {
+        echo
+    }
+}
+
+eval "$(zoxide init zsh)"

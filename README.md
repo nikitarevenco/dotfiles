@@ -48,22 +48,10 @@ Scripts starting with `_` do not correspond to any command in particular but rat
 
 ---
 
-Install `yay`:
+Here's the command that will automatically install Scoop and every single package that I use
 
 ```
-tmp_dir=$(mktemp -d -t yay-XXXXXXXXXX) && git clone https://aur.archlinux.org/yay.git "$tmp_dir" && pushd "$tmp_dir" && makepkg -si --noconfirm && popd && rm -rf "$tmp_dir"
-```
-
-General tools:
-
-```
-yay -S --noconfirm bspwm wezterm neovim openssh xclip ttf-jetbrains-mono-nerd eza fd firefox fzf jq sxhkd ripgrep sd yazi doggo hyperfine curlie tgpt
-```
-
-Language-specific stuff:
-
-```
-yay -S --noconfirm ruby julia cargo luarocks pnpm nodejs zig dotnet-sdk
+tmp_dir=$(mktemp -d -t yay-XXXXXXXXXX) && git clone https://aur.archlinux.org/yay.git "$tmp_dir" && pushd "$tmp_dir" && makepkg -si --noconfirm && popd && rm -rf "$tmp_dir" && yay -S --noconfirm bspwm wezterm neovim openssh xclip ttf-jetbrains-mono-nerd eza fd firefox fzf jq sxhkd ripgrep sd yazi doggo hyperfine curlie tgpt ruby julia cargo luarocks pnpm nodejs zig dotnet-sdk bat gron duf dust git poppler zoxide jid procs gping qbittorrent
 ```
 
 ---
@@ -86,7 +74,7 @@ git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
 Create symlinks:
 
 ```
-mkdir -p ~/.config/bspwm ~/.config/sxhkd && ln -s ~/dotfiles/.zshrc ~/.zshrc && ln -s ~/dotfiles/bspwm.sh ~/.config/bspwm/bspwmrc && ln -s ~/dotfiles/sxhkd.sh ~/.config/sxhkd/sxhkdrc
+mkdir -p ~/.config/bspwm ~/.config/sxhkd && ln -s ~/dotfiles/bspwm.sh ~/.config/bspwm/bspwmrc && ln -s ~/dotfiles/sxhkd.sh ~/.config/sxhkd/sxhkdrc
 ```
 
 </details>
@@ -105,15 +93,14 @@ Windows comes in with hundreds of packages I don't use and that slow down my com
 
 ---
 
-I use scoop package manager which is my favorite one I've tried. Here's the command that will automatically install Scoop and every single package that I use []
-
+I use scoop package manager which is my favorite one I've tried. Here's the command that will automatically install Scoop and every single package that I use
 ```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression ; scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install 7zip autohotkey bat clink deno diff-so-fancy duf dust eza fd firefox fzf git go grep gron imagemagick JetBrainsMono-NF jq lazygit lua make neovim nodejs nomino pnpm poppler python qbittorrent ripgrep s sd sharex wezterm yazi zig zoxide jid yq doggo gping cacert clipboard curlie hyperfine paint.net procs simple-http-server uutils-coreutils luarocks ruby tgpt msys2 julia curlie dotnet-sdk
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression ; scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install 7zip autohotkey bat clink deno diff-so-fancy duf dust eza fd firefox fzf git go grep gron imagemagick JetBrainsMono-NF jq lua make neovim nodejs nomino pnpm poppler python qbittorrent ripgrep s sd sharex wezterm yazi zig zoxide jid yq doggo gping clipboard curlie hyperfine paint.net procs simple-http-server uutils-coreutils luarocks ruby tgpt msys2 julia curlie dotnet-sdk
 ```
 
 ---
 
-In my `wezterm.lua` I set the env variables for all other apps like `lazygit`, but the below command is required so that that config file can be loaded in the first place. It permanently sets the environment variable in the system
+In my `wezterm.lua` I set the env variables for all other apps, but the below command is required so that that config file can be loaded in the first place. It permanently sets the environment variable in the system
 
 ```powershell
 setx WEZTERM_CONFIG_FILE "%USERPROFILE%\dotfiles\wezterm.lua"
