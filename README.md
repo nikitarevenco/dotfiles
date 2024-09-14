@@ -55,8 +55,12 @@ tmp_dir=$(mktemp -d -t yay-XXXXXXXXXX) && git clone https://aur.archlinux.org/ya
 Install all dependencies:
 
 ```
+yay -S --noconfirm bspwm wezterm neovim openssh
+```
 
-yay -S --noconfirm base-devel $(lscpu | grep -q "AuthenticAMD" && echo amd-ucode || lscpu | grep -q "GenuineIntel" && echo intel-ucode) networkmanager npm git neovim cargo luarocks nodejs ruby julia yank curl unzip xclip ripgrep fzf zoxide bat zsh fd eza trash-cli wezterm yazi unarchiver jq poppler flameshot gimp noto-fonts-emoji noto-fonts libreoffice mpv firefox bspwm sxhkd dmenu nitrogen i3lock sddm
+Generate ssh key for Git and GitHub
+```
+mkdir -p "$HOME/.ssh" && ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" && cat "$HOME/.ssh/id_ed25519.pub"
 ```
 
 Symlink bspwm so it will know where to search for the file:
