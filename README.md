@@ -73,15 +73,12 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 |fd|better `find`|
 |neovim|editor|
 |ripgrep|better `grep`|
-|s|search internet|
 |tgpt|ai prompt|
 |sd|better `sed`|
 |yazi|file manager|
 |zoxide|better `cd`|
-|doggo|dns client|
 |hyperfine|benchmarking tool|
 |yq|yaml,json processor|
-|jid|json digger|
 |wezterm|terminal emulator|
 |firefox|browser|
 |JetBrainsMono NF|monospace font|
@@ -123,7 +120,7 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 Installation command for packages
 
 ```bash
-sudo pacman -S bspwm sxhkd xorg-xinit alsa-utils trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep s tgpt sd yazi zoxide doggo hyperfine yq jid wezterm firefox git gron eza procs curlie
+sudo pacman -S bspwm sxhkd xorg-xinit alsa-utils trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie
 ```
 
 ---
@@ -166,7 +163,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-Res
 Add buckets and install packages
 
 ```ps
-scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install bat clink duf dust eza fd firefox fzf git gron JetBrainsMono-NF jq luajit neovim nodejs pnpm ripgrep s sd wezterm yazi zoxide jid yq doggo curlie hyperfine procs uutils-coreutils luarocks ruby tgpt julia dotnet-sdk
+scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install bat clink duf dust eza fd firefox fzf git gron JetBrainsMono-NF jq luajit neovim nodejs pnpm ripgrep sd wezterm yazi zoxide yq curlie hyperfine procs uutils-coreutils luarocks ruby tgpt julia dotnet-sdk
 ```
 
 ---
