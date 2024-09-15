@@ -39,6 +39,15 @@ You can find most others in the [`doskeys.cmd`](https://github.com/nikitarevenco
 
 Scripts starting with `_` do not correspond to any command in particular but rather change behaviour of the terminal (e.g. highlight environmental variables)
 
+### Dependencies
+
+I usually forget why I install certain stuff so I keep note of all the packages in this table.
+
+|Package|Why?|Windows|Linux
+|----|----|---|---|
+|alsa-utils|to make Volume {Up,Down,Toggle} keys work|no|yes
+
+
 ### Quick Setup
 
 <details>
