@@ -1,5 +1,14 @@
 setopt prompt_subst
 
+export HISTFILE="$ZDOTDIR/.zhistory"
+export HISTSIZE=10000
+export SAVEHIST=10000
+
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
+setopt extended_glob
+
 PROMPT='%F{green} ➜ %f'
 RPROMPT='%F{blue}$(pwd | sed "s|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/%F{blue}|g")%f'
 
@@ -77,10 +86,20 @@ function t() {
   e
 }
 
+alias ti="zi"
+
 function precmd() {
     function precmd() {
         echo
     }
 }
 
+# create aliases 1 to 9 that allow me to jump to the 9 previous directories
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
+
+# these need to be placed at the end
 eval "$(zoxide init zsh)"
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh

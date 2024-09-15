@@ -51,7 +51,7 @@ Scripts starting with `_` do not correspond to any command in particular but rat
 Here's the command that will automatically install Scoop and every single package that I use
 
 ```
-tmp_dir=$(mktemp -d -t yay-XXXXXXXXXX) && git clone https://aur.archlinux.org/yay.git "$tmp_dir" && pushd "$tmp_dir" && makepkg -si --noconfirm && popd && rm -rf "$tmp_dir" && yay -S --noconfirm bspwm wezterm neovim openssh xclip ttf-jetbrains-mono-nerd eza fd firefox fzf jq sxhkd ripgrep sd yazi doggo hyperfine curlie tgpt ruby julia cargo luarocks pnpm nodejs zig dotnet-sdk bat gron duf dust git poppler zoxide jid procs gping qbittorrent
+tmp_dir=$(mktemp -d -t yay-XXXXXXXXXX) && git clone https://aur.archlinux.org/yay.git "$tmp_dir" && pushd "$tmp_dir" && makepkg -si --noconfirm && popd && rm -rf "$tmp_dir" && yay -S --noconfirm bspwm wezterm neovim openssh xclip ttf-jetbrains-mono-nerd eza fd firefox fzf jq sxhkd ripgrep sd yazi doggo hyperfine curlie tgpt ruby julia cargo luarocks pnpm nodejs zig dotnet-sdk bat gron duf dust git poppler zoxide jid procs gping qbittorrent zsh-syntax-highlighting zsh-autosuggestions
 ```
 
 ---
