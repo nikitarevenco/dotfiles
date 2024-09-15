@@ -41,6 +41,11 @@ Scripts starting with `_` do not correspond to any command in particular but rat
 
 ### Packages
 
+
+<details>
+<summary>
+test
+</summary>
 <!-- <details> -->
 <!-- <summary> -->
 list of packages split into sections
@@ -109,11 +114,6 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 |trash-cli|like `rm` but we can recover|
 
 <!-- </details> -->
-
-<details>
-<summary>
-test
-</summary>
 
 </details>
 
