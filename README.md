@@ -41,10 +41,10 @@ Scripts starting with `_` do not correspond to any command in particular but rat
 
 ### Packages
 
-<details>
-<summary>
+<!-- <details> -->
+<!-- <summary> -->
 list of packages split into sections
-</summary>
+<!-- </summary> -->
 
 I usually forget why I install certain stuff so I keep note of all the packages in this table.
 
@@ -108,7 +108,7 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 |alsa-utils|to make Volume {Up,Down,Toggle} keys work|
 |trash-cli|like `rm` but we can recover|
 
-</detais>
+<!-- </details> -->
 
 ### Quick Setup
 
