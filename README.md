@@ -44,12 +44,8 @@ Scripts starting with `_` do not correspond to any command in particular but rat
 
 <details>
 <summary>
-test
+packages
 </summary>
-<!-- <details> -->
-<!-- <summary> -->
-list of packages split into sections
-<!-- </summary> -->
 
 I usually forget why I install certain stuff so I keep note of all the packages in this table.
 
@@ -112,8 +108,6 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 |xorg-xinit|x session starter|
 |alsa-utils|to make Volume {Up,Down,Toggle} keys work|
 |trash-cli|like `rm` but we can recover|
-
-<!-- </details> -->
 
 </details>
 
