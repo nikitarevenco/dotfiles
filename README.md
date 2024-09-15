@@ -93,24 +93,6 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 |uutils-coreutils|gnu commands|
 |sharex|take screenshots|
 
-Install scoop
-
-```ps
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-```
-
-Add buckets and install packages
-
-```ps
-scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install bat clink duf dust eza fd firefox fzf git gron JetBrainsMono-NF jq luajit neovim nodejs pnpm ripgrep s sd wezterm yazi zoxide jid yq doggo curlie hyperfine procs uutils-coreutils luarocks ruby tgpt julia dotnet-sdk
-```
-
-Installation command
-
-```
-scoop install
-```
-
 #### Linux only
 
 |Package|Purpose|
@@ -121,18 +103,20 @@ scoop install
 |alsa-utils|to make Volume {Up,Down,Toggle} keys work|
 |trash-cli|like `rm` but we can recover|
 
-Installation command
-
-```bash
-sudo pacman -S bspwm sxhkd xorg-xinit alsa-utils trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep s tgpt sd yazi zoxide doggo hyperfine yq jid wezterm firefox git gron eza procs curlie
-```
-
 ### Quick Setup
 
 <details>
 <summary>
   Linux
 </summary>
+
+
+
+Installation command for packages
+
+```bash
+sudo pacman -S bspwm sxhkd xorg-xinit alsa-utils trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep s tgpt sd yazi zoxide doggo hyperfine yq jid wezterm firefox git gron eza procs curlie
+```
 
 ---
 
@@ -164,6 +148,20 @@ mkdir -p ~/.config/bspwm ~/.config/sxhkd && ln -s ~/dotfiles/bspwm.sh ~/.config/
 <summary>
 Windows
 </summary>
+
+Install scoop (in my experience this is the best package manager for windows)
+
+```ps
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+```
+
+Add buckets and install packages
+
+```ps
+scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install bat clink duf dust eza fd firefox fzf git gron JetBrainsMono-NF jq luajit neovim nodejs pnpm ripgrep s sd wezterm yazi zoxide jid yq doggo curlie hyperfine procs uutils-coreutils luarocks ruby tgpt julia dotnet-sdk
+```
+
+---
 
 Windows comes in with hundreds of packages I don't use and that slow down my computer. That's why I use the script below ([win11debloat](https://github.com/Raphire/Win11Debloat)) which removes all those apps and if I ever need them back I can easily reinstall through the Microsoft Store
 
