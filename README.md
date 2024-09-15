@@ -39,14 +39,93 @@ You can find most others in the [`doskeys.cmd`](https://github.com/nikitarevenco
 
 Scripts starting with `_` do not correspond to any command in particular but rather change behaviour of the terminal (e.g. highlight environmental variables)
 
-### Dependencies
+### Packages
 
 I usually forget why I install certain stuff so I keep note of all the packages in this table.
 
-|Package|Why?|Windows|Linux
-|----|----|---|---|
-|alsa-utils|to make Volume {Up,Down,Toggle} keys work|no|yes
+#### Language Specific tools
 
+|Package|Purpose|
+|-|-|
+|nodejs|lang|
+|luajit|lang|
+|ruby|lang|
+|python|lang|
+|pnpm|better `npm`|
+|luarocks|package manager for lua|
+|dotnet-sdk|lang|
+|julia|lang|
+
+#### General tools
+
+|Package|Purpose|
+|----|----|
+|duf|better `df`|
+|bat|better `cat`|
+|dust|better `du`|
+|fzf|fuzzy finder|
+|fd|better `find`|
+|neovim|editor|
+|ripgrep|better `grep`|
+|s|search internet|
+|tgpt|ai prompt|
+|sd|better `sed`|
+|yazi|file manager|
+|zoxide|better `cd`|
+|doggo|dns client|
+|hyperfine|benchmarking tool|
+|yq|yaml,json processor|
+|jid|json digger|
+|wezterm|terminal emulator|
+|firefox|browser|
+|JetBrainsMono NF|monospace font|
+|git|version control|
+|gron|make json greppable|
+|eza|better `ls`|
+|procs|better `ps`|
+|curlie|better `curl`|
+
+#### Windows only
+
+|Package|Purpose|
+|-|-|
+|clink|give cmd.exe superpowers|
+|uutils-coreutils|gnu commands|
+|sharex|take screenshots|
+
+Install scoop
+
+```ps
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+```
+
+Add buckets and install packages
+
+```ps
+scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install bat clink duf dust eza fd firefox fzf git gron JetBrainsMono-NF jq luajit neovim nodejs pnpm ripgrep s sd wezterm yazi zoxide jid yq doggo curlie hyperfine procs uutils-coreutils luarocks ruby tgpt julia dotnet-sdk
+```
+
+Installation command
+
+```
+scoop install
+```
+
+#### Linux only
+
+|Package|Purpose|
+|-|-|
+|bspwm|tiling window manager|
+|sxhkd|shortcut daemon|
+|xorg-xinit|x session starter|
+|alsa-utils|to make Volume {Up,Down,Toggle} keys work|
+|trash-cli|like `rm` but we can recover|
+
+Installation command
+
+```bash
+sudo pacman -S bspwm sxhkd xorg-xinit alsa-utils trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep s tgpt sd yazi zoxide doggo hyperfine yq jid wezterm firefox git gron eza procs curlie
+```
 
 ### Quick Setup
 
@@ -54,14 +133,6 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 <summary>
   Linux
 </summary>
-
----
-
-Here's the command that will automatically install Scoop and every single package that I use
-
-```
-tmp_dir=$(mktemp -d -t yay-XXXXXXXXXX) && git clone https://aur.archlinux.org/yay.git "$tmp_dir" && pushd "$tmp_dir" && makepkg -si --noconfirm && popd && rm -rf "$tmp_dir" && yay -S --noconfirm bspwm wezterm neovim openssh xclip ttf-jetbrains-mono-nerd eza fd firefox fzf jq sxhkd ripgrep sd yazi doggo hyperfine curlie tgpt ruby julia cargo luarocks pnpm nodejs zig dotnet-sdk bat gron duf dust git poppler zoxide jid procs gping qbittorrent zsh-syntax-highlighting zsh-autosuggestions
-```
 
 ---
 
@@ -83,7 +154,7 @@ git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
 Create symlinks:
 
 ```
-mkdir -p ~/.config/bspwm ~/.config/sxhkd && ln -s ~/dotfiles/bspwm.sh ~/.config/bspwm/bspwmrc && ln -s ~/dotfiles/sxhkd.sh ~/.config/sxhkd/sxhkdrc
+mkdir -p ~/.config/bspwm ~/.config/sxhkd && ln -s ~/dotfiles/bspwm.sh ~/.config/bspwm/bspwmrc && ln -s ~/dotfiles/sxhkd.sh ~/.config/sxhkd/sxhkdrc && ln -s ~/dotfiles/.zshrc ~/.zshrc
 ```
 
 </details>
@@ -98,13 +169,6 @@ Windows comes in with hundreds of packages I don't use and that slow down my com
 
 ```powershell
 & ([scriptblock]::Create((irm "https://win11debloat.raphi.re/")))
-```
-
----
-
-I use scoop package manager which is my favorite one I've tried. Here's the command that will automatically install Scoop and every single package that I use
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression ; scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install 7zip autohotkey bat clink deno diff-so-fancy duf dust eza fd firefox fzf git go grep gron imagemagick JetBrainsMono-NF jq lua make neovim nodejs nomino pnpm poppler python qbittorrent ripgrep s sd sharex wezterm yazi zig zoxide jid yq doggo gping clipboard curlie hyperfine paint.net procs simple-http-server uutils-coreutils luarocks ruby tgpt msys2 julia curlie dotnet-sdk
 ```
 
 ---

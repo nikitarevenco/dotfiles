@@ -155,7 +155,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	require("instant-lsp").setup({
-		languages = { "lua", "markdown" },
+		languages = { "lua" },
 		disable_feature = {
 			snippets = true,
 			ts_context = true,
