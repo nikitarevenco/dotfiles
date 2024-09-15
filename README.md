@@ -110,6 +110,13 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 
 <!-- </details> -->
 
+<details>
+<summary>
+test
+</summary>
+
+</details>
+
 ### Quick Setup
 
 <details>
