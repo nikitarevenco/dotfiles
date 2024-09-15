@@ -86,7 +86,6 @@ config.set_environment_variables = {
 	FZF_CTRL_T_COMMAND = "eza --oneline --absolute --color=always --no-quotes $dir",
 	CLINK_PATH = dotfiles_dir .. path_separator .. "scripts",
 	CLINK_SETTINGS = dotfiles_dir,
-	ZDOTDIR = dotfiles_dir,
 	GIT_CONFIG_GLOBAL = dotfiles_dir .. path_separator .. "git.ini",
 	YAZI_CONFIG_HOME = dotfiles_dir,
 	LG_CONFIG_FILE = dotfiles_dir .. path_separator .. "lazygit.yml",

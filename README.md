@@ -147,7 +147,7 @@ git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
 Create symlinks:
 
 ```
-mkdir -p ~/.config/bspwm ~/.config/sxhkd && ln -s ~/dotfiles/bspwm.sh ~/.config/bspwm/bspwmrc && ln -s ~/dotfiles/sxhkd.sh ~/.config/sxhkd/sxhkdrc && ln -s ~/dotfiles/.zshrc ~/.zshrc
+mkdir -p ~/.config/bspwm ~/.config/sxhkd && ln -s ~/dotfiles/bspwm.sh ~/.config/bspwm/bspwmrc && ln -s ~/dotfiles/sxhkd.sh ~/.config/sxhkd/sxhkdrc && ln -s ~/dotfiles/zsh.zsh ~/.zshrc
 ```
 
 </details>
