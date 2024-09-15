@@ -105,6 +105,10 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 |xorg-xinit|x session starter|
 |alsa-utils|to make Volume {Up,Down,Toggle} keys work|
 |trash-cli|like `rm` but we can recover|
+|xclip|clipboard manager|
+|zsh|shell|
+|zsh-syntax-highlighting|zsh plugin|
+|zsh-autosuggestions|zsh plugin
 
 </details>
 
@@ -120,7 +124,7 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 Installation command for packages
 
 ```bash
-sudo pacman -S bspwm sxhkd xorg-xinit alsa-utils trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie
+sudo pacman -S bspwm sxhkd xorg-xinit alsa-utils trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip
 ```
 
 ---
