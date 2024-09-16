@@ -17,6 +17,6 @@ bspc config pointer_modifier shift
 export WEZTERM_CONFIG_FILE="$HOME/dotfiles/wezterm.lua"
 
 wezterm-gui &
-sxhkd &
+sxhkd -c $HOME/dotfiles/sxhkd.sh &
 # Stop cursor from being an "X" when not over a window
 xsetroot -cursor_name left_ptr &

@@ -148,7 +148,7 @@ git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
 Create symlinks:
 
 ```
-mkdir -p ~/.config/bspwm ~/.config/sxhkd && ln -s ~/dotfiles/bspwm.sh ~/.config/bspwm/bspwmrc && ln -s ~/dotfiles/sxhkd.sh ~/.config/sxhkd/sxhkdrc && ln -s ~/dotfiles/zsh.zsh ~/.zshrc
+mkdir -p ~/.config/bspwm && ln -s ~/dotfiles/bspwm.sh ~/.config/bspwm/bspwmrc && echo "source ~/dotfiles/zsh.zsh" > ~/.zshrc
 ```
 
 </details>
@@ -185,6 +185,7 @@ In my `wezterm.lua` I set the env variables for all other apps, but the below co
 
 ```powershell
 setx WEZTERM_CONFIG_FILE "%USERPROFILE%\dotfiles\wezterm.lua"
+setx GLAZEWM_CONFIG_PATH "%USERPROFILE%\dotfiles\glazewm.yaml"
 ```
 
 ---
