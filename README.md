@@ -103,7 +103,7 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 |bspwm|tiling window manager|
 |sxhkd|shortcut daemon|
 |xorg-xinit|x session starter|
-|alsa-utils|to make Volume Up,Down,Toggle keys work|
+|pulseaudio|to make Volume Up,Down,Toggle keys work|
 |brightnessctl|to make Brightness Up and Down keys work|
 |trash-cli|like `rm` but we can recover|
 |xclip|clipboard manager|
@@ -125,7 +125,7 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 Installation command for packages
 
 ```bash
-sudo pacman -S bspwm sxhkd xorg-xinit alsa-utils trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip
+sudo pacman -S bspwm sxhkd xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl
 ```
 
 ---

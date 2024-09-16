@@ -58,13 +58,13 @@ alt + Escape
     bspc wm -r
 
 XF86AudioRaiseVolume
-  amixer sset Master,0 3dB+
+  pactl set-sink-volume @DEFAULT_SINK@ +5%
 
 XF86AudioLowerVolume
-  amixer sset Master,0 3dB-
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
 
 XF86AudioMute
-  amixer sset Master,0 toggle
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 XF86MonBrightnessUp
   brighsnessctl s 10+
