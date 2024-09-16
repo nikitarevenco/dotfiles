@@ -17,6 +17,7 @@ alias zip="7z a -t7z"
 alias r="powershell -ExecutionPolicy Bypass -Command '& { \$HOME/dotfiles/scripts/r.ps1 }'"
 
 # Short commands
+alias md="mkdir"
 alias ai="tgpt"
 alias s="s -p google"
 alias e="eza --icons --git-ignore --sort=changed --across --classify"
@@ -29,6 +30,7 @@ alias gr="grep --color=always"
 alias dns="doggo"
 alias fetch="curlie"
 alias bench="hyperfine"
+alias pac="sudo pacman"
 
 # Utilities
 alias dus="dust -bX .git"
