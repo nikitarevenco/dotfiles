@@ -56,3 +56,18 @@ alt + z
 # Reload configuration
 alt + Escape
     bspc wm -r
+
+XF86AudioRaiseVolume
+  amixer sset Master,0 3dB+
+
+XF86AudioLowerVolume
+  amixer sset Master,0 3dB-
+
+XF86AudioMute
+  amixer sset Master,0 toggle
+
+XF86MonBrightnessUp
+  brighsnessctl s 10+
+
+XF86MonBrightnessDown
+  brighsnessctl s 10-

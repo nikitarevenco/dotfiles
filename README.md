@@ -103,7 +103,8 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 |bspwm|tiling window manager|
 |sxhkd|shortcut daemon|
 |xorg-xinit|x session starter|
-|alsa-utils|to make Volume {Up,Down,Toggle} keys work|
+|alsa-utils|to make Volume Up,Down,Toggle keys work|
+|brightnessctl|to make Brightness Up and Down keys work|
 |trash-cli|like `rm` but we can recover|
 |xclip|clipboard manager|
 |zsh|shell|
