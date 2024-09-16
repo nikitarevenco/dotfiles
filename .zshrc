@@ -1,8 +1,13 @@
 setopt prompt_subst
 
-export HISTFILE="$ZDOTDIR/.zhistory"
+export HISTFILE="~/.zhistory"
 export HISTSIZE=10000
 export SAVEHIST=10000
+
+# ctrl-right
+bindkey "^[[1;5C" forward-word
+# ctrl-left
+bindkey "^[[1;5D" backward-word
 
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
@@ -14,9 +19,9 @@ RPROMPT='%F{blue}$(pwd | sed "s|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/%F{blu
 
 # Compression and scripts
 alias zip="7z a -t7z"
-alias r="powershell -ExecutionPolicy Bypass -Command '& { \$HOME/dotfiles/scripts/r.ps1 }'"
 
 # Short commands
+alias r="trash"
 alias md="mkdir"
 alias ai="tgpt"
 alias s="s -p google"
@@ -24,6 +29,7 @@ alias e="eza --icons --git-ignore --sort=changed --across --classify"
 alias p="pnpm"
 alias b="bat --style=plain --theme ansi"
 alias n="nvim -u \$HOME/dotfiles/neovim.lua"
+alias sn="sudo nvim -u \$HOME/dotfiles/neovim.lua"
 alias l="lazygit"
 alias g="git"
 alias gr="grep --color=always"
