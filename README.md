@@ -1,53 +1,15 @@
-## Nikita Revenco Windows 11 Dotfiles
+## Nikita Revenco Linux and Windows Dotfiles
 
-My ideal windows 11 dev setup! 💖🪟😃
-
-- [Overview](#overview)
-- [Common commands](#common-commands-i-use)
-- [Quick setup](#quick-setup)
-
-### Overview
-
-![preview image](https://github.com/user-attachments/assets/eb71f763-1449-4232-8521-da587793c09a)
-
-- Tiling Window Manager -> [GlazeWM](https://github.com/glzr-io/glazewm)
-- Neovim
-- Wezterm
-- [Clink](https://github.com/chrisant996/clink) -> Turns cmd.exe into a powerhouse of a shell. All the features of powershell and the speed of zsh
-- A _Lot_ of CLI tools (grep, sd, yazi, fzf, zoxide, and dozens of others)
-
-These dotfiles are unlike most others, as you can see I prefer to use 1 config file per app (see `neovim.lua`, `wezterm.lua`, etc.) as opposed to "organizing" them into folders with subdirectories and dozens of smaller files like I'd do with a project
-
-This is possible because all of the apps allow custom configuration path to be passed. I prefer having my configs in `~/dotfiles` (aka `%USERPROFILE%\dotfiles`) as opposed to `.config`. I think it's awesome having everything I need in one place
-
-### Common commands I use
-
-- `t` and `ti`: zoxide which is a superior alternative to the `cd` command
-
-![ti command being used](https://github.com/user-attachments/assets/01eb38e4-b14e-4dd3-ac28-098f4da11165)
-
-- `e`: Eza which is like `ls` but with icons and color
-
-![e command being used](https://github.com/user-attachments/assets/f5d79c60-b839-4395-ac5c-3df3fb03092e)
-
-- `w`: spawns a wezterm window with working directory same as current
-- `n`: open `nvim`
-- `r`: sends all of its arguments to the trash
-- `i`: runs a one-off command in a folder without `cd`ing into it
-
-You can find most others in the [`doskeys.cmd`](https://github.com/nikitarevenco/dotfiles/blob/main/doskeys.cmd) file (doskeys are like `alias` in bash). For more complicated commands, they can be found in the `scripts/` folder (e.g. the `t` command which is in `t.lua` as we have to use clink to integrate zoxide with cmd.exe since zoxide does not provide official support).
-
-Scripts starting with `_` do not correspond to any command in particular but rather change behaviour of the terminal (e.g. highlight environmental variables)
+My ideal linux and windows setup for development, designed for productivity
 
 ### Packages
 
+I usually forget why I install certain stuff so I keep note of all the packages in this table.
 
 <details>
 <summary>
 packages
 </summary>
-
-I usually forget why I install certain stuff so I keep note of all the packages in this table.
 
 #### Language Specific tools
 
@@ -100,9 +62,10 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 
 |Package|Purpose|
 |-|-|
-|bspwm|tiling window manager|
-|sxhkd|shortcut daemon|
+|i3-wm|tiling window manager|
+|dmenu|program runner|
 |xorg-xinit|x session starter|
+|noto-fonts-emoji|render emojis|
 |pulseaudio|to make Volume Up,Down,Toggle keys work|
 |brightnessctl|to make Brightness Up and Down keys work|
 |trash-cli|like `rm` but we can recover|
@@ -125,7 +88,7 @@ I usually forget why I install certain stuff so I keep note of all the packages 
 Installation command for packages
 
 ```bash
-sudo pacman -S bspwm sxhkd xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl
+sudo pacman -S i3-wm dmenu xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji
 ```
 
 ---
