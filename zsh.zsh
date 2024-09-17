@@ -1,9 +1,18 @@
 setopt prompt_subst
 
-export HISTFILE="~/.zhistory"
-export HISTSIZE=10000
-export SAVEHIST=10000
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
+bindkey -e
 # ctrl-right
 bindkey "^[[1;5C" forward-word
 # ctrl-left
@@ -17,9 +26,6 @@ setopt extended_glob
 PROMPT='%F{green} ➜ %f'
 RPROMPT='%F{blue}$(pwd | sed "s|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/%F{blue}|g")%f'
 
-# Compression and scripts
-alias zip="7z a -t7z"
-
 # Short commands
 alias r="trash"
 alias md="mkdir"
@@ -30,28 +36,12 @@ alias p="pnpm"
 alias b="bat --style=plain --theme ansi"
 alias n="nvim -u \$HOME/dotfiles/neovim.lua"
 alias sn="sudo nvim -u \$HOME/dotfiles/neovim.lua"
-alias l="lazygit"
 alias g="git"
-alias gr="grep --color=always"
-alias dns="doggo"
-alias fetch="curlie"
-alias bench="hyperfine"
-alias pac="sudo pacman"
 
 # Utilities
 alias dus="dust -bX .git"
 alias js='node -e "console.log(\$*)"'
-alias ps="powershell -ExecutionPolicy Bypass -File"
 alias norg="gron --ungron"
-alias mit="curl -s https://raw.githubusercontent.com/nikitarevenco/github-template/main/LICENSE > LICENSE"
-
-# pnpm shortcuts
-alias pi="pnpm add"
-alias pid="pnpm add -D"
-alias px="pnpm dlx"
-alias po="pnpm outdated"
-alias pu="pnpm update"
-alias pl="pnpm list"
 
 # Fast travel
 alias .="cd .. && e"
@@ -80,6 +70,7 @@ alias eeerrra="ee --all --recurse"
 # suffix
 alias -s git="git clone"
 
+# Yazi will change directories
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
@@ -89,13 +80,14 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+# Zoxide but preview files in the directory we are travelling to
 function t() {
   z "$@"
   e
 }
-
 alias ti="zi"
 
+# Add newline after every prompt except for the first one
 function precmd() {
     function precmd() {
         echo
@@ -107,6 +99,7 @@ alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
 # these need to be placed at the end
+eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
