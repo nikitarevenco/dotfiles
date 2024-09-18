@@ -122,8 +122,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- vim.opt.rtp:prepend("C:\\Users\\micro\\repos\\instant-lsp.nvim")
-
 local instant_lsp_path = vim.fn.stdpath("data") .. "/instant-lsp.nvim"
 
 -- Clone the plugin onto your system
@@ -501,7 +499,7 @@ require("lazy").setup({
 			vim.keymap.set({ "o", "x" }, "av", "<cmd>lua require('various-textobjs').value('outer')<cr>")
 			vim.keymap.set({ "o", "x" }, "ik", "<cmd>lua require('various-textobjs').key('inner')<cr>")
 			vim.keymap.set({ "o", "x" }, "ak", "<cmd>lua require('various-textobjs').key('outer')<cr>")
-			vim.keymap.set({ "o", "x" }, "u", "<cmd>lua require('various-textobjs').url()<cr>", { desc = "url" })
+			vim.keymap.set({ "o", "x" }, "U", "<cmd>lua require('various-textobjs').url()<cr>", { desc = "url" })
 			vim.keymap.set({ "o", "x" }, "ig", "<cmd>lua require('various-textobjs').chainMember('inner')<cr>")
 			vim.keymap.set({ "o", "x" }, "ag", "<cmd>lua require('various-textobjs').chainMember('outer')<cr>")
 		end,
