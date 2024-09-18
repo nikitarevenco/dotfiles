@@ -44,7 +44,9 @@ packages
 |wezterm|terminal emulator|
 |firefox|browser|
 |JetBrainsMono NF|monospace font|
+|flameshot|screenshot software|
 |git|version control|
+|gimp|image editor|
 |gron|make json greppable|
 |eza|better `ls`|
 |procs|better `ps`|
@@ -90,7 +92,7 @@ packages
 Installation command for packages
 
 ```bash
-sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji
+sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot
 ```
 
 Also install yay
@@ -102,7 +104,7 @@ sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/ya
 And install yay packages
 
 ```bash
-yay -S --noconfirm boomer fzf-tab-source
+yay -S --noconfirm boomer fzf-tab-source gimp-git
   ```
 
 ---
@@ -145,7 +147,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; Invoke-Res
 Add buckets and install packages
 
 ```ps
-scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install bat clink duf dust eza fd firefox fzf git gron JetBrainsMono-NF jq luajit neovim nodejs pnpm ripgrep sd wezterm yazi zoxide yq curlie hyperfine procs uutils-coreutils luarocks ruby tgpt julia dotnet-sdk
+scoop bucket add extras ; scoop bucket add nerd-fonts ; scoop install bat clink duf dust eza fd firefox fzf git gron JetBrainsMono-NF jq luajit neovim nodejs pnpm ripgrep sd wezterm yazi zoxide yq curlie hyperfine procs uutils-coreutils luarocks ruby tgpt julia dotnet-sdk gimp flameshot
 ```
 
 ---
