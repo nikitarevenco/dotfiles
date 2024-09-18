@@ -72,7 +72,9 @@ packages
 |xclip|clipboard manager|
 |zsh|shell|
 |zsh-syntax-highlighting|zsh plugin|
-|zsh-autosuggestions|zsh plugin
+|zsh-autosuggestions|zsh plugin|
+|fzf-tab-source|use fzf for tab completion|
+|boomer|zoom in|
 
 </details>
 
@@ -88,8 +90,20 @@ packages
 Installation command for packages
 
 ```bash
-sudo pacman -S i3-wm dmenu xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji
+sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji
 ```
+
+Also install yay
+
+```bash
+sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
+  ```
+
+And install yay packages
+
+```bash
+yay -S --noconfirm boomer fzf-tab-source
+  ```
 
 ---
 
@@ -111,7 +125,7 @@ git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
 Create symlinks:
 
 ```
-mkdir -p ~/.config/bspwm && ln -s ~/dotfiles/bspwm.sh ~/.config/bspwm/bspwmrc && echo "source ~/dotfiles/zsh.zsh" > ~/.zshrc
+mkdir -p ~/.config/i3 && ln -s ~/dotfiles/i3.sh ~/.config/i3/config && echo "source ~/dotfiles/zsh.zsh" > ~/.zshrc
 ```
 
 </details>

@@ -1,5 +1,9 @@
 setopt prompt_subst
 
+autoload -Uz compinit && compinit
+# case insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
@@ -103,3 +107,5 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh
+source /usr/share/zsh/plugins/fzf-tab-source/fzf-tab.zsh
