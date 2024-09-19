@@ -74,6 +74,7 @@ vim.keymap.set("n", "<right>", "<C-w>", { desc = "window commands" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "join line but keep cursor position" })
 vim.keymap.set("n", "<c-u>", "<c-u>zz")
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
+vim.keymap.set("n", "<leader>a", "<cmd>qa!<cr>")
 
 vim.api.nvim_create_autocmd(
 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
@@ -122,21 +123,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-local instant_lsp_path = vim.fn.stdpath("data") .. "/instant-lsp.nvim"
-
--- Clone the plugin onto your system
-if not vim.loop.fs_stat(instant_lsp_path) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/nikitarevenco/instant-lsp.nvim",
-		instant_lsp_path,
-	})
-end
-
 -- Let neovim recognize the plugin's path so we can require it
-vim.opt.rtp:prepend(instant_lsp_path)
+vim.opt.rtp:prepend("/home/e/proj/instant-lsp.nvim")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
