@@ -28,7 +28,7 @@ setopt PUSHD_SILENT
 setopt extended_glob
 
 PROMPT='%F{green} ➜ %f'
-RPROMPT='%F{blue}$(pwd | sed "s|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/%F{blue}|g")%f'
+RPROMPT='%F{blue}$(pwd | sed "s|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/%F{blue}|g")%f '
 
 # Short commands
 alias r="trash"
