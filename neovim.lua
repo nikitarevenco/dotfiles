@@ -74,8 +74,9 @@ vim.keymap.set("n", "<right>", "<C-w>", { desc = "window commands" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "join line but keep cursor position" })
 vim.keymap.set("n", "<c-u>", "<c-u>zz")
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
-vim.keymap.set("n", "<leader>a", "<cmd>qa!<cr>")
+vim.keymap.set("n", "<leader>x", "<cmd>qa!<cr>")
 
+vim.keymap.set("n", "<leader>a", "O/**<cr>/<up><cr>")
 vim.api.nvim_create_autocmd(
 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
 	{ desc = "autosave", pattern = "*", command = "silent! update" }
@@ -141,10 +142,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	require("instant-lsp").setup({
-		languages = { "lua" },
+		languages = { "lua", "markdown", "typescript", "mdx", "tailwind" },
 		disable_feature = {
 			snippets = true,
 			ts_context = true,
+			virtual_text = true,
 			cmp_border = true,
 		},
 	}),
