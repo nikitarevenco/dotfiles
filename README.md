@@ -76,6 +76,7 @@ packages
 |zsh-syntax-highlighting|zsh plugin|
 |zsh-autosuggestions|zsh plugin|
 |fzf-tab-source|use fzf for tab completion|
+|at|auto-update and auto-shutdown|
 |boomer|zoom in|
 
 </details>
@@ -92,7 +93,7 @@ packages
 Installation command for packages
 
 ```bash
-sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot
+sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot at
 ```
 
 Also install yay
@@ -128,6 +129,15 @@ Create symlinks:
 
 ```
 mkdir -p ~/.config/i3 && ln -s ~/dotfiles/i3.sh ~/.config/i3/config && echo "source ~/dotfiles/zsh.zsh" > ~/.zshrc
+```
+
+---
+
+I set my computer to shutdown everyday at `10PM`:
+
+```sh
+systemctl enable atd.service
+echo "shutdown now" | at 10PM
 ```
 
 </details>
