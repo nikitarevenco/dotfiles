@@ -14,7 +14,6 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.autoindent = true
-vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
 vim.opt.smoothscroll = true
 vim.opt.conceallevel = 2
@@ -212,7 +211,19 @@ require("lazy").setup({
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
-		opts = {},
+		opts = {
+			modes = {
+				char = {
+					enabled = false,
+				},
+			},
+			label = {
+				rainbow = {
+					enabled = true,
+					shade = 8,
+				},
+			},
+		},
 		keys = {
 			{
 				"<cr>",
@@ -495,94 +506,9 @@ require("lazy").setup({
 				useDefaultKeymaps = false,
 			})
 
-			vim.keymap.set({ "o", "x" }, "ie", "<cmd>lua require('various-textobjs').subword('inner')<cr>")
-			vim.keymap.set({ "o", "x" }, "ae", "<cmd>lua require('various-textobjs').subword('outer')<cr>")
+			vim.keymap.set({ "o", "x" }, "r", "<cmd>lua require('various-textobjs').subword('inner')<cr>")
 			vim.keymap.set({ "o", "x" }, "Z", "<cmd>lua require('various-textobjs').entireBuffer()<cr>")
 			vim.keymap.set({ "o", "x" }, "m", "<cmd>lua require('various-textobjs').nearEoL()<cr>")
-			vim.keymap.set({ "o", "x" }, "q", "<cmd>lua require('various-textobjs').lineCharacterwise('inner')<cr>")
-			vim.keymap.set({ "o", "x" }, "iv", "<cmd>lua require('various-textobjs').value('inner')<cr>")
-			vim.keymap.set({ "o", "x" }, "av", "<cmd>lua require('various-textobjs').value('outer')<cr>")
-			vim.keymap.set({ "o", "x" }, "ik", "<cmd>lua require('various-textobjs').key('inner')<cr>")
-			vim.keymap.set({ "o", "x" }, "ak", "<cmd>lua require('various-textobjs').key('outer')<cr>")
-			vim.keymap.set({ "o", "x" }, "U", "<cmd>lua require('various-textobjs').url()<cr>", { desc = "url" })
-			vim.keymap.set({ "o", "x" }, "ig", "<cmd>lua require('various-textobjs').chainMember('inner')<cr>")
-			vim.keymap.set({ "o", "x" }, "ag", "<cmd>lua require('various-textobjs').chainMember('outer')<cr>")
-		end,
-	},
-	{
-		"nikitarevenco/nvim-treesitter-textobjects",
-		branch = "personal",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		opts = {
-			textobjects = {
-				move = {
-					enable = true,
-					goto_next_start = {
-						["]a"] = "@parameter.inner",
-						["]l"] = "@loop.outer",
-						["]m"] = "@function.outer",
-						["]c"] = "@conditional.outer",
-						["]o"] = "@class.outer",
-						["]f"] = "@call.outer",
-						["]h"] = "@block.outer",
-						["]i"] = "@assignment.outer",
-						["]r"] = "@return.outer",
-						["]n"] = "@annotation.outer",
-					},
-					goto_previous_start = {
-						["[a"] = "@parameter.inner",
-						["[l"] = "@loop.outer",
-						["[m"] = "@function.outer",
-						["[c"] = "@conditional.outer",
-						["[o"] = "@class.outer",
-						["[f"] = "@call.outer",
-						["[h"] = "@block.outer",
-						["[i"] = "@assignment.outer",
-						["[r"] = "@return.outer",
-						["[n"] = "@annotation.outer",
-					},
-				},
-				select = {
-					enable = true,
-					lookahead = true,
-					keymaps = {
-						["id"] = { query = "@number.inner", desc = "number" },
-						["au"] = { query = "@statement.outer", desc = "statement" },
-						["iu"] = { query = "@assignment.outer", desc = "assignment" },
-						["ah"] = { query = "@block.outer", desc = "block" },
-						["ih"] = { query = "@block.inner", desc = "block" },
-						["ao"] = { query = "@class.outer", desc = "class" },
-						["io"] = { query = "@class.inner", desc = "class" },
-						["ai"] = { query = "@assignment.lhs", desc = "assignment lhs" },
-						["ii"] = { query = "@assignment.rhs", desc = "assignment rhs" },
-						["in"] = { query = "@annotation.inner", desc = "annotation" },
-						["an"] = { query = "@annotation.outer", desc = "annotation" },
-						["af"] = { query = "@call.outer", desc = "function call" },
-						["if"] = { query = "@call.inner", desc = "function call" },
-						["ac"] = { query = "@conditional.outer", desc = "conditional" },
-						["ic"] = { query = "@conditional.inner", desc = "conditional" },
-						["ir"] = { query = "@return.inner", desc = "return" },
-						["ar"] = { query = "@return.outer", desc = "return" },
-						["am"] = { query = "@function.outer", desc = "function" },
-						["im"] = { query = "@function.inner", desc = "function" },
-						["al"] = { query = "@loop.outer", desc = "loop" },
-						["il"] = { query = "@loop.inner", desc = "loop" },
-						["aa"] = { query = "@parameter.outer", desc = "argument" },
-						["ia"] = { query = "@parameter.inner", desc = "argument" },
-					},
-				},
-			},
-		},
-		config = function(_, opts)
-			local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
-
-			vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
-			vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
-			vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
-			vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
-			vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
-			vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
-			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},
 }, {
