@@ -66,7 +66,8 @@ packages
 |-|-|
 |i3-wm|tiling window manager|
 |dmenu|program runner|
-|xorg-xinit|x session starter|
+|xorg-xinit|x session starter script|
+|xorg-server|x server to run i3|
 |noto-fonts-emoji|render emojis|
 |pulseaudio|to make Volume Up,Down,Toggle keys work|
 |brightnessctl|to make Brightness Up and Down keys work|
@@ -75,8 +76,8 @@ packages
 |zsh|shell|
 |zsh-syntax-highlighting|zsh plugin|
 |zsh-autosuggestions|zsh plugin|
+|zsh-autopairs|zsh plugin|
 |fzf-tab-source|use fzf for tab completion|
-|at|auto-update and auto-shutdown|
 |boomer|zoom in|
 
 </details>
@@ -93,7 +94,7 @@ packages
 Installation command for packages
 
 ```bash
-sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot at
+sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit xorg-server pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot ttf-jetbrains-mono-nerd
 ```
 
 Also install yay
@@ -105,7 +106,7 @@ sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/ya
 And install yay packages
 
 ```bash
-yay -S --noconfirm boomer fzf-tab-source gimp-git
+yay -S --noconfirm boomer fzf-tab-source gimp-git zsh-autopair
   ```
 
 ---
@@ -129,15 +130,6 @@ Create symlinks:
 
 ```
 mkdir -p ~/.config/i3 && ln -s ~/dotfiles/i3.sh ~/.config/i3/config && echo "source ~/dotfiles/zsh.zsh" > ~/.zshrc
-```
-
----
-
-I set my computer to shutdown everyday at `10PM`:
-
-```sh
-systemctl enable atd.service
-echo "shutdown now" | at 10PM
 ```
 
 </details>

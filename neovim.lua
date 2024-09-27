@@ -6,6 +6,14 @@ local function toggle_conceal()
 	end
 end
 
+-- Disable conceal in markdown, mdx, and json files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {"markdown", "mdx", "json"},
+  callback = function()
+    vim.wo.conceallevel = 0
+  end,
+})
+
 vim.g.markdown_recommended_style = 0
 vim.g.mapleader = " "
 vim.o.updatetime = 750
