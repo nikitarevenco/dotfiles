@@ -124,7 +124,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Let neovim recognize the plugin's path so we can require it
-vim.opt.rtp:prepend("/home/e/proj/instant-lsp.nvim")
+vim.opt.rtp:prepend("/home/nikita/proj/instant-lsp.nvim")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

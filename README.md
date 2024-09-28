@@ -32,6 +32,7 @@ packages
 |bat|better `cat`|
 |dust|better `du`|
 |fzf|fuzzy finder|
+|onefetch|git repo stats|
 |fd|better `find`|
 |neovim|editor|
 |ripgrep|better `grep`|
@@ -76,7 +77,6 @@ packages
 |zsh-syntax-highlighting|zsh plugin|
 |zsh-autosuggestions|zsh plugin|
 |fzf-tab-source|use fzf for tab completion|
-|at|auto-update and auto-shutdown|
 |boomer|zoom in|
 
 </details>
@@ -93,7 +93,7 @@ packages
 Installation command for packages
 
 ```bash
-sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot at
+sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot onefetch
 ```
 
 Also install yay
