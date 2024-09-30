@@ -43,7 +43,9 @@ alias sn="sudo nvim -u \$HOME/dotfiles/neovim.lua"
 alias g="git"
 
 # Utilities
-alias dus="dust -bX .git"
+alias onefetch="onefetch --no-art --no-color-palette --nerd-fonts --true-color never"
+alias duf="duf -hide special -theme ansi"
+alias dust="dust -bX .git"
 alias js='node -e "console.log(\$*)"'
 alias norg="gron --ungron"
 
