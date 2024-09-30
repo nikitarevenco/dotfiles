@@ -1,3 +1,7 @@
+# do not wrap focus
+focus_wrapping no
+
+# borders
 default_border pixel 2
 default_floating_border pixel 2
 # hide borders if only 1 window on workspace
