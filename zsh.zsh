@@ -28,23 +28,34 @@ setopt PUSHD_SILENT
 setopt extended_glob
 
 PROMPT='%F{green} ➜ %f'
-RPROMPT='%F{blue}$(pwd | sed "s|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/%F{blue}|g")%f '
+RPROMPT='%F{blue}$(pwd | sed "s|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/ %F{blue}|g")%f '
 
 # Short commands
 alias r="trash"
 alias md="mkdir"
 alias ai="tgpt"
 alias s="s -p google"
-alias e="eza --icons --git-ignore --sort=changed --across --classify"
+alias e="eza --git-ignore --sort=changed --across --classify"
+alias pac="sudo pacman --color=always"
 alias p="pnpm"
-alias b="bat --style=plain --theme ansi"
+
+# if its an img file or similar show it in the terminal, otherwise show contents of the text file
+function b() {
+    for file in "$@"; do
+        if [[ "$file" =~ \.(png|jpg|jpeg|gif|bmp|tiff|svg)$ ]]; then
+            wezterm imgcat "$file"
+        else
+            bat --style=plain --theme ansi "$file"
+        fi
+    done
+}
 alias n="nvim -u \$HOME/dotfiles/neovim.lua"
 alias sn="sudo nvim -u \$HOME/dotfiles/neovim.lua"
 alias g="git"
 
 # Utilities
 alias onefetch="onefetch --no-art --no-color-palette --nerd-fonts --true-color never"
-alias duf="duf -hide special -theme ansi"
+alias duf="duf -theme ansi"
 alias dust="dust -bX .git"
 alias js='node -e "console.log(\$*)"'
 alias norg="gron --ungron"
@@ -57,14 +68,14 @@ alias ....="cd ../../../.. && e"
 alias .....="cd ../../../../.. && e"
 
 # eza shortcuts
-alias ea="eza --icons --sort=changed --across --classify --all"
-alias er="eza --icons --git-ignore --sort=changed --across --classify --recurse --level=2"
-alias era="eza --icons --sort=changed --across --classify --all --recurse --level=2"
-alias err="eza --icons --git-ignore --sort=changed --across --classify --recurse --level=3"
-alias erra="eza --icons --sort=changed --across --classify --all --recurse --level=3"
-alias errr="eza --icons --git-ignore --sort=changed --across --classify --recurse"
-alias errra="eza --icons --sort=changed --across --classify --all --recurse"
-alias ee="eza --icons --git-ignore --sort=changed --across --classify --long --total-size --no-user --no-permissions --git --time-style=relative --git-repos"
+alias ea="eza --sort=changed --across --classify --all"
+alias er="eza --git-ignore --sort=changed --across --classify --recurse --level=2"
+alias era="eza --sort=changed --across --classify --all --recurse --level=2"
+alias err="eza --git-ignore --sort=changed --across --classify --recurse --level=3"
+alias erra="eza --sort=changed --across --classify --all --recurse --level=3"
+alias errr="eza --git-ignore --sort=changed --across --classify --recurse"
+alias errra="eza --sort=changed --across --classify --all --recurse"
+alias ee="eza --git-ignore --sort=changed --across --classify --long --total-size --no-user --no-permissions --git --time-style=relative --git-repos"
 alias eea="ee --all"
 alias eer="ee --recurse --level=2"
 alias eera="ee --all --recurse --level=2"
