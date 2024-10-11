@@ -1,21 +1,4 @@
-local function toggle_conceal()
-	if vim.wo.conceallevel == 2 then
-		vim.opt.conceallevel = 0
-	else
-		vim.opt.conceallevel = 2
-	end
-end
-
--- Disable conceal in markdown, mdx, and json files
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "markdown", "mdx", "json" },
-	callback = function()
-		vim.wo.conceallevel = 0
-	end,
-})
-
 vim.g.markdown_recommended_style = 0
-vim.g.mapleader = " "
 vim.o.updatetime = 750
 vim.opt.showtabline = 0
 vim.opt.tabstop = 2
@@ -24,7 +7,7 @@ vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.sidescrolloff = 8
 vim.opt.smoothscroll = true
-vim.opt.conceallevel = 2
+vim.g.mapleader = " "
 vim.opt.wrap = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -39,8 +22,8 @@ vim.opt.splitbelow = true
 vim.opt.swapfile = false
 vim.opt.shortmess:append("I")
 vim.opt.undofile = true
-vim.wo.number = false
-vim.wo.relativenumber = false
+vim.wo.number = true
+vim.wo.relativenumber = true
 vim.o.laststatus = 0
 vim.cmd("hi! link StatusLine Normal")
 vim.cmd("hi! link StatusLineNC Normal")
@@ -61,16 +44,9 @@ vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, si
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = "move up" })
 vim.keymap.set("v", "<", "<gv", { desc = "indent" })
 vim.keymap.set("v", ">", ">gv", { desc = "dedent" })
-vim.keymap.set(
-	"n",
-	"<leader>z",
-	"<cmd>lua vim.wo.number = not vim.wo.number;vim.wo.relativenumber = not vim.wo.relativenumber<cr>",
-	{ desc = "toggle line numbers" }
-)
 vim.keymap.set("i", "<c-z>", "<C-o>", { desc = "execute normal command" })
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "escape and clear hlsearch" })
 vim.keymap.set("n", "<bs>", "<cmd>edit #<cr>", { silent = true, desc = "alternate buffer" })
-vim.keymap.set("n", "<leader>b", toggle_conceal, { desc = "toggle conceal" })
 vim.keymap.set("t", "<esc>", "<cmd>ToggleTerm<cr>", { desc = "exit terminal mode" })
 vim.keymap.set("i", "<C-d>", "<C-o><cmd>d<CR>", { desc = "delete line" })
 vim.keymap.set("i", "<C-v>", "<esc>pa", { desc = "paste" })
@@ -83,7 +59,7 @@ vim.keymap.set("n", "<c-u>", "<c-u>zz")
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
 vim.keymap.set("n", "<leader>x", "<cmd>qa!<cr>")
 
-vim.keymap.set("n", "<leader>a", "O/**<cr>/<up><cr>")
+vim.keymap.set("n", "<leader>y", "O/**<cr>/<up><cr>", { desc = "add jsdoc comment above" })
 vim.api.nvim_create_autocmd(
 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
 	{ desc = "autosave", pattern = "*", command = "silent! update" }
@@ -164,17 +140,29 @@ require("lazy").setup({
 			"yaml",
 		},
 		disable_feature = {
-			snippets = false,
+			snippets = true,
 			ts_context = true,
 			virtual_text = true,
 			cmp_border = true,
+		},
+		keys = {
+			lsp = {
+				hover_diagnostics = "<c-k>",
+				document_symbols = "<leader>a",
+				workspace_symbols = "<leader>r",
+			},
 		},
 	}),
 	{
 		"MagicDuck/grug-far.nvim",
 		cmd = "GrugFar",
 		keys = {
-			{ "<leader>s", "<cmd>GrugFar<cr>", desc = "search and replace" },
+			{ "<leader>n", "<cmd>GrugFar<cr>", desc = "search and replace" },
+			{
+				"<leader>.",
+				"<cmd>lua require('grug-far').open({ prefills = { paths = vim.fn.expand('%') } })<cr>",
+				desc = "search and replace file",
+			},
 		},
 		opts = {},
 	},
@@ -226,34 +214,11 @@ require("lazy").setup({
 	{
 		"ibhagwan/fzf-lua",
 		keys = {
-			{ "<leader>y", "<cmd>FzfLua grep_project<cr>", desc = "grep" },
-		},
-	},
-	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		opts = {
-			modes = {
-				char = {
-					enabled = false,
-				},
-			},
-			label = {
-				rainbow = {
-					enabled = true,
-					shade = 8,
-				},
-			},
-		},
-		keys = {
-			{
-				"<cr>",
-				mode = { "o", "x" },
-				function()
-					require("flash").treesitter_search()
-				end,
-				desc = "Treesitter Search",
-			},
+			{ "<leader>s", "<cmd>FzfLua grep_project<cr>", desc = "rg project" },
+			{ "<leader>t", "<cmd>FzfLua grep_project<cr>", desc = "rg buffers" },
+			{ "<leader>g", "<cmd>FzfLua git_commits<cr>", desc = "project commits" },
+			{ "<leader>m", "<cmd>FzfLua git_bcommits<cr>", desc = "buffer commits" },
+			{ "<leader>o", "<cmd>FzfLua buffers<cr>", desc = "see buffers" },
 		},
 	},
 	{
@@ -327,6 +292,27 @@ require("lazy").setup({
 				keymaps = {
 					["<left>"] = "actions.parent",
 					["<right>"] = "actions.select",
+					gs = {
+						callback = function()
+							-- get the current directory
+							local prefills = { paths = require("oil").get_current_dir() }
+
+							local grug_far = require("grug-far")
+							-- instance check
+							if not grug_far.has_instance("explorer") then
+								grug_far.open({
+									instanceName = "explorer",
+									prefills = prefills,
+									staticTitle = "Find and Replace from Explorer",
+								})
+							else
+								grug_far.open_instance("explorer")
+								-- updating the prefills without clearing the search and other fields
+								grug_far.update_instance_prefills("explorer", prefills, false)
+							end
+						end,
+						desc = "Search in directory",
+					},
 					["<esc>"] = "actions.close",
 					["?"] = {
 						desc = "Toggle file detail view",
@@ -370,9 +356,6 @@ require("lazy").setup({
 				function()
 					local oil = require("oil")
 					oil.open()
-					-- require("oil.util").run_after_load(0, function()
-					-- 	oil.open_preview()
-					-- end)
 				end,
 				desc = "file manager",
 			},
@@ -390,7 +373,100 @@ require("lazy").setup({
 	},
 	{
 		"kylechui/nvim-surround",
-		config = true,
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({})
+			require("nvim-surround").buffer_setup({
+				-- Surround with markdown link
+				surrounds = {
+					["l"] = {
+						add = function()
+							local clipboard = vim.fn.getreg("+"):gsub("\n", "")
+							return {
+								{ "[" },
+								{ "](" .. clipboard .. ")" },
+							}
+						end,
+						find = "%b[]%b()",
+						delete = "^(%[)().-(%]%b())()$",
+						change = {
+							target = "^()()%b[]%((.-)()%)$",
+							replacement = function()
+								local clipboard = vim.fn.getreg("+"):gsub("\n", "")
+								return {
+									{ "" },
+									{ clipboard },
+								}
+							end,
+						},
+					},
+					-- "generic"
+					g = {
+						add = function()
+							local config = require("nvim-surround.config")
+							local result = config.get_input("Enter the generic name: ")
+							if result then
+								return { { result .. "<" }, { ">" } }
+							end
+						end,
+						find = function()
+							local config = require("nvim-surround.config")
+							return config.get_selection({ node = "generic_type" })
+						end,
+						delete = "^(.-<)().-(>)()$",
+						change = {
+							target = "^(.-<)().-(>)()$",
+							replacement = function()
+								local config = require("nvim-surround.config")
+								local result = config.get_input("Enter the generic name: ")
+								if result then
+									return { { result .. "<" }, { ">" } }
+								end
+							end,
+						},
+					},
+					-- Surround with markdown code block, triple backticks.
+					["~"] = {
+						add = function()
+							local config = require("nvim-surround.config")
+							local result = config.get_input("Markdown code block language: ")
+							return {
+								{ "```\n" .. result, "" },
+								{ "", "```" },
+							}
+						end,
+					},
+					-- JavaScript string interpolation
+					["s"] = {
+						add = function()
+							local ts_utils = require("nvim-treesitter.ts_utils")
+							local cur = ts_utils.get_node_at_cursor(0, true)
+							local language = vim.bo.filetype
+							local is_jsy = (
+								language == "javascript"
+								or language == "javascriptreact"
+								or language == "typescript"
+								or language == "typescriptreact"
+							)
+
+							if is_jsy then
+								local cur_type = cur:type()
+								local interpolation_surround = { { "${" }, { "}" } }
+								if cur and (cur_type == "string" or cur_type == "string_fragment") then
+									vim.cmd.normal("csq`")
+									return interpolation_surround
+								elseif cur and cur_type == "template_string" then
+									return interpolation_surround
+								else
+									return { { "`${" }, { "}`" } }
+								end
+							end
+						end,
+					},
+				},
+			})
+		end,
 	},
 	{
 		"numToStr/Comment.nvim",
@@ -399,9 +475,9 @@ require("lazy").setup({
 	{
 		"chrisgrieser/nvim-spider",
 		config = function()
+			vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "forward" })
 			vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "forward" })
 			vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "backward" })
-			vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "backward" })
 		end,
 	},
 	{
@@ -466,14 +542,14 @@ require("lazy").setup({
 			require("catppuccin").setup(opts)
 			vim.cmd([[colorscheme catppuccin]])
 
-			for _, highlight in ipairs({
-				"DiagnosticUnderlineError",
-				"DiagnosticUnderlineWarn",
-				"DiagnosticUnderlineInfo",
-				"DiagnosticUnderlineHint",
-			}) do
-				vim.api.nvim_set_hl(0, highlight, { undercurl = false, underline = false })
-			end
+			-- for _, highlight in ipairs({
+			-- 	"DiagnosticUnderlineError",
+			-- 	"DiagnosticUnderlineWarn",
+			-- 	"DiagnosticUnderlineInfo",
+			-- 	"DiagnosticUnderlineHint",
+			-- }) do
+			-- 	vim.api.nvim_set_hl(0, highlight, { undercurl = false, underline = false })
+			-- end
 		end,
 	},
 	{

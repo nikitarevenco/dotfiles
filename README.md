@@ -69,7 +69,9 @@ packages
 |dmenu|program runner|
 |xorg-xinit|x session starter script|
 |xorg-server|x server to run i3|
+|noto-fonts|various fonts|
 |noto-fonts-emoji|render emojis|
+|noto-fonts-cjk|render cjk characters|
 |pulseaudio|to make Volume Up,Down,Toggle keys work|
 |brightnessctl|to make Brightness Up and Down keys work|
 |trash-cli|like `rm` but we can recover|
