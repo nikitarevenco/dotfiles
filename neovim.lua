@@ -47,7 +47,7 @@ vim.keymap.set("v", ">", ">gv", { desc = "dedent" })
 vim.keymap.set("i", "<c-z>", "<C-o>", { desc = "execute normal command" })
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "escape and clear hlsearch" })
 vim.keymap.set("n", "<bs>", "<cmd>edit #<cr>", { silent = true, desc = "alternate buffer" })
-vim.keymap.set("t", "<esc>", "<cmd>ToggleTerm<cr>", { desc = "exit terminal mode" })
+vim.keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "exit terminal mode" })
 vim.keymap.set("i", "<C-d>", "<C-o><cmd>d<CR>", { desc = "delete line" })
 vim.keymap.set("i", "<C-v>", "<esc>pa", { desc = "paste" })
 vim.keymap.set("n", "gO", "<cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "empty line below" })
@@ -150,6 +150,15 @@ require("lazy").setup({
 				hover_diagnostics = "<c-k>",
 				document_symbols = "<leader>a",
 				workspace_symbols = "<leader>r",
+				toggle_inlay_hints = "<leader>l",
+				toggle_diagnostics = "<nop>",
+			},
+			typescript = {
+				file_references = "<nop>",
+				organize_imports = "<nop>",
+				add_missing_imports = "<leader>u",
+				remove_unused_imports = "<leader>y",
+				fix_all = "<nop>",
 			},
 		},
 	}),
@@ -174,7 +183,7 @@ require("lazy").setup({
 			terminal_mappings = false,
 			autochdir = true,
 			shade_terminals = false,
-			direction = "tab",
+			direction = "horizontal",
 			shell = package.config:sub(1, 1) == "\\"
 					and 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\doskeys.cmd"'
 				or vim.o.shell,
@@ -214,11 +223,12 @@ require("lazy").setup({
 	{
 		"ibhagwan/fzf-lua",
 		keys = {
-			{ "<leader>s", "<cmd>FzfLua grep_project<cr>", desc = "rg project" },
-			{ "<leader>t", "<cmd>FzfLua grep_project<cr>", desc = "rg buffers" },
+			{ "<leader>s", "<cmd>FzfLua grep_project<cr>", desc = "grep" },
+			{ "<leader>t", "<cmd>FzfLua files<cr>", desc = "files" },
+			{ "<leader>k", "<cmd>FzfLua oldfiles<cr>", desc = "old files" },
 			{ "<leader>g", "<cmd>FzfLua git_commits<cr>", desc = "project commits" },
 			{ "<leader>m", "<cmd>FzfLua git_bcommits<cr>", desc = "buffer commits" },
-			{ "<leader>o", "<cmd>FzfLua buffers<cr>", desc = "see buffers" },
+			{ "<leader>o", "<cmd>FzfLua buffers<cr>", desc = "buffers" },
 		},
 	},
 	{
@@ -567,14 +577,12 @@ require("lazy").setup({
 				margin = { horizontal = 0 },
 			},
 			render = function(props)
-				local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-				if filename == "" then
-					filename = "[No Name]"
-				end
-
 				local modified = vim.bo[props.buf].modified
 				return {
-					{ filename, gui = modified and "bold,italic" or "bold" },
+					{
+						vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t"),
+						gui = modified and "bold,italic" or "bold",
+					},
 					guibg = "#181825",
 					guifg = "#cdd6f4",
 				}
@@ -606,7 +614,6 @@ require("lazy").setup({
 
 			vim.keymap.set({ "o", "x" }, "r", "<cmd>lua require('various-textobjs').subword('inner')<cr>")
 			vim.keymap.set({ "o", "x" }, "Z", "<cmd>lua require('various-textobjs').entireBuffer()<cr>")
-			vim.keymap.set({ "o", "x" }, "m", "<cmd>lua require('various-textobjs').nearEoL()<cr>")
 		end,
 	},
 }, {

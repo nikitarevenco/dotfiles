@@ -83,6 +83,7 @@ alias eerr="ee --recurse --level=3"
 alias eerra="ee --all --recurse --level=3"
 alias eerrr="ee --recurse"
 alias eeerrra="ee --all --recurse"
+alias mirrors="sudo reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist"
 
 # suffix
 alias -s git="git clone"
@@ -114,6 +115,8 @@ function precmd() {
 # create aliases 1 to 9 that allow me to jump to the 9 previous directories
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
+
+export PATH=/home/e/.deno/bin:$PATH
 
 # these need to be placed at the end
 eval "$(fzf --zsh)"
