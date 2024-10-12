@@ -1,3 +1,4 @@
+# vim: set filetype=zsh :
 setopt prompt_subst
 
 autoload -Uz compinit && compinit

@@ -1,26 +1,32 @@
+# vim: set filetype=gitconfig :
 [user]
-	name = Nikita Revenco
-	email = 154856872+nikitarevenco@users.noreply.github.com
+  name = Nikita Revenco
+  email = 154856872+nikitarevenco@users.noreply.github.com
+
 [init]
-	defaultBranch = main
+  defaultBranch = main
+
 [color]
   interactive = true
   branch = true
   status = true
-	ui = true
+  ui = true
+
 [pull]
-	rebase = true
+  rebase = true
+
 [core]
-	editor = nvim
+  editor = nvim
+
 [alias]
   a = add
   aa = add --all
   af = add --all -f
-# interactive
+  # interactive
   ap = add -p
 
-# apply changes introduced by a commit from one branch onto current branch
-# git chp <commit>
+  # apply changes introduced by a commit from one branch onto current branch
+  # git chp <commit>
   cp = cherry-pick
   cpc = cherry-pick --continue
   cpq = cherry-pick --quit
@@ -28,23 +34,23 @@
 
   cie = commit --allow-empty
   ci = commit -m
-# stage changes from 1 file and commit message
+  # stage changes from 1 file and commit message
   cia = "!f() { git add \"$@\" && git commit -m \"${@: -1}\"; }; f"
-# stage changes from all files and commit message
+  # stage changes from all files and commit message
   cim = "!f() { git add --all && git commit -m \"$1\"; }; f"
-# stage changes from all files, commit message and push
+  # stage changes from all files, commit message and push
   cimp = "!f() { git add --all && git commit -m \"$1\" && git push; }; f"
-# change commit message of previous commit (Don't do after pushing)
+  # change commit message of previous commit (Don't do after pushing)
   cam = commit --amend
-# stages all modified files before amending
+  # stages all modified files before amending
   cama = commit --amend -a
 
-# squash N commits
+  # squash N commits
   sq = !git squash $1
-# squash N commits and force push
+  # squash N commits and force push
   sqpsf = !git squash $1 && git psf
 
-# stash uncommited changes
+  # stash uncommited changes
   sh = stash
   shp = stash pop
   shl = stash list
@@ -52,38 +58,38 @@
   shc = stash clear
   sha = stash apply
 
-# create new branch and switch to it
+  # create new branch and switch to it
   cob = checkout -b
-# delete branch then create again
+  # delete branch then create again
   cobf = "!f() { git brd $1; git cob $1; }; f"
-# checkout previous commit
+  # checkout previous commit
   col = checkout HEAD~1
   co = checkout
 
-# change-commits GIT_COMMITTER_NAME "old name" "new name"
+  # change-commits GIT_COMMITTER_NAME "old name" "new name"
   change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
 
-# remove file from history
+  # remove file from history
   remove-file = "!f() { git filter-branch -f --index-filter \"git rm --cached --ignore-unmatch $1\" --prune-empty --tag-name-filter cat -- --all; }; f"
 
   c = clone
-# remove untracked files from cwd, does not remote ignored files
+  # remove untracked files from cwd, does not remove ignored files
   cl = clean
-# forcefully remove untracked files and directories
+  # forcefully remove untracked files and directories
   cldf = clean -df
 
   res = reset
-# g ress {hash}
+  # g ress {hash}
   ress = reset --soft
-# unstages changes
+  # unstages changes
   resa = reset HEAD
-# stash uncommited changes
+  # stash uncommited changes
   resh = "!f() { git stash && git reset --hard $@; }; f"
-# stash uncommited changes and hard reset to upstream
+  # stash uncommited changes and hard reset to upstream
   reshu = !git resh `git upstream`
-# discard most recent commit, local changes are stashed
+  # discard most recent commit, local changes are stashed
   cundoh = !git stash && git reset HEAD^1 --hard
-# unstage latest commit while keeping changes in cwd
+  # unstage latest commit while keeping changes in cwd
   cundo = reset HEAD^1
 
   rb = rebase
@@ -95,28 +101,28 @@
   rba = rebase --abort
   rbs = rebase --skip
 
-# rich git diff
+  # rich git diff
   lp = log -m --color -p
-# summary changes per file
+  # summary changes per file
   lf = log -m --color -C --stat
-# pretty graph with branches
+  # pretty graph with branches
   lg = log -m --simplify-merges --color --graph --pretty=format:'%Cred%h%Creset %s %Cgreen(%ar) %Cblue%an <%ae>%Creset' --abbrev-commit --date=relative
-# pretty graph with branches only for upstream
+  # pretty graph with branches only for upstream
   lgu = !git lg `git upstream` $@
-# oneline log
+  # oneline log
   l = log -m --simplify-merges --color --pretty=format:'%Cred%h%Creset %s %Cgreen(%cr) %Cblue%an <%ae>%Creset' --abbrev-commit --date=relative
-# hashes only
+  # hashes only
   lc = "!f() { git log $* | grep '^commit ' | cut -f 2 -d ' '; }; f"
 
-# diff
+  # diff
   d = diff --color
-# diff inline update
+  # diff inline update
   dw = diff --color --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
-# staged diff
+  # staged diff
   ds = !git d --staged $@
-# staged diff summary
+  # staged diff summary
   dsf = !git d --staged -C --stat $@
-# staged diff inline update
+  # staged diff inline update
   dsw = !git d --staged --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+' $@
 
   f = fetch
@@ -125,15 +131,15 @@
   psu = push -u
   psom = push -u origin main
   pso = push origin
-# Force push
+  # Force push
   psf = push -f
-# Pushes changes to remote branch $1 using current branch
+  # Pushes changes to remote branch $1 using current branch
   psn = "!f() { git ps $1 `git brc`; }; f"
-# Force pushes changes to remote branch $1 using current branch
+  # Force pushes changes to remote branch $1 using current branch
   psnf = "!f() { git psf $1 `git brc`; }; f"
-# Force pushes changes to upstream branch $1 using current branch
+  # Force pushes changes to upstream branch $1 using current branch
   psfun = "!f() { git psu -f $1 `git brc`; }; f"
-# Pushes changes to upstream branch $1 using current branch
+  # Pushes changes to upstream branch $1 using current branch
   psun = "!f() { git psu $1 `git brc`; }; f"
 
   pl = pull
@@ -145,25 +151,25 @@
   bsb = bisect bad
   bsg = bisect good
 
-# Total number of commits
+  # Total number of commits
   ccount = rev-list HEAD --count
-# Commit count by author
+  # Commit count by author
   cacount = shortlog -s -n
 
   s = status
 
-# show
+  # show
   sh = show --color
-# show inline
+  # show inline
   sw = show --color --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
-# show summary
+  # show summary
   sf = show --color -C --stat
 
-# get current branch name
+  # get current branch name
   brn = rev-parse --abbrev-ref HEAD
-# delete branch forcefully
+  # delete branch forcefully
   brd = branch -D
-# which branches contain this commit?
+  # which branches contain this commit?
   brco = branch --contains
   bruup = branch --unset-upstream
   brup = branch --set-upstream
@@ -174,7 +180,7 @@
   rrm = remote rm
   rv = remote -v
   rao = remote add origin
-# remove all remotes
+  # remove all remotes
   rc = "!git remote | xargs -n1 git remote remove"
 
   bl = blame
@@ -182,25 +188,11 @@
   findemptydirs = !"find . -type d -empty ! -path ./tmp/\\*"
   deleteemptydirs = !"find . -type d -empty ! -path ./tmp/\\* -exec rmdir {} \\;"
   fsize = "!f() { \
-  git ls-files 2>/dev/null | xargs -r du -h 2>/dev/null | sort -h | awk '{printf \"\\033[0;32m%s\\033[0m %s\\n\", $1, substr($0, index($0, $2))}' | bat; \
-}; f"
+    git ls-files 2>/dev/null | xargs -r du -h 2>/dev/null | sort -h | awk '{printf \"\\033[0;32m%s\\033[0m %s\\n\", $1, substr($0, index($0, $2))}' | bat; \
+  }; f"
   loc = "!f() { \
-  dir=$(pwd); \
-  lock_patterns=\"package-lock.json|yarn.lock|pnpm-lock.yaml|npm-shrinkwrap.json|composer.lock|Gemfile.lock|Podfile.lock|Cargo.lock|.lock|.yarn.lock|.pnpm-lock.yaml|.npm-lock.json|.yarnrc.yml|.yarnrc.json|.package-lock.json|.npmrc|.pnpmfile.cjs|.lockfile|.flutter-plugins|.flutter-plugins-dependencies|.flutter-plugins-dependencies.json|.flutter-plugins-dependencies.lock|.flutter-plugins-dependencies.lock.json|.flutter-plugins-dependencies.yaml|.flutter-plugins.lock|.flutter-plugins.yaml|.flutter-plugins.json|.flutter-plugins.lock.json|.flutter-plugins.lock.yaml\"; \
-  git ls-files 2>/dev/null | grep -v -E \"$lock_patterns\" | xargs -r wc -l 2>/dev/null | awk '{if ($1 > 0) print $0}' | sort -n | awk '{printf \"\\033[0;32m%s\\033[0m %s\\n\", $1, substr($0, index($0, $2))}' | bat; \
-}; f"
-[interactive]
-	diffFilter = diff-so-fancy --patch
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-[color "diff"]
-	meta = 11
-	frag = magenta bold
-	func = 146 bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+    dir=$(pwd); \
+    lock_patterns=\"package-lock.json|yarn.lock|pnpm-lock.yaml|npm-shrinkwrap.json|composer.lock|Gemfile.lock|Podfile.lock|Cargo.lock|.lock|.yarn.lock|.pnpm-lock.yaml|.npm-lock.json|.yarnrc.yml|.yarnrc.json|.package-lock.json|.npmrc|.pnpmfile.cjs|.lockfile|.flutter-plugins|.flutter-plugins-dependencies|.flutter-plugins-dependencies.json|.flutter-plugins-dependencies.lock|.flutter-plugins-dependencies.lock.json|.flutter-plugins.lock\"; \
+    git ls-files | grep -Ev \"$lock_patterns\" | xargs wc -l | tail -1 | awk '{ print \"Lines of code: \" $1 }'; \
+    cd \"$dir\"; \
+  }; f"

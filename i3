@@ -1,3 +1,4 @@
+# vim: set filetype=i3config :
 focus_wrapping no
 
 # borders
