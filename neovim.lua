@@ -453,49 +453,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"HiPhish/rainbow-delimiters.nvim",
-		main = "rainbow-delimiters.setup",
-		opts = {
-			strategy = {
-				[""] = function(bufnr)
-					local large_file = vim.api.nvim_buf_line_count(bufnr) > 10000
-					return (not large_file) and require("rainbow-delimiters").strategy["global"] or nil
-				end,
-			},
-			query = {
-				[""] = "rainbow-delimiters",
-				lua = "rainbow-blocks",
-				query = function(bufnr)
-					local is_inspecttree = vim.b[bufnr].dev_base ~= nil
-					return is_inspecttree and "rainbow-blocks" or "rainbow-delimiters"
-				end,
-				latex = "rainbow-blocks",
-			},
-			priority = {
-				[""] = 110,
-				lua = 210,
-			},
-			highlight = {
-				"RainbowDelimiterRed",
-				"RainbowDelimiterYellow",
-				"RainbowDelimiterBlue",
-				"RainbowDelimiterOrange",
-				"RainbowDelimiterViolet",
-			},
-		},
-	},
-	{
-		"NvChad/nvim-colorizer.lua",
-		opts = {
-			user_default_options = {
-				tailwind = true,
-				css = true,
-				RRGGBBAA = true,
-				AARRGGBB = true,
-			},
-		},
-	},
-	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
       on_attach = function(bufnr)
