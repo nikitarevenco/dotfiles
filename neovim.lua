@@ -50,8 +50,19 @@ vim.keymap.set("n", "<bs>", "<cmd>edit #<cr>", { silent = true, desc = "alternat
 vim.keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "exit terminal mode" })
 vim.keymap.set("i", "<C-d>", "<C-o><cmd>d<CR>", { desc = "delete line" })
 vim.keymap.set("i", "<C-v>", "<esc>pa", { desc = "paste" })
-vim.keymap.set("n", "gL", "<cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "empty line above" })
-vim.keymap.set("n", "gl", "<cmd>call append(line('.'), repeat([''], v:count1))<CR>", { desc = "add empty line below" })
+vim.keymap.set(
+	"n",
+	"[<space>",
+	"<cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
+	{ desc = "empty line above" }
+)
+vim.keymap.set(
+	"n",
+	"]<space>",
+	"<cmd>call append(line('.'), repeat([''], v:count1))<CR>",
+	{ desc = "add empty line below" }
+)
+
 vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "search inside visual selection" })
 vim.keymap.set("n", "<right>", "<C-w>", { desc = "window commands" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "join line but keep cursor position" })
