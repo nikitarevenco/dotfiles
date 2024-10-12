@@ -43,7 +43,6 @@ vim.keymap.set("n", "<c-u>", "<c-u>zz")
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
 vim.keymap.set("n", "<leader>x", "<cmd>qa!<cr>")
 
-vim.keymap.set("n", "<leader>q", "O/**<cr>/<up><cr>", { desc = "add jsdoc comment above" })
 vim.api.nvim_create_autocmd(
 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
 	{ desc = "autosave", pattern = "*", command = "silent! update" }
