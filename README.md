@@ -24,7 +24,6 @@ My minimalistic dotfiles for max productivity.
 |ripgrep|better `grep`|
 |tgpt|ai prompt|
 |sd|better `sed`|
-|yazi|file manager|
 |zoxide|better `cd`|
 |hyperfine|benchmarking tool|
 |yq|yaml,json processor|
@@ -61,7 +60,7 @@ My minimalistic dotfiles for max productivity.
 Installation command for packages
 
 ```bash
-sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit xorg-server pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd yazi zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot ttf-jetbrains-mono-nerd onefetch
+sudo pacman -S --noconfirm i3-wm dmenu xorg-xinit xorg-server pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot ttf-jetbrains-mono-nerd onefetch
 ```
 
 Also install yay
@@ -96,5 +95,5 @@ git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
 Create symlinks:
 
 ```
-mkdir -p ~/.config/i3 && ln -s ~/dotfiles/i3.sh ~/.config/i3/config && echo "source ~/dotfiles/zsh.zsh" > ~/.zshrc
+mkdir -p ~/.config/i3 && ln -s ~/dotfiles/i3 ~/.config/i3/config && echo "source ~/dotfiles/zsh" > ~/.zshrc
 ```
