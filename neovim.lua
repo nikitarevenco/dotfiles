@@ -1,47 +1,43 @@
-vim.g.markdown_recommended_style = 0
-vim.o.updatetime = 750
-vim.opt.showtabline = 0
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.autoindent = true
-vim.opt.sidescrolloff = 8
-vim.opt.smoothscroll = true
-vim.g.mapleader = " "
-vim.opt.wrap = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.cursorline = true
-vim.opt.mouse = ""
-vim.opt.termguicolors = true
-vim.opt.background = "dark"
-vim.opt.backspace = "indent,eol,start"
-vim.opt.clipboard:append("unnamedplus")
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.swapfile = false
-vim.opt.shortmess:append("I")
-vim.opt.undofile = true
-vim.wo.number = true
-vim.wo.relativenumber = true
+--[[ vim: set filetype=lua : ]]
+
+vim.o.autoindent = true
+vim.o.background = "dark"
+vim.o.backspace = "indent,eol,start"
+vim.o.clipboard = "unnamedplus"
+vim.o.cmdheight = 0
+vim.o.cursorline = true
+vim.o.expandtab = true
+vim.o.ignorecase = true
 vim.o.laststatus = 0
-vim.cmd("hi! link StatusLine Normal")
-vim.cmd("hi! link StatusLineNC Normal")
-vim.cmd("set statusline=%{repeat('─',winwidth('.'))}")
-vim.wo.signcolumn = "yes:1"
-vim.opt.cmdheight = 0
+vim.o.mouse = ""
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.shiftwidth = 2
+vim.o.showtabline = 0
+vim.o.sidescrolloff = 8
+vim.o.signcolumn = "yes:1"
+vim.o.smartcase = true
+vim.o.smoothscroll = true
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.statusline = "%#CursorLineSign#%{repeat('─',winwidth('.'))}"
+vim.o.swapfile = false
+vim.o.tabstop = 2
+vim.o.termguicolors = true
+vim.o.undofile = true
+vim.o.updatetime = 750
+vim.o.wrap = true
 
 vim.keymap.set("i", ",", ",<C-g>u", { desc = "add undo breakpoint" })
 vim.keymap.set("i", ".", ".<C-g>u", { desc = "add undo breakpoint" })
 vim.keymap.set("i", ";", ";<C-g>u", { desc = "add undo breakpoint" })
-vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "escape and clear hlsearch" })
 vim.keymap.set("n", "<bs>", "<cmd>edit #<cr>", { silent = true, desc = "alternate buffer" })
-vim.keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "exit terminal mode" })
-
-vim.keymap.set("n", "<right>", "<C-w>", { desc = "window commands" })
-vim.keymap.set("n", "<c-u>", "<c-u>zz")
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
-vim.keymap.set("n", "<leader>x", "<cmd>qa!<cr>")
+vim.keymap.set("n", "<c-u>", "<c-u>zz")
+vim.keymap.set("n", "<right>", "<C-w>", { desc = "window commands" })
+vim.keymap.set("n", "<space>x", "<cmd>qa!<cr>")
+vim.keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "exit terminal mode" })
+vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "escape and clear hlsearch" })
 
 vim.api.nvim_create_autocmd(
 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
@@ -127,6 +123,7 @@ require("lazy").setup({
 			ts_context = true,
 			virtual_text = true,
 			cmp_border = true,
+			highlight_symbol = true,
 		},
 		keys = {
 			lsp = {
@@ -142,8 +139,8 @@ require("lazy").setup({
 			typescript = {
 				file_references = "<nop>",
 				organize_imports = "<nop>",
-				add_missing_imports = "<leader>u",
-				remove_unused_imports = "<leader>y",
+				add_missing_imports = "<space>u",
+				remove_unused_imports = "<space>y",
 				fix_all = "<nop>",
 			},
 		},
@@ -152,9 +149,9 @@ require("lazy").setup({
 		"MagicDuck/grug-far.nvim",
 		cmd = "GrugFar",
 		keys = {
-			{ "<leader>n", "<cmd>GrugFar<cr>", desc = "search and replace" },
+			{ "<space>n", "<cmd>GrugFar<cr>", desc = "search and replace" },
 			{
-				"<leader>.",
+				"<space>.",
 				"<cmd>lua require('grug-far').open({ prefills = { paths = vim.fn.expand('%') } })<cr>",
 				desc = "search and replace file",
 			},
@@ -164,7 +161,7 @@ require("lazy").setup({
 	{
 		"akinsho/toggleterm.nvim",
 		opts = {
-			open_mapping = "<leader>e",
+			open_mapping = "<space>e",
 			insert_mappings = false,
 			terminal_mappings = false,
 			autochdir = true,
@@ -196,7 +193,7 @@ require("lazy").setup({
 		},
 		keys = {
 			{
-				"<leader>i",
+				"<space>i",
 				"<cmd>Neogit<CR>",
 				mode = "n",
 				desc = "neogit",
@@ -208,22 +205,16 @@ require("lazy").setup({
 		cmd = "FzfLua",
 		opts = { winopts = { border = "none", fullscreen = true } },
 		keys = {
-			{ "gra", "<cmd>FzfLua lsp_code_actions" },
-			{ "grr", "<cmd>FzfLua lsp_references" },
-			{ "gri", "<cmd>FzfLua lsp_implementations" },
-			{ "grc", "<cmd>FzfLua lsp_incoming_calls" },
-			{ "grC", "<cmd>FzfLua lsp_outgoing_calls" },
 			{
-				"grS",
+				"grs",
 				"<cmd>lua require('fzf-lua').lsp_workspace_symbols({ file_ignore_patterns = { '.contentlayer', '.next', '.expo' } })<cr>",
 			},
-			{ "grs", "<cmd>FzfLua lsp_document_symbols" },
-			{ "<leader>s", "<cmd>FzfLua grep_project<cr>", desc = "grep" },
-			{ "<leader>t", "<cmd>FzfLua files<cr>", desc = "files" },
-			{ "<leader>k", "<cmd>FzfLua oldfiles<cr>", desc = "old files" },
-			{ "<leader>g", "<cmd>FzfLua git_commits<cr>", desc = "project commits" },
-			{ "<leader>m", "<cmd>FzfLua git_bcommits<cr>", desc = "buffer commits" },
-			{ "<leader>o", "<cmd>FzfLua buffers<cr>", desc = "buffers" },
+			{ "<space>s", "<cmd>FzfLua grep_project<cr>", desc = "grep" },
+			{ "<space>t", "<cmd>FzfLua files<cr>", desc = "files" },
+			{ "<space>k", "<cmd>FzfLua oldfiles<cr>", desc = "old files" },
+			{ "<space>g", "<cmd>FzfLua git_commits<cr>", desc = "project commits" },
+			{ "<space>m", "<cmd>FzfLua git_bcommits<cr>", desc = "buffer commits" },
+			{ "<space>o", "<cmd>FzfLua buffers<cr>", desc = "buffers" },
 		},
 	},
 	{
@@ -417,32 +408,36 @@ require("lazy").setup({
 			vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "forward" })
 			vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "forward" })
 			vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "backward" })
-			vim.keymap.set({ "n", "o", "x" }, "ge", "<cmd>lua require('spider').motion('ge')<CR>", { desc = "backward" })
+			vim.keymap.set(
+				{ "n", "o", "x" },
+				"ge",
+				"<cmd>lua require('spider').motion('ge')<CR>",
+				{ desc = "backward" }
+			)
 		end,
 	},
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
-      on_attach = function(bufnr)
-local gitsigns = require('gitsigns')
-    vim.keymap.set('n', ']c', function()
-      if vim.wo.diff then
-        vim.cmd.normal({']c', bang = true})
-      else
-        gitsigns.nav_hunk('next')
-      end
-    end, { buffer = bufnr })
+			on_attach = function(bufnr)
+				local gitsigns = require("gitsigns")
+				vim.keymap.set("n", "]c", function()
+					if vim.wo.diff then
+						vim.cmd.normal({ "]c", bang = true })
+					else
+						gitsigns.nav_hunk("next")
+					end
+				end, { buffer = bufnr })
 
-    vim.keymap.set('n', '[c', function()
-      if vim.wo.diff then
-        vim.cmd.normal({'[c', bang = true})
-      else
-        gitsigns.nav_hunk('prev')
-      end
-    end, { buffer = bufnr })
-
-      end
-    },
+				vim.keymap.set("n", "[c", function()
+					if vim.wo.diff then
+						vim.cmd.normal({ "[c", bang = true })
+					else
+						gitsigns.nav_hunk("prev")
+					end
+				end, { buffer = bufnr })
+			end,
+		},
 	},
 	{
 		"catppuccin/nvim",
