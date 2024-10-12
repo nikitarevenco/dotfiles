@@ -359,10 +359,7 @@ require("lazy").setup({
 		keys = {
 			{
 				"<left>",
-				function()
-					local oil = require("oil")
-					oil.open()
-				end,
+				"<cmd>Oil<cr>",
 				desc = "file manager",
 			},
 		},
