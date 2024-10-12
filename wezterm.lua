@@ -1,3 +1,5 @@
+-- vim: set filetype=i3config :
+
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
@@ -72,9 +74,7 @@ config.set_environment_variables = {
 	PATH = path_env .. ";" .. dotfiles_dir .. "/scripts",
 	EDITOR = "nvim",
 	FZF_CTRL_T_COMMAND = "eza --oneline --absolute --color=always --no-quotes $dir",
-	GIT_CONFIG_GLOBAL = dotfiles_dir .. "/git.ini",
-	YAZI_CONFIG_HOME = dotfiles_dir,
-	LG_CONFIG_FILE = dotfiles_dir .. "/lazygit.yml",
+	GIT_CONFIG_GLOBAL = dotfiles_dir .. "/git",
 	FZF_DEFAULT_OPTS = "--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 --color=selected-bg:#45475a --multi --ansi",
 }
 
