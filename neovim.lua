@@ -59,7 +59,7 @@ vim.keymap.set("n", "<c-u>", "<c-u>zz")
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
 vim.keymap.set("n", "<leader>x", "<cmd>qa!<cr>")
 
-vim.keymap.set("n", "<leader>y", "O/**<cr>/<up><cr>", { desc = "add jsdoc comment above" })
+vim.keymap.set("n", "<leader>q", "O/**<cr>/<up><cr>", { desc = "add jsdoc comment above" })
 vim.api.nvim_create_autocmd(
 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
 	{ desc = "autosave", pattern = "*", command = "silent! update" }
@@ -410,42 +410,6 @@ require("lazy").setup({
 								}
 							end,
 						},
-					},
-					-- "generic"
-					g = {
-						add = function()
-							local config = require("nvim-surround.config")
-							local result = config.get_input("Enter the generic name: ")
-							if result then
-								return { { result .. "<" }, { ">" } }
-							end
-						end,
-						find = function()
-							local config = require("nvim-surround.config")
-							return config.get_selection({ node = "generic_type" })
-						end,
-						delete = "^(.-<)().-(>)()$",
-						change = {
-							target = "^(.-<)().-(>)()$",
-							replacement = function()
-								local config = require("nvim-surround.config")
-								local result = config.get_input("Enter the generic name: ")
-								if result then
-									return { { result .. "<" }, { ">" } }
-								end
-							end,
-						},
-					},
-					-- Surround with markdown code block, triple backticks.
-					["~"] = {
-						add = function()
-							local config = require("nvim-surround.config")
-							local result = config.get_input("Markdown code block language: ")
-							return {
-								{ "```\n" .. result, "" },
-								{ "", "```" },
-							}
-						end,
 					},
 					-- JavaScript string interpolation
 					["s"] = {

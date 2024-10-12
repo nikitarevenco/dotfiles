@@ -51,6 +51,7 @@ function b() {
 }
 alias n="nvim -u \$HOME/dotfiles/neovim.lua"
 alias sn="sudo nvim -u \$HOME/dotfiles/neovim.lua"
+alias n.="n ."
 alias g="git"
 
 # Utilities
