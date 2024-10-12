@@ -489,16 +489,7 @@ local gitsigns = require('gitsigns')
 		},
 		config = function(_, opts)
 			require("catppuccin").setup(opts)
-			vim.cmd([[colorscheme catppuccin]])
-
-			-- for _, highlight in ipairs({
-			-- 	"DiagnosticUnderlineError",
-			-- 	"DiagnosticUnderlineWarn",
-			-- 	"DiagnosticUnderlineInfo",
-			-- 	"DiagnosticUnderlineHint",
-			-- }) do
-			-- 	vim.api.nvim_set_hl(0, highlight, { undercurl = false, underline = false })
-			-- end
+			vim.cmd("colorscheme catppuccin")
 		end,
 	},
 	{
