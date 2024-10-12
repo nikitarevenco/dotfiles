@@ -34,42 +34,14 @@ vim.opt.cmdheight = 0
 vim.keymap.set("i", ",", ",<C-g>u", { desc = "add undo breakpoint" })
 vim.keymap.set("i", ".", ".<C-g>u", { desc = "add undo breakpoint" })
 vim.keymap.set("i", ";", ";<C-g>u", { desc = "add undo breakpoint" })
-vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "next search result" })
-vim.keymap.set("x", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "next search result" })
-vim.keymap.set("o", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "next search result" })
-vim.keymap.set("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "prev search result" })
-vim.keymap.set("x", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "prev search result" })
-vim.keymap.set("o", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "prev search result" })
-vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = "move down" })
-vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = "move up" })
-vim.keymap.set("v", "<", "<gv", { desc = "indent" })
-vim.keymap.set("v", ">", ">gv", { desc = "dedent" })
-vim.keymap.set("i", "<c-z>", "<C-o>", { desc = "execute normal command" })
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "escape and clear hlsearch" })
 vim.keymap.set("n", "<bs>", "<cmd>edit #<cr>", { silent = true, desc = "alternate buffer" })
 vim.keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "exit terminal mode" })
-vim.keymap.set("i", "<C-d>", "<C-o><cmd>d<CR>", { desc = "delete line" })
-vim.keymap.set("i", "<C-v>", "<esc>pa", { desc = "paste" })
-vim.keymap.set(
-	"n",
-	"[<space>",
-	"<cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
-	{ desc = "empty line above" }
-)
-vim.keymap.set(
-	"n",
-	"]<space>",
-	"<cmd>call append(line('.'), repeat([''], v:count1))<CR>",
-	{ desc = "add empty line below" }
-)
 
-vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "search inside visual selection" })
 vim.keymap.set("n", "<right>", "<C-w>", { desc = "window commands" })
-vim.keymap.set("n", "J", "mzJ`z", { desc = "join line but keep cursor position" })
 vim.keymap.set("n", "<c-u>", "<c-u>zz")
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
 vim.keymap.set("n", "<leader>x", "<cmd>qa!<cr>")
-vim.keymap.set("x", "gs", ":sort<CR>", { noremap = true, silent = true, desc = "sort lines" })
 
 vim.keymap.set("n", "<leader>q", "O/**<cr>/<up><cr>", { desc = "add jsdoc comment above" })
 vim.api.nvim_create_autocmd(
