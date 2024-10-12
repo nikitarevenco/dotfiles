@@ -83,6 +83,12 @@ This single command will generate Git SSH keys and copy them into clipboard so I
 mkdir -p "$HOME/.ssh" && ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" && cat "$HOME/.ssh/id_ed25519.pub"
 ```
 
+Also create `.zprofile`:
+
+```bash
+echo 'export WEZTERM_CONFIG_FILE="$HOME/dotfiles/wezterm.lua"\n\nif [[ "$(tty)" = "/dev/tty1" ]]; then\n  pgrep i3 || startx /usr/bin/i3\nfi' > ~/.zprofile
+```
+
 ---
 
 Now just clone this repo into `~/dotfiles` (it needs to be there since all the env variables in `wezterm.lua` point to that place) and launch wezterm
