@@ -469,29 +469,6 @@ local gitsigns = require('gitsigns')
 		},
 	},
 	{
-		"b0o/incline.nvim",
-		opts = {
-			window = {
-				padding = 0,
-				margin = { horizontal = 0 },
-			},
-			render = function(props)
-				local modified = vim.bo[props.buf].modified
-				return {
-					{
-						vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t"),
-						gui = modified and "bold,italic" or "bold",
-					},
-					guibg = "#181825",
-					guifg = "#cdd6f4",
-				}
-			end,
-		},
-	},
-	{
-		"samjwill/nvim-unception",
-	},
-	{
 		"chrisgrieser/nvim-various-textobjs",
 		config = function()
 			vim.keymap.set("n", "gx", function()
