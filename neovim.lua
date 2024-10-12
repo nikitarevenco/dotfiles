@@ -50,14 +50,15 @@ vim.keymap.set("n", "<bs>", "<cmd>edit #<cr>", { silent = true, desc = "alternat
 vim.keymap.set("t", "<esc>", "<c-\\><c-n>", { desc = "exit terminal mode" })
 vim.keymap.set("i", "<C-d>", "<C-o><cmd>d<CR>", { desc = "delete line" })
 vim.keymap.set("i", "<C-v>", "<esc>pa", { desc = "paste" })
-vim.keymap.set("n", "gO", "<cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "empty line below" })
-vim.keymap.set("n", "go", "<cmd>call append(line('.'), repeat([''], v:count1))<CR>", { desc = "add empty line above" })
+vim.keymap.set("n", "gL", "<cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "empty line above" })
+vim.keymap.set("n", "gl", "<cmd>call append(line('.'), repeat([''], v:count1))<CR>", { desc = "add empty line below" })
 vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "search inside visual selection" })
 vim.keymap.set("n", "<right>", "<C-w>", { desc = "window commands" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "join line but keep cursor position" })
 vim.keymap.set("n", "<c-u>", "<c-u>zz")
 vim.keymap.set("n", "<c-d>", "<c-d>zz")
 vim.keymap.set("n", "<leader>x", "<cmd>qa!<cr>")
+vim.keymap.set("x", "gs", ":sort<CR>", { noremap = true, silent = true, desc = "sort lines" })
 
 vim.keymap.set("n", "<leader>q", "O/**<cr>/<up><cr>", { desc = "add jsdoc comment above" })
 vim.api.nvim_create_autocmd(
@@ -148,10 +149,13 @@ require("lazy").setup({
 		keys = {
 			lsp = {
 				hover_diagnostics = "<c-k>",
-				document_symbols = "<leader>a",
-				workspace_symbols = "<leader>r",
-				toggle_inlay_hints = "<leader>l",
-				toggle_diagnostics = "<nop>",
+				code_action = "<nop>",
+				goto_references = "<nop>",
+				goto_implementation = "<nop>",
+				outgoing_calls = "<nop>",
+				incoming_calls = "<nop>",
+				document_symbols = "<nop>",
+				workspace_symbols = "<nop>",
 			},
 			typescript = {
 				file_references = "<nop>",
@@ -184,6 +188,7 @@ require("lazy").setup({
 			autochdir = true,
 			shade_terminals = false,
 			direction = "horizontal",
+		},
 	},
 	{
 		"NeogitOrg/neogit",
@@ -218,7 +223,19 @@ require("lazy").setup({
 	},
 	{
 		"ibhagwan/fzf-lua",
+		cmd = "FzfLua",
+		opts = { winopts = { border = "none", fullscreen = true } },
 		keys = {
+			{ "gra", "<cmd>FzfLua lsp_code_actions" },
+			{ "grr", "<cmd>FzfLua lsp_references" },
+			{ "gri", "<cmd>FzfLua lsp_implementations" },
+			{ "grc", "<cmd>FzfLua lsp_incoming_calls" },
+			{ "grC", "<cmd>FzfLua lsp_outgoing_calls" },
+			{
+				"grS",
+				"<cmd>lua require('fzf-lua').lsp_workspace_symbols({ file_ignore_patterns = { '.contentlayer', '.next', '.expo' } })<cr>",
+			},
+			{ "grs", "<cmd>FzfLua lsp_document_symbols" },
 			{ "<leader>s", "<cmd>FzfLua grep_project<cr>", desc = "grep" },
 			{ "<leader>t", "<cmd>FzfLua files<cr>", desc = "files" },
 			{ "<leader>k", "<cmd>FzfLua oldfiles<cr>", desc = "old files" },
