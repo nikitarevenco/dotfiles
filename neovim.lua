@@ -184,10 +184,6 @@ require("lazy").setup({
 			autochdir = true,
 			shade_terminals = false,
 			direction = "horizontal",
-			shell = package.config:sub(1, 1) == "\\"
-					and 'cmd.exe /s /k "clink inject -q && %userprofile%\\dotfiles\\doskeys.cmd"'
-				or vim.o.shell,
-		},
 	},
 	{
 		"NeogitOrg/neogit",

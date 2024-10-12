@@ -61,36 +61,20 @@ config.hide_tab_bar_if_only_one_tab = true
 
 config.default_cursor_style = "SteadyBar"
 
-local home_dir
-local path_separator = "\\"
+local home_dir = os.getenv("HOME")
 local path_env = os.getenv("PATH")
 
-if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-	home_dir = os.getenv("USERPROFILE")
-	config.default_prog =
-		{ "cmd.exe", "/s", "/k", "clink inject -q && " .. home_dir .. "\\dotfiles" .. "\\doskeys.cmd" }
-else
-	config.default_prog = { "zsh" }
-	home_dir = os.getenv("HOME")
-	path_separator = "/"
-end
+local dotfiles_dir = home_dir .. "/dotfiles"
 
-local dotfiles_dir = home_dir .. path_separator .. "dotfiles"
-
-config.default_cwd = home_dir .. path_separator .. "repos"
+config.default_cwd = home_dir .. "/proj"
 
 config.set_environment_variables = {
-	DOTS = home_dir .. path_separator .. "dotfiles",
-	REPO = home_dir .. path_separator .. "repos",
-	RAND = home_dir .. path_separator .. "random",
-	PATH = path_env .. ";" .. dotfiles_dir .. path_separator .. "scripts",
+	PATH = path_env .. ";" .. dotfiles_dir .. "/scripts",
 	EDITOR = "nvim",
 	FZF_CTRL_T_COMMAND = "eza --oneline --absolute --color=always --no-quotes $dir",
-	CLINK_PATH = dotfiles_dir .. path_separator .. "scripts",
-	CLINK_SETTINGS = dotfiles_dir,
-	GIT_CONFIG_GLOBAL = dotfiles_dir .. path_separator .. "git.ini",
+	GIT_CONFIG_GLOBAL = dotfiles_dir .. "/git.ini",
 	YAZI_CONFIG_HOME = dotfiles_dir,
-	LG_CONFIG_FILE = dotfiles_dir .. path_separator .. "lazygit.yml",
+	LG_CONFIG_FILE = dotfiles_dir .. "/lazygit.yml",
 	FZF_DEFAULT_OPTS = "--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 --color=selected-bg:#45475a --multi --ansi",
 }
 
