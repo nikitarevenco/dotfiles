@@ -1,6 +1,6 @@
 # Nikita Revenco's minimalistic dotfiles.
 #
-# === installation script ===
+# === README is the installation script ===
 # curl https://raw.githubusercontent.com/nikitarevenco/dotfiles/refs/heads/main/README | sh
 
 # Install yay
@@ -9,11 +9,11 @@ sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/ya
 # Install packages
 yay -S --noconfirm boomer fzf-tab-source gimp-git zsh-autopair i3-wm dmenu xorg-xinit xorg-server pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot ttf-jetbrains-mono-nerd onefetch
 
-# Create .zprofile
-echo 'export WEZTERM_CONFIG_FILE="$HOME/dotfiles/wezterm.lua"\n\nif [[ "$(tty)" = "/dev/tty1" ]]; then\n  pgrep i3 || startx /usr/bin/i3\nfi' > ~/.zprofile
-
 # Clone repo
 git clone https://github.com/nikitarevenco/dotfiles ~/dotfiles
+
+# Create ~/.zprofile and ~/.zshrc
+echo 'export WEZTERM_CONFIG_FILE="$HOME/dotfiles/wezterm"\n\nif [[ "$(tty)" = "/dev/tty1" ]]; then\n  pgrep i3 || startx /usr/bin/i3\nfi' > ~/.zprofile && echo 'source ~/dotfiles/zsh' > ~/.zshrc
 
 # Create symlinks
 mkdir -p ~/.config/i3 && ln -s ~/dotfiles/i3 ~/.config/i3/config && echo "source ~/dotfiles/zsh" > ~/.zshrc && mkdir -p ~/.config/nvim && ln -s ~/dotfiles/neovim ~/.config/nvim/init.lua
