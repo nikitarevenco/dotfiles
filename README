@@ -7,7 +7,7 @@
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd .. && rm -rf yay
 
 # Install packages
-yay -S --noconfirm boomer fzf-tab-source gimp-git zsh-autopair i3-wm dmenu xorg-xinit xorg-server pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions xclip brightnessctl noto-fonts-emoji flameshot ttf-jetbrains-mono-nerd onefetch
+yay -S --noconfirm fzf-tab-source gimp i3-wm dmenu xorg-xinit xorg-server pulseaudio trash-cli nodejs luajit ruby python pnpm luarocks dotnet-sdk julia duf bat dust fzf fd neovim ripgrep tgpt sd zoxide hyperfine yq wezterm firefox git gron eza procs curlie zsh zsh-syntax-highlighting zsh-autosuggestions zsh-autopair xclip brightnessctl noto-fonts-emoji noto-fonts noto-fonts-cjk flameshot ttf-jetbrains-mono-nerd onefetch
 
 # Clone repo
 git clone https://github.com/nikitarevenco/dotfiles ~/dotfiles

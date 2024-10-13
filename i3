@@ -24,7 +24,6 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
 # launch programs
-bindsym F7 exec boomer
 bindsym Mod1+k exec flameshot gui
 bindsym Mod1+s exec wezterm-gui
 bindsym Mod1+r exec firefox
