@@ -50,8 +50,8 @@ function b() {
         fi
     done
 }
-alias n="nvim -u \$HOME/dotfiles/neovim.lua"
-alias sn="sudo nvim -u \$HOME/dotfiles/neovim.lua"
+alias n="nvim"
+alias sn="sudo nvim -u $HOME/.config/nvim/init.lua"
 alias n.="n ."
 alias g="git"
 

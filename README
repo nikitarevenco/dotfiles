@@ -79,7 +79,7 @@ yay -S --noconfirm boomer fzf-tab-source gimp-git zsh-autopair
 
 This single command will generate Git SSH keys and copy them into clipboard so I can easily setup Git and GitHub on a new computer in just 2 seconds
 
-```
+```bash
 mkdir -p "$HOME/.ssh" && ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" && cat "$HOME/.ssh/id_ed25519.pub"
 ```
 
@@ -100,6 +100,6 @@ git clone https://github.com/nikitarevenco/dotfiles %USERPROFILE%\dotfiles
 
 Create symlinks:
 
-```
-mkdir -p ~/.config/i3 && ln -s ~/dotfiles/i3 ~/.config/i3/config && echo "source ~/dotfiles/zsh" > ~/.zshrc
+```bash
+mkdir -p ~/.config/i3 && ln -s ~/dotfiles/i3 ~/.config/i3/config && echo "source ~/dotfiles/zsh" > ~/.zshrc && mkdir -p ~/.config/nvim && ln -s ~/dotfiles/neovim ~/.config/nvim/init.lua
 ```

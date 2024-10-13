@@ -1,5 +1,4 @@
---[[ vim: set filetype=lua : ]]
-
+-- vim: set filetype=lua :
 vim.o.autoindent = true
 vim.o.background = "dark"
 vim.o.backspace = "indent,eol,start"
