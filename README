@@ -13,7 +13,7 @@ yay -S --noconfirm fzf-tab-source gimp i3-wm dmenu xorg-xinit xorg-server pulsea
 git clone https://github.com/nikitarevenco/dotfiles ~/dotfiles
 
 # Create ~/.zprofile and ~/.zshrc
-echo 'export WEZTERM_CONFIG_FILE="$HOME/dotfiles/wezterm"\n\nif [[ "$(tty)" = "/dev/tty1" ]]; then\n  pgrep i3 || startx /usr/bin/i3\nfi' > ~/.zprofile && echo 'source ~/dotfiles/zsh' > ~/.zshrc
+printf 'export WEZTERM_CONFIG_FILE="$HOME/dotfiles/wezterm"\n\nif [[ "$(tty)" = "/dev/tty1" ]]; then\n  pgrep i3 || startx /usr/bin/i3\nfi' > ~/.zprofile && echo 'source ~/dotfiles/zsh' > ~/.zshrc
 
 # Create directories
 mkdir -p ~/.ssh ~/.config/i3 ~/.config/nvim ~/a ~/r ~/s ~/t
