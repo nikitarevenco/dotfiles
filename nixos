@@ -17,6 +17,7 @@
     neovim
     firefox
     trash-cli
+    kitty
   ];
   
   programs.zsh.enable = true;
@@ -34,9 +35,13 @@
     alsa.support32Bit = true;
   };
   
-  services.xserver.displayManager.startx.enable = true;
-  services.xserver.enable = true;
-  services.xserver.windowManager.i3.enable = true;
+  services.xserver = {
+    enable = true;
+    displayManager.startx.enable = true;
+    windowManager.i3.enable = true;
+    autoRepeatDelay = 200;
+    autoRepeatInterval = 25;
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   time.timeZone = "Europe/London";
@@ -55,7 +60,7 @@
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/5c45cf13-bf82-447b-b7d6-31714d8ed082";
+  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-label/root";
   
   networking.wireless.enable = true;
   system.stateVersion = "24.05";
