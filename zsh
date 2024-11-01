@@ -123,7 +123,21 @@ export PATH=/home/e/.deno/bin:$PATH
 # these need to be placed at the end
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh
-source /usr/share/zsh/plugins/fzf-tab-source/fzf-tab.zsh
+
+function add_zsh_plugin() {
+    local repo_url="$1"
+    local source_file="$2"
+    local name=$(basename -s .git "$repo_url")
+    local plugin_dir="$HOME/.zsh-plugins/$name"
+
+    if [[ ! -d "$plugin_dir" ]]; then
+        git clone "$repo_url" "$plugin_dir" && \
+    fi
+
+    source "$plugin_dir/$source_file"
+}
+
+add_zsh_plugin https://github.com/zsh-users/zsh-syntax-highlighting zsh-syntax-highlighting.zsh
+add_zsh_plugin https://github.com/Aloxaf/fzf-tab fzf-tab.zsh
+add_zsh_plugin https://github.com/hlissner/zsh-autopair autopair.zsh
+add_zsh_plugin https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions.zsh

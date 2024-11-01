@@ -86,7 +86,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Let neovim recognize the plugin's path so we can require it
-vim.opt.rtp:prepend(os.getenv("HOME") .. "/proj/instant-lsp.nvim")
+--vim.opt.rtp:prepend(os.getenv("HOME") .. "/proj/instant-lsp.nvim")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -102,48 +102,48 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	require("instant-lsp").setup({
-		languages = {
-			"lua",
-			"markdown",
-			"typescript",
-			"mdx",
-			"tailwind",
-			"css",
-			"git",
-			"html",
-			"json",
-			"prisma",
-			"shell",
-			"yaml",
-		},
-		disable_feature = {
-			snippets = true,
-			ts_context = true,
-			virtual_text = true,
-			cmp_border = true,
-			highlight_symbol = true,
-		},
-		keys = {
-			lsp = {
-				hover_diagnostics = "<c-k>",
-				code_action = "<nop>",
-				goto_references = "<nop>",
-				goto_implementation = "<nop>",
-				outgoing_calls = "<nop>",
-				incoming_calls = "<nop>",
-				document_symbols = "<nop>",
-				workspace_symbols = "<nop>",
-			},
-			typescript = {
-				file_references = "<nop>",
-				organize_imports = "<nop>",
-				add_missing_imports = "<space>u",
-				remove_unused_imports = "<space>y",
-				fix_all = "<nop>",
-			},
-		},
-	}),
+--	require("instant-lsp").setup({
+--		languages = {
+--			"lua",
+--			"markdown",
+--			"typescript",
+--			"mdx",
+--			"tailwind",
+--			"css",
+--			"git",
+--			"html",
+--			"json",
+--			"prisma",
+--			"shell",
+--			"yaml",
+--		},
+--		disable_feature = {
+--			snippets = true,
+--			ts_context = true,
+--			virtual_text = true,
+--			cmp_border = true,
+--			highlight_symbol = true,
+--		},
+--		keys = {
+--			lsp = {
+--				hover_diagnostics = "<c-k>",
+--				code_action = "<nop>",
+--				goto_references = "<nop>",
+--				goto_implementation = "<nop>",
+--				outgoing_calls = "<nop>",
+--				incoming_calls = "<nop>",
+--				document_symbols = "<nop>",
+--				workspace_symbols = "<nop>",
+--			},
+--			typescript = {
+--				file_references = "<nop>",
+--				organize_imports = "<nop>",
+--				add_missing_imports = "<space>u",
+--				remove_unused_imports = "<space>y",
+--				fix_all = "<nop>",
+--			},
+--		},
+--	}),
 	{
 		"MagicDuck/grug-far.nvim",
 		cmd = "GrugFar",
