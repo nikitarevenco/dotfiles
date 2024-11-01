@@ -2,7 +2,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ /etc/nixos/hardware-configuration.nix ];
   
   environment.systemPackages = with pkgs; [
     sof-firmware
