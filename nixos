@@ -15,8 +15,10 @@
     xclip
     git
     neovim
+    fd
     firefox
     trash-cli
+    brightnessctl
   ];
   
   fonts.packages = with pkgs; [
