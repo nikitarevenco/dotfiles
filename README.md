@@ -32,14 +32,14 @@ wpa_supplicant -B -i INTERFACE -c /etc/wpa_supplicant.conf
 Partition
 
 ```bash
-sgdisk -Z -n1:0:+512M -t1:ef02 -c1:boot -N2 -t3:8309 -c3:luks_root /dev/sdX
+sgdisk -Z -n1:0:+512M -t1:ef02 -c1:boot -N2 -t2:8309 -c2:luks_root /dev/sdX
 ```
 
 Luks setup and open
 
 ```bash
-cryptsetup luksFormat /dev/sdX2
-cryptsetup luksOpen /dev/sdX2 cryptroot
+cryptsetup luksFormat /dev/disk/by-partlabel/luks_root
+cryptsetup luksOpen /dev/disk/by-partlabel/luks_root cryptroot
 ```
 
 Two logical volumes, 8GB swap and rest is root
@@ -54,7 +54,7 @@ lvcreate -l '100%FREE' -n root vg
 Format the partitions
 
 ```bash
-mkfs.fat /dev/sda1
+mkfs.fat /dev/disk/by-partlabel/boot
 mkfs.ext4 -L root /dev/vg/root
 mkswap -L swap /dev/vg/swap
 ```

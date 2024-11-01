@@ -60,7 +60,19 @@
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-label/root";
+  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-partlabel/luks_root";
+  filesystems."/" = {
+    options = [ "noatime" "nodiratime" "discard" ];
+    device = "/dev/vg/root";
+    fsType = "ext4";
+  };
+  filesystems."/boot" = {
+    device = "/dev/disk/by-partlabel/boot";
+    fsType = "vfat";
+  };
+  swapDevices = [
+    { device = "/dev/vg/swap"; }
+  ];
   
   networking.wireless.enable = true;
   system.stateVersion = "24.05";
