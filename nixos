@@ -13,14 +13,12 @@
     zoxide
     eza
     xclip
+    zsh
+    git
+    neovim
+    firefox
+    trash-cli
   ];
-
-  programs = {
-    zsh.enable = true;
-    git.enable = true;
-    neovim.enable = true;
-    firefox.enable = true;
-  };
   
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) 
