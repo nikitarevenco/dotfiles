@@ -19,48 +19,69 @@
     trash-cli
   ];
   
-  programs.zsh.enable = true;
-  
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) 
   ];
-  
-  users.defaultUserShell = pkgs.zsh;
-  
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-  };
-  
-  services.xserver = {
-    enable = true;
-    displayManager.startx.enable = true;
-    windowManager.i3.enable = true;
-    autoRepeatDelay = 200;
-    autoRepeatInterval = 25;
-  };
 
-  networking.hostName = "nixos"; # Define your hostname.
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
-  services.xserver.xkb.layout = "us";
-  services.libinput.enable = true;
-  users.users.e = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+  
+  programs.zsh.enable = true;
+  security.sudo.wheelNeedsPassword = false;
+  users = {
+    defaultUserShell = pkgs.zsh;
+    users.e = {
+      initialPassword = "e";
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
+    };
   };
 
+  hardware.pulseaudio = {
+    enable = true;
+    support32Bit = true;
+    tcp.enable = true;
+  };
+  
+  networking = {
+    hostName = "nixos";
+    firewall.enable = true;
+    wireless.enable = true;
+  };
+
+  services = {
+    xserver = {
+      enable = true;
+      displayManager.startx.enable = true;
+      windowManager.i3.enable = true;
+      autoRepeatDelay = 200;
+      autoRepeatInterval = 25;
+      xkb.layout = "us";
+    };
+
+    libinput.enable = true;
+
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
+    };
+
+  };
+  
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
+  boot = {
+    kernelParams = [ "intel_pstate=no_hwp" "quiet" "splash" ];
+    loader.efi.canTouchEfiVariables = true;
+    loader.grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+    };
+    initrd.luks.devices.cryptroot.device = "/dev/disk/by-partlabel/luks_root";
+  };
   
-  boot.kernelParams = [ "intel_pstate=no_hwp" ];
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.efiSupport = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-partlabel/luks_root";
-  
-  networking.wireless.enable = true;
   system.stateVersion = "24.05";
 }
