@@ -17,7 +17,6 @@
     neovim
     firefox
     trash-cli
-    kitty
   ];
   
   programs.zsh.enable = true;

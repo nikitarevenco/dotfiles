@@ -5,10 +5,17 @@
 NixOS Installation
 </summary>
 
+Enter as root
+
+```
+passwd root
+su
+```
+
 Find out the SSID for wifi network with:
 
 ```
-sudo iwlist scan | grep ESSID
+iwlist scan | grep ESSID
 ```
 
 Generate configuration for wifi:
@@ -68,17 +75,16 @@ mount /dev/sdX1 /mnt/boot
 swapon /dev/vg/swap
 ```
 
-Copy wifi settings
-
-```bash
-cp /etc/wpa_supplicant.conf /mnt/etc/wpa_supplicant.conf
-```
-
 Final steps
 
 ```bash
 nixos-generate-config --root /mnt
 nixos-install
+
+cp /etc/wpa_supplicant.conf /mnt/etc/wpa_supplicant.conf
+
+passwd e
+
 reboot
 ```
 
@@ -89,8 +95,6 @@ Connect to wifi in nix installation
 ```bash
 # find out the wireless interface you are using
 ip link
-
-
 ```
 
 Clone repo
