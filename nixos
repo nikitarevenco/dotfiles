@@ -16,6 +16,7 @@
     git
     neovim
     fd
+    flameshot
     firefox
     trash-cli
     brightnessctl

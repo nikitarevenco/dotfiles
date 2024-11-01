@@ -24,7 +24,7 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
 # launch programs
-bindsym Mod1+k exec flameshot gui
+bindsym Mod1+k exec flameshot gui -r | xclip -selection clipboard -t image/png
 bindsym Mod1+s exec wezterm-gui
 bindsym Mod1+r exec firefox
 bindsym Mod1+d exec --no-startup-id dmenu_run -fn 'JetBrainsMono Nerd Font' -nf "#cdd6f4" -nb "#181825" -sb "#11111b"
