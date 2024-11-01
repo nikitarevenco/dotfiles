@@ -106,13 +106,13 @@ git clone https://github.com/nikitarevenco/dotfiles.git ~/dotfiles
 Create directories
 
 ```bash
-mkdir -p ~/.ssh ~/.config/i3 ~/.config/nvim ~/a ~/r ~/s ~/t
+mkdir -p ~/.ssh ~/.config/i3 ~/.config/nvim ~/a ~/r ~/s ~/t ~/.icons/default
 ```
 
 Create symlinks
 
 ```bash
-ln -sf ~/dotfiles/i3 ~/.config/i3/config && ln -sf ~/dotfiles/zsh ~/.zshrc && ln -sf ~/dotfiles/.zprofile ~/.zprofile && ln -sf ~/dotfiles/neovim ~/.config/nvim/init.lua && sudo ln -sf ~/dotfiles/nixos /etc/nixos/configuration.nix
+ln -sf ~/dotfiles/i3 ~/.config/i3/config && ln -sf ~/dotfiles/zsh ~/.zshrc && ln -sf ~/dotfiles/.zprofile ~/.zprofile && ln -sf ~/dotfiles/neovim ~/.config/nvim/init.lua && sudo ln -sf ~/dotfiles/nixos /etc/nixos/configuration.nix && ln -sf ~/dotfiles/cursors ~/.icons/default/index.theme
 ```
 
 Generate SSH Key for GitHub

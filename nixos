@@ -19,7 +19,9 @@
     flameshot
     firefox
     trash-cli
+    p7zip
     brightnessctl
+    bibata-cursors
   ];
   
   fonts.packages = with pkgs; [
