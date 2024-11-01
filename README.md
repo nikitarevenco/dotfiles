@@ -39,14 +39,14 @@ Luks setup and open
 
 ```bash
 cryptsetup luksFormat /dev/sdX2
-cryptsetup luksOpen /dev/sdX2 enc-pv
+cryptsetup luksOpen /dev/sdX2 cryptroot
 ```
 
 Two logical volumes, 8GB swap and rest is root
 
 ```bash
-pvcreate /dev/mapper/enc-pv
-vgcreate vg /dev/mapper/enc-pv
+pvcreate /dev/mapper/cryptroot
+vgcreate vg /dev/mapper/cryptroot
 lvcreate -L 8G -n swap vg
 lvcreate -l '100%FREE' -n root vg
 ```
