@@ -1,16 +1,16 @@
 {
   enable = true;
   profiles.nikita = {
-    extensions = with (import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz")).repos.rycee.firefox-addons; [
-      # https://github.com/TLATER/dotfiles/blob/b39af91fbd13d338559a05d69f56c5a97f8c905d/home-config/config/graphical-applications/firefox.nix
-      react-devtools
-      ublock-origin
-      clearurls
-      stylus
-      darkreader
-      proton-pass
-      sponsorblock
-    ];
+    # extensions = with (import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz")).repos.rycee.firefox-addons; [
+    #   # https://github.com/TLATER/dotfiles/blob/b39af91fbd13d338559a05d69f56c5a97f8c905d/home-config/config/graphical-applications/firefox.nix
+    #   react-devtools
+    #   ublock-origin
+    #   clearurls
+    #   stylus
+    #   darkreader
+    #   proton-pass
+    #   sponsorblock
+    # ];
     settings = {
       "app.update.auto" = false;
       "browser.discovery.enabled" = false;

@@ -9,135 +9,44 @@ let
 in
 {
   imports = [ 
-    /etc/nixos/hardware-configuration.nix
+    ./hardware-configuration.nix
     (import "${home-manager}/nixos") 
   ];
 
   home-manager.backupFileExtension = "backup";
   home-manager.users.e = {
-    # nixpkgs.config.packageOverrides = pkgs: {
-	   #  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-	   #    inherit pkgs;
-	   #  };
-    # };    
-    xdg.configFile."wezterm/wezterm.lua".source = ./wezterm;
     xdg.configFile."i3/config".source = ./i3;
+    xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
+  
     home = {
       stateVersion = version;
       pointerCursor = {
         package = pkgs.bibata-cursors;
         name = "Bibata-Modern-Ice";
       };
-      shellAliases = {
-        "md" = "mkdir";
-        "r" = "trash";
-        "g" = "git";
-        "n" = "hx";
-        "." = "cd .. && ls";
-        ".." = "cd ../.. && ls";
-        "..." = "cd ../../.. && ls";
-      };
     };
 
     programs = {
-      firefox = {
-        enable = true;
-        profiles.nikita = {
-          # extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-          #   # https://github.com/TLATER/dotfiles/blob/b39af91fbd13d338559a05d69f56c5a97f8c905d/home-config/config/graphical-applications/firefox.nix            react-devtools
-          #   ublock-origin
-          #   clearurls
-          #   stylus
-          #   darkreader
-          #   proton-pass
-          #   sponsorblock
-          # ];
-          settings = {
-            "app.update.auto" = false;
-            "browser.discovery.enabled" = false;
-            "browser.startup.homepage" = "about:blank";
-            "general.smoothScroll" = true;
-            "signon.rememberSignons" = false;
-            "signon.autofillForms" = false;
-            "widget.non-native-theme.scrollbar.style" = 3;
-            "browser.uidensity" = 1;
-            "browser.compactmode.show" = true;
-            # disable full screen fade animation
-            "full-screen-api.transition-duration.enter" = "0 0";
-            "full-screen-api.transition-duration.leave" = "0 0";
-            "full-screen-api.transition.timeout" = 0;
-            "full-screen-api.warning.delay" = 0;
-            "full-screen-api.warning.timeout" = 0;
-          };
-        };
-      };
-      helix = {
-        enable = true;
-      	settings = {
-          theme = "catppuccin_mocha";
-      	  editor = {
-            line-number = "relative";
-            auto-save = true;
-            cursorline = true;
-            statusline.left = [ "mode" "spinner" "version-control" "file-name" ];
-            indent-guides = {
-              character = "╎";
-              render = true;
-            };
-            cursor-shape = {
-              insert = "bar";
-              select = "underline";
-            };
-      	  };
-          keys.normal = {
-            right = "goto_word";
-            up = "select_textobject_inner";
-            down = "select_textobject_around";
-          };
-      	};
-      };
+      helix = (import ./helix.nix);
+      firefox = (import ./firefox.nix);
+      git = (import ./git.nix);
+      zsh = (import ./zsh.nix);
+      wezterm.enable = true;
       bat.enable = true;
       zoxide.enable = true;
-      wezterm = {
-        enable = true;
-      };
-      zsh = {
-        enable = true;
-      	enableCompletion = true;
-      	autosuggestion.enable = true;
-      	syntaxHighlighting.enable = true;
-      	localVariables = {
-          PROMPT = "%F{green} ➜ %f";
-      	  RPROMPT = "%F{blue}$(pwd | sed 's|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/ %F{blue}|g')%f ";
-      	};
-    	  # ctrl-right and ctrl-left
-      	initExtra = ''\
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word'';
-    	  # start i3 when logging in
-  	profileExtra = ''\
-if [[ "$(tty)" = "/dev/tty1" ]]; then
-  pgrep i3 || startx $(which i3)
-fi'';
-      };
+      ripgrep.enable = true;
+      fzf.enable = true;
+      fd.enable = true;
     };
   };
-  
+
   environment = {
     # enable completion for system packages
     pathsToLink = [ "/share/zsh" ];
     systemPackages = with pkgs; [
       sof-firmware
-      wezterm
-      bat
-      ripgrep
-      fzf
-      zoxide
-      eza
-      xclip
-      git
-      fd
       flameshot
+      xclip
       trash-cli
       p7zip
       brightnessctl
@@ -167,6 +76,7 @@ fi'';
   
   programs.zsh.enable = true;
   security.sudo.wheelNeedsPassword = false;
+
   users = {
     defaultUserShell = pkgs.zsh;
     users.e = {
@@ -213,6 +123,7 @@ fi'';
   };
   
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
+
   boot = {
     kernelParams = [ "intel_pstate=no_hwp" "quiet" "splash" ];
     loader.efi.canTouchEfiVariables = true;
