@@ -12,6 +12,7 @@
     "a" = "add";
     "c" = "commit";
     "ps" = "push";
+    "r" = "remote";
     "f" = "fetch";
     "p" = "pull";
     "l" = "log";
