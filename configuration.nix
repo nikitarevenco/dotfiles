@@ -15,26 +15,84 @@ in
 
   home-manager.backupFileExtension = "backup";
   home-manager.users.e = {
+    # nixpkgs.config.packageOverrides = pkgs: {
+	   #  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+	   #    inherit pkgs;
+	   #  };
+    # };    
     xdg.configFile."wezterm/wezterm.lua".source = ./wezterm;
+    xdg.configFile."i3/config".source = ./i3;
     home = {
       stateVersion = version;
       pointerCursor = {
         package = pkgs.bibata-cursors;
         name = "Bibata-Modern-Ice";
       };
+      shellAliases = {
+        "md" = "mkdir";
+        "r" = "trash";
+        "g" = "git";
+        "n" = "hx";
+        "." = "cd .. && ls";
+        ".." = "cd ../.. && ls";
+        "..." = "cd ../../.. && ls";
+      };
     };
+
     programs = {
+      firefox = {
+        enable = true;
+        profiles.nikita = {
+          # extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          #   # https://github.com/TLATER/dotfiles/blob/b39af91fbd13d338559a05d69f56c5a97f8c905d/home-config/config/graphical-applications/firefox.nix            react-devtools
+          #   ublock-origin
+          #   clearurls
+          #   stylus
+          #   darkreader
+          #   proton-pass
+          #   sponsorblock
+          # ];
+          settings = {
+            "app.update.auto" = false;
+            "browser.discovery.enabled" = false;
+            "browser.startup.homepage" = "about:blank";
+            "general.smoothScroll" = true;
+            "signon.rememberSignons" = false;
+            "signon.autofillForms" = false;
+            "widget.non-native-theme.scrollbar.style" = 3;
+            "browser.uidensity" = 1;
+            "browser.compactmode.show" = true;
+            # disable full screen fade animation
+            "full-screen-api.transition-duration.enter" = "0 0";
+            "full-screen-api.transition-duration.leave" = "0 0";
+            "full-screen-api.transition.timeout" = 0;
+            "full-screen-api.warning.delay" = 0;
+            "full-screen-api.warning.timeout" = 0;
+          };
+        };
+      };
       helix = {
         enable = true;
       	settings = {
           theme = "catppuccin_mocha";
       	  editor = {
             line-number = "relative";
+            auto-save = true;
+            cursorline = true;
+            statusline.left = [ "mode" "spinner" "version-control" "file-name" ];
+            indent-guides = {
+              character = "╎";
+              render = true;
+            };
+            cursor-shape = {
+              insert = "bar";
+              select = "underline";
+            };
       	  };
           keys.normal = {
-            # until https://github.com/helix-editor/helix/issues/1630 is closed
-            g.l = [ "select_mode" "goto_line_end" "normal_mode" ];
-            Right = [ "goto_word" ];
+            right = "goto_word";
+            up = "select_textobject_inner";
+            down = "select_textobject_around";
           };
       	};
       };
@@ -69,7 +127,6 @@ fi'';
     # enable completion for system packages
     pathsToLink = [ "/share/zsh" ];
     systemPackages = with pkgs; [
-      rustup
       sof-firmware
       wezterm
       bat
@@ -79,10 +136,8 @@ fi'';
       eza
       xclip
       git
-      unstable.neovim
       fd
       flameshot
-      firefox
       trash-cli
       p7zip
       brightnessctl
@@ -137,7 +192,9 @@ fi'';
     xserver = {
       enable = true;
       displayManager.startx.enable = true;
-      windowManager.i3.enable = true;
+      windowManager.i3 = {
+        enable = true;
+      };
       autoRepeatDelay = 200;
       autoRepeatInterval = 25;
       xkb.layout = "us";
