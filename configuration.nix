@@ -15,7 +15,7 @@ in
 
   home-manager.backupFileExtension = "backup";
   home-manager.users.e = {
-    xdg.configFile."i3/config".source = ./i3;
+    xsession.windowManager.i3 = (import ./i3.nix);
     xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
   
     home = {

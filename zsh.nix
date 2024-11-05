@@ -23,6 +23,7 @@
     "r" = "trash";
     "e" = "ls --classify --human-readable";
     "ee" = "e --almost-all";
+    "t" = "z && e";
     "g" = "git";
     "n" = "hx";
     "." = "cd .. && e";
