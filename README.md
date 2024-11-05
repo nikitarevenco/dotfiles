@@ -19,6 +19,8 @@ wpa_passphrase SSID PASSWORD > /etc/wpa_supplicant.conf
 wpa_supplicant -B -i INTERFACE -c /etc/wpa_supplicant.conf
 ```
 
+## Partitioning
+
 Partition drives:
 
 ```bash
@@ -48,6 +50,8 @@ mkfs.fat /dev/disk/by-partlabel/boot
 mkfs.ext4 -L root /dev/vg/root
 mkswap -L swap /dev/vg/swap
 ```
+
+## Main Installation
 
 Install nixOS
 
