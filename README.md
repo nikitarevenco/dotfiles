@@ -2,7 +2,7 @@
 
 My minimalistic dotfiles, with just the tools that I really use.
 
-## NixOS Installation
+## WiFI Connection
 
 Generate configuration for wifi
 
@@ -24,14 +24,15 @@ wpa_supplicant -B -i INTERFACE -c /etc/wpa_supplicant.conf
 Partition drives:
 
 ```bash
-sgdisk -Z -n1:0:+512M -t1:ef02 -c1:boot -N2 -t2:8309 -c2:luks_root /dev/sdX
+sgdisk -Z -n1:0:+512M -t1:ef02 -c1:boot \
+       -N2 -t2:8309 -c2:root /dev/sdX
 ```
 
 Luks setup:
 
 ```bash
-cryptsetup luksFormat /dev/disk/by-partlabel/luks_root
-cryptsetup luksOpen /dev/disk/by-partlabel/luks_root cryptroot
+cryptsetup luksFormat /dev/disk/by-partlabel/root
+cryptsetup luksOpen /dev/disk/by-partlabel/root cryptroot
 ```
 
 Set up logical volumes:
@@ -72,8 +73,10 @@ Final steps
 
 ```bash
 nix-shell -p git
-git clone https://github.com/nikitarevenco/dotfiles.git /mnt/etc/nixos
-nixos-generate-config --root /mnt --show-hardware-config > /mnt/etc/nixos/hardware-configuration.nix
+git clone https://github.com/nikitarevenco/dotfiles.git \
+          /mnt/etc/nixos
+nixos-generate-config --root /mnt --show-hardware-config \
+            > /mnt/etc/nixos/hardware-configuration.nix
 nixos-install
 reboot
 ```
