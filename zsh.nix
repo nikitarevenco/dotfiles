@@ -1,23 +1,24 @@
 {
   enable = true;
-	enableCompletion = true;
-	autosuggestion.enable = true;
-	syntaxHighlighting.enable = true;
-	localVariables = {
+  enableCompletion = true;
+  autosuggestion.enable = true;
+  syntaxHighlighting.enable = true;
+  localVariables = {
     PROMPT = "%F{green} ➜ %f";
-	  RPROMPT = "%F{blue}$(pwd | sed 's|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/ %F{blue}|g')%f ";
-	};
+    RPROMPT = "%F{blue}$(pwd | sed 's|$HOME|%F{magenta}~%F{blue}|;s|/|%F{white}/ %F{blue}|g')%f ";
+
+  };
   # ctrl-right and ctrl-left
-	initExtra = ''
+  initExtra = ''
     bindkey "^[[1;5C" forward-word
     bindkey "^[[1;5D" backward-word
-              '';
+  '';
   # start i3 when logging in
   profileExtra = ''
     if [[ "$(tty)" = "/dev/tty1" ]]; then 
       pgrep i3 || startx $(which i3)
     fi
-                 '';
+  '';
   shellAliases = {
     "md" = "mkdir";
     "r" = "trash";

@@ -5,7 +5,7 @@
     floating.titlebar = false;
     focus.wrapping = "no";
     window.hideEdgeBorders = "smart";
-    bars = [];
+    bars = [ ];
     keybindings = {
       "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%";
       "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%";
@@ -16,7 +16,7 @@
       "Mod1+k" = "exec flameshot gui -r | xclip -selection clipboard -t image/png";
       "Mod1+s" = "exec wezterm-gui";
       "Mod1+r" = "exec firefox";
-      "Mod1+d" = "exec --no-startup-id dmenu_run -fn 'JetBrainsMono Nerd Font' -nf '#cdd6f4' -nb '#181825' -sb '#11111b'";
+      "Mod1+equals" = "exec --no-startup-id dmenu_run -fn 'JetBrainsMono Nerd Font' -nf '#cdd6f4' -nb '#181825' -sb '#11111b'";
       "Mod1+t" = "kill";
       "Mod1+n" = "focus left";
       "Mod1+e" = "focus up";
@@ -36,7 +36,6 @@
       "Mod1+0" = "move container to workspace number 2";
       "Mod1+3" = "move container to workspace number 3";
       "Mod1+7" = "move container to workspace number 4";
-      "Mod1+z" = "reload";
       "Mod1+j" = "resize grow width 10 px or 10 ppt";
       "Mod1+l" = "resize shrink width 10 px or 10 ppt";
       "Mod1+u" = "resize grow height 10 px or 10 ppt";

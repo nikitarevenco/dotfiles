@@ -1,6 +1,6 @@
 {
   userName = "Nikita Revenco";
-  userEmail = "154856872+nikitarevenco@users.noreply.github.com"; 
+  userEmail = "154856872+nikitarevenco@users.noreply.github.com";
   extraConfig = {
     pull.rebase = true;
     init.defaultBranch = "main";

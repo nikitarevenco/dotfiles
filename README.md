@@ -1,5 +1,8 @@
 # Nikita's NixOS Dotfiles
 
+
+
+
 My minimalistic dotfiles, with just the tools that I really use.
 
 ## WiFI Connection

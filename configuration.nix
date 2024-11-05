@@ -1,23 +1,22 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
-  unstable = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {
-    config.allowUnfree = true;
-  };
+  u =
+    import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz")
+      { config.allowUnfree = true; };
   version = "24.05";
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-${version}.tar.gz";
 in
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
-    (import "${home-manager}/nixos") 
+    (import "${home-manager}/nixos")
   ];
 
   home-manager.backupFileExtension = "backup";
   home-manager.users.e = {
-    xsession.windowManager.i3 = (import ./i3.nix);
     xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
-  
+
     home = {
       stateVersion = version;
       pointerCursor = {
@@ -25,9 +24,15 @@ in
         name = "Bibata-Modern-Ice";
       };
     };
+    services.flameshot.enable = true;
 
+    xsession.windowManager.i3 = (import ./i3.nix);
     programs = {
-      helix = (import ./helix.nix);
+      helix = (import ./helix.nix) {
+        u = u;
+        pkgs = pkgs;
+        lib = lib;
+      };
       firefox = (import ./firefox.nix);
       git = (import ./git.nix);
       zsh = (import ./zsh.nix);
@@ -45,11 +50,33 @@ in
     pathsToLink = [ "/share/zsh" ];
     systemPackages = with pkgs; [
       sof-firmware
-      flameshot
       xclip
       trash-cli
       p7zip
       brightnessctl
+
+      # language servers
+      u.typescript-language-server
+      u.vscode-langservers-extracted
+      u.bash-language-server
+      u.rust-analyzer
+      u.lua-language-server
+      u.vue-language-server
+      u.svelte-language-server
+      u.yaml-language-server
+      u.taplo
+      u.dockerfile-language-server-nodejs
+      u.nil
+      u.marksman
+
+      # formatters
+      u.prettierd
+      u.nixfmt-rfc-style
+
+      # package managers
+      u.pnpm
+      u.cargo
+      u.rustc
     ];
   };
 
@@ -73,7 +100,7 @@ in
 
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
-  
+
   programs.zsh.enable = true;
   security.sudo.wheelNeedsPassword = false;
 
@@ -91,7 +118,7 @@ in
     support32Bit = true;
     tcp.enable = true;
   };
-  
+
   networking = {
     hostName = "nixos";
     firewall.enable = true;
@@ -121,11 +148,26 @@ in
     };
 
   };
-  
-  fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
+
+  fileSystems."/".options = [
+    "noatime"
+    "nodiratime"
+    "discard"
+  ];
+
+  nix.gc = {
+    automatic = true;
+    persistent = true;
+    dates = "05:00:00";
+    options = "--delete-older-than 7d";
+  };
 
   boot = {
-    kernelParams = [ "intel_pstate=no_hwp" "quiet" "splash" ];
+    kernelParams = [
+      "intel_pstate=no_hwp"
+      "quiet"
+      "splash"
+    ];
     loader.efi.canTouchEfiVariables = true;
     loader.grub = {
       enable = true;
@@ -134,6 +176,6 @@ in
     };
     initrd.luks.devices.cryptroot.device = "/dev/disk/by-partlabel/luks_root";
   };
-  
+
   system.stateVersion = version;
 }
