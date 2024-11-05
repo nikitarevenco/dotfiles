@@ -11,10 +11,11 @@
   aliases = {
     "a" = "add";
     "c" = "commit";
-    "P" = "push";
+    "ps" = "push";
     "f" = "fetch";
     "p" = "pull";
     "l" = "log";
+    "d" = "diff";
     "s" = "status";
   };
 }

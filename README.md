@@ -7,6 +7,11 @@ NixOS Installation
 
 Enter as root
 
+<details>
+<summary>
+Connect to Internet
+</summary>
+
 ```
 passwd root
 su
@@ -35,6 +40,7 @@ Connect to wifi
 ```bash
 wpa_supplicant -B -i INTERFACE -c /etc/wpa_supplicant.conf
 ```
+</details>
 
 Partition
 
@@ -71,52 +77,23 @@ Install nixOS
 ```
 mount /dev/vg/root /mnt
 mkdir /mnt/boot
-mount /dev/sdX1 /mnt/boot
+mount /dev/disk/by-partlabel/boot /mnt/boot
 swapon /dev/vg/swap
 ```
 
 Final steps
 
 ```bash
-nixos-generate-config --root /mnt
+nix-shell -p git
+git clone https://github.com/nikitarevenco/dotfiles.git /mnt/etc/nixos
+nixos-generate-config --root /mnt --show-hardware-config > /mnt/etc/nixos/hardware-configuration.nix
 nixos-install
+```
 
+```bash
 cp /etc/wpa_supplicant.conf /mnt/etc/wpa_supplicant.conf
 
 passwd e
 
 reboot
-```
-
-</details>
-
-Connect to wifi in nix installation
-
-```bash
-# find out the wireless interface you are using
-ip link
-```
-
-Clone repo
-
-```bash
-git clone https://github.com/nikitarevenco/dotfiles.git ~/dotfiles
-```
-
-Create directories
-
-```bash
-mkdir -p ~/.ssh ~/.config/i3 ~/.config/nvim ~/a ~/r ~/s ~/t ~/.icons/default
-```
-
-Create symlinks
-
-```bash
-ln -sf ~/dotfiles/i3 ~/.config/i3/config && ln -sf ~/dotfiles/zsh ~/.zshrc && ln -sf ~/dotfiles/.zprofile ~/.zprofile && ln -sf ~/dotfiles/neovim ~/.config/nvim/init.lua && sudo ln -sf ~/dotfiles/nixos /etc/nixos/configuration.nix && ln -sf ~/dotfiles/cursors ~/.icons/default/index.theme
-```
-
-Generate SSH Key for GitHub
-
-```bash
-ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" && cat "$HOME/.ssh/id_ed25519.pub"
 ```
