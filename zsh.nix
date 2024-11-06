@@ -10,15 +10,15 @@
   };
   # ctrl-right and ctrl-left
   initExtra = ''
+    \
     bindkey "^[[1;5C" forward-word
-    bindkey "^[[1;5D" backward-word
-  '';
+    bindkey "^[[1;5D" backward-word'';
   # start i3 when logging in
   profileExtra = ''
-    if [[ "$(tty)" = "/dev/tty1" ]]; then 
-      pgrep i3 || startx $(which i3)
-    fi
-  '';
+    \
+     if [[ "$(tty)" = "/dev/tty1" ]]; then 
+       pgrep i3 || startx $(which i3)
+     fi'';
   shellAliases = {
     "md" = "mkdir";
     "r" = "trash";
