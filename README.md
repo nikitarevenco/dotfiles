@@ -1,13 +1,10 @@
 # Nikita's NixOS Dotfiles
 
-
-
-
 My minimalistic dotfiles, with just the tools that I really use.
 
-## WiFI Connection
+Installation instructions for NixOS with these dotfiles:
 
-Generate configuration for wifi
+## WiFI Connection
 
 Find out SSID and INTERFACE with:
 
