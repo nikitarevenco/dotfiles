@@ -16,11 +16,14 @@
       line-number = "relative";
       auto-save = true;
       cursorline = true;
-      statusline.left = [
-        "mode"
+      statusline.left = [ ];
+      statusline.center = [ ];
+      statusline.right = [
         "spinner"
-        "version-control"
         "file-name"
+        "read-only-indicator"
+        "file-modification-indicator"
+        "diagnostics"
       ];
       indent-guides = {
         character = "╎";

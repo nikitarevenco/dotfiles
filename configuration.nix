@@ -5,6 +5,7 @@ let
     import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz")
       { config.allowUnfree = true; };
   version = "24.05";
+  user = "e";
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-${version}.tar.gz";
 in
 {
@@ -13,8 +14,16 @@ in
     (import "${home-manager}/nixos")
   ];
 
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+        inherit pkgs;
+      };
+    };
+  };
+
   home-manager.backupFileExtension = "backup";
-  home-manager.users.e = {
+  home-manager.users.${user} = {
     xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
 
     home = {
@@ -33,7 +42,10 @@ in
         pkgs = pkgs;
         lib = lib;
       };
-      firefox = (import ./firefox.nix);
+      firefox = (import ./firefox.nix) {
+        pkgs = pkgs;
+        lib = lib;
+      };
       git = (import ./git.nix);
       zsh = (import ./zsh.nix);
       wezterm.enable = true;
@@ -76,7 +88,10 @@ in
       # package managers
       u.pnpm
       u.cargo
+
+      # compilers
       u.rustc
+      u.gcc
     ];
   };
 
@@ -106,8 +121,8 @@ in
 
   users = {
     defaultUserShell = pkgs.zsh;
-    users.e = {
-      initialPassword = "e";
+    users.${user} = {
+      initialPassword = user;
       isNormalUser = true;
       extraGroups = [ "wheel" ];
     };
@@ -158,7 +173,7 @@ in
   nix.gc = {
     automatic = true;
     persistent = true;
-    dates = "05:00:00";
+    dates = "weekly";
     options = "--delete-older-than 7d";
   };
 
