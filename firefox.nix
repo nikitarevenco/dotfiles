@@ -67,6 +67,7 @@ in
     extensions = extensions;
     # all settings: https://kb.mozillazine.org/About:config_entries
     settings = {
+      "browser.display.background_color.dark" = "#1e1e2e";
       "app.update.auto" = false;
       "browser.discovery.enabled" = false;
       "browser.download.useDownloadDir" = false;
@@ -86,6 +87,7 @@ in
       "extensions.postDownloadThirdPartyPrompt" = false;
       "browser.preferences.moreFromMozilla" = false;
       "browser.tabs.tabmanager.enabled" = false;
+      "browser.toolbars.bookmarks.visibility" = "never";
       # alt will not open menu
       "ui.key.menuAccessKeyFocuses" = false;
       # new tabs are added at the end of the tab list, not next to the current tab
@@ -110,7 +112,7 @@ in
       "browser.aboutwelcome.enabled" = false;
       # dark:0 light:1 system:2 browser:3
       "layout.css.prefers-color-scheme.content-override" = 0;
-      # TELEMETRY
+      # telemetry
       "datareporting.policy.dataSubmissionEnabled" = false;
       "datareporting.healthreport.uploadEnabled" = false;
       "toolkit.telemetry.unified" = false;
@@ -128,12 +130,12 @@ in
       "browser.ping-centre.telemetry" = false;
       "browser.newtabpage.activity-stream.feeds.telemetry" = false;
       "browser.newtabpage.activity-stream.telemetry" = false;
-      # PASSWORDS
+      # passwords
       "signon.rememberSignons" = false;
       "signon.formlessCapture.enabled" = false;
       "signon.privateBrowsingCapture.enabled" = false;
       "network.auth.subresource-http-auth-allow" = 1;
-      # ADDRESS + CREDIT CARD MANAGER
+      # address + credit card manager
       "extensions.formautofill.addresses.enabled" = false;
       "extensions.formautofill.creditCards.enabled" = false;
     };
