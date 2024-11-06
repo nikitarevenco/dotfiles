@@ -11,18 +11,15 @@
   settings = {
     theme = "catppuccin_mocha";
     editor = {
+      bufferline = "always";
       auto-info = false;
       soft-wrap.enable = true;
       line-number = "relative";
-      auto-save = true;
       cursorline = true;
       statusline.left = [ ];
       statusline.center = [ ];
       statusline.right = [
         "spinner"
-        "file-name"
-        "read-only-indicator"
-        "file-modification-indicator"
         "diagnostics"
       ];
       indent-guides = {
@@ -36,6 +33,7 @@
       };
     };
     keys.normal = {
+      backspace = ":write-buffer-close";
       right = "goto_word";
       up = "select_textobject_inner";
       down = "select_textobject_around";
@@ -43,6 +41,9 @@
       X = "select_line_above";
       g.l = "extend_to_line_end";
       g.h = "extend_to_line_start";
+      ret = ":write";
+      space.x = ":write-quit-all";
+      space.n = ":buffer-close-others";
       g.s = [
         "collapse_selection"
         "select_mode"
@@ -57,12 +58,18 @@
         "page_cursor_half_up"
         "align_view_center"
       ];
+      C-g = [
+        ":new"
+        ":insert-output lazygit"
+        ":buffer-close!"
+        ":redraw"
+      ];
       esc = [
         "keep_primary_selection"
         "collapse_selection"
       ];
       # g.U = "switch_to_uppercase"
-      #Alt-s Alt-_ Alt-C Alt-J Alt-K
+      #Alt-s Alt-_ Alt-C Alt-J Alt-K e
     };
   };
 }
