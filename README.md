@@ -6,6 +6,7 @@ My minimalistic dotfiles, with just the tools that I really use. Some of my thou
 - What's especially awesome, is that I can configure `about:config` values and extensions for Firefox in [firefox.nix](./firefox). This lets me have the same browser across every single computer!
 - I feel like NixOS is a cheat code, it's impossible for my computer to ever break. If something has gone wrong, I can just boot into a configuration from yesterday and continue being productive.
 - Since it's available on Mac, I'm not locked into using NixOS. I can use other linux distros as well as MacOS.
+- Setting up a new computer with all of my configs takes literally just 10 minutes, most of which is waiting for stuff to install. Oh my god!
 
 ## Installation Instructions
 
