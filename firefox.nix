@@ -1,13 +1,14 @@
 { pkgs, lib }:
-let extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      # https://github.com/TLATER/dotfiles/blob/b39af91fbd13d338559a05d69f56c5a97f8c905d/home-config/config/graphical-applications/firefox.nix
-      react-devtools
-      ublock-origin
-      clearurls
-      stylus
-      proton-pass
-      sponsorblock
-    ];
+let
+  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+    # https://github.com/TLATER/dotfiles/blob/b39af91fbd13d338559a05d69f56c5a97f8c905d/home-config/config/graphical-applications/firefox.nix
+    react-devtools
+    ublock-origin
+    clearurls
+    stylus
+    proton-pass
+    sponsorblock
+  ];
 in
 {
   enable = true;
@@ -17,7 +18,7 @@ in
     DisablePocker = true;
     DisableFirefoxAccounts = true;
     PromptForDownloadLocation = true;
-     ExtensionSettings = builtins.listToAttrs (
+    ExtensionSettings = builtins.listToAttrs (
       builtins.map (
         e:
         lib.nameValuePair e.addonId {
@@ -26,26 +27,26 @@ in
           updates_disabled = true;
         }
       ) extensions
-    );     
+    );
   };
   profiles.nikita = {
     search.force = true;
     search.engines = {
       "GitHub Code" = {
-        urls = [{template = "https://github.com/search?q={searchTerms}&type=code";}];
-        definedAliases = ["@gc"];
+        urls = [ { template = "https://github.com/search?q={searchTerms}&type=code"; } ];
+        definedAliases = [ "@gc" ];
       };
       "GitHub Issues" = {
-        urls = [{template = "https://github.com/search?q={searchTerms}&type=issues";}];
-        definedAliases = ["@gi"];
+        urls = [ { template = "https://github.com/search?q={searchTerms}&type=issues"; } ];
+        definedAliases = [ "@gi" ];
       };
       "NPM" = {
-        urls = [{template = "https://www.npmjs.com/search?q={searchTerms}";}];
-        definedAliases = ["@npm"];
+        urls = [ { template = "https://www.npmjs.com/search?q={searchTerms}"; } ];
+        definedAliases = [ "@npm" ];
       };
       "Pkg Size" = {
-        urls = [{template = "https://pkg-size.dev/{searchTerms}";}];
-        definedAliases = ["@pkg"];
+        urls = [ { template = "https://pkg-size.dev/{searchTerms}"; } ];
+        definedAliases = [ "@pkg" ];
       };
       "Home Manager NixOs" = {
         urls = [
@@ -60,7 +61,7 @@ in
           }
         ];
         icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        definedAliases = ["@hm"];
+        definedAliases = [ "@hm" ];
       };
     };
     extensions = extensions;
@@ -127,14 +128,14 @@ in
       "browser.ping-centre.telemetry" = false;
       "browser.newtabpage.activity-stream.feeds.telemetry" = false;
       "browser.newtabpage.activity-stream.telemetry" = false;
-       # PASSWORDS
-       "signon.rememberSignons" = false;
-       "signon.formlessCapture.enabled" = false;
-       "signon.privateBrowsingCapture.enabled" = false;
-       "network.auth.subresource-http-auth-allow" = 1;
-       # ADDRESS + CREDIT CARD MANAGER
-       "extensions.formautofill.addresses.enabled" = false;
-       "extensions.formautofill.creditCards.enabled" = false;  
-      };
+      # PASSWORDS
+      "signon.rememberSignons" = false;
+      "signon.formlessCapture.enabled" = false;
+      "signon.privateBrowsingCapture.enabled" = false;
+      "network.auth.subresource-http-auth-allow" = 1;
+      # ADDRESS + CREDIT CARD MANAGER
+      "extensions.formautofill.addresses.enabled" = false;
+      "extensions.formautofill.creditCards.enabled" = false;
+    };
   };
 }
