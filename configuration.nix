@@ -47,6 +47,7 @@ in
         lib = lib;
       };
       git = (import ./git.nix);
+      lazygit = (import ./lazygit.nix);
       bat = (import ./bat.nix) { pkgs = pkgs; };
       zsh = (import ./zsh.nix);
       wezterm.enable = true;
