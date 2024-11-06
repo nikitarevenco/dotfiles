@@ -1,10 +1,15 @@
 # Nikita's NixOS Dotfiles
 
-My minimalistic dotfiles, with just the tools that I really use.
+My minimalistic dotfiles, with just the tools that I really use. Some of my thoughts on NixOS:
 
-Installation instructions for NixOS with these dotfiles:
+- NixOS is my favorite way to manage configurations, because the entire system can be configured from just a single file: [configuration.nix](./configuration.nix)
+- What's especially awesome, is that I can configure `about:config` values and extensions for Firefox in [firefox.nix](./firefox). This lets me have the same browser across every single computer!
+- I feel like NixOS is a cheat code, it's impossible for my computer to ever break. If something has gone wrong, I can just boot into a configuration from yesterday and continue being productive.
+- Since it's available on Mac, I'm not locked into using NixOS. I can use other linux distros as well as MacOS.
 
-## WiFI Connection
+## Installation Instructions
+
+If you aren't, connect to wifi by following these steps from the installation media:
 
 Find out SSID and INTERFACE with:
 
