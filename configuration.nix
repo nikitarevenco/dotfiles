@@ -47,9 +47,9 @@ in
         lib = lib;
       };
       git = (import ./git.nix);
+      bat = (import ./bat.nix) { pkgs = pkgs; };
       zsh = (import ./zsh.nix);
       wezterm.enable = true;
-      bat.enable = true;
       zoxide.enable = true;
       ripgrep.enable = true;
       fzf.enable = true;
