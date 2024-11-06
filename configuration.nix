@@ -49,7 +49,7 @@ in
       git = (import ./git.nix);
       lazygit = (import ./lazygit.nix);
       bat = (import ./bat.nix) { pkgs = pkgs; };
-      zsh = (import ./zsh.nix);
+      zsh = (import ./zsh.nix) { pkgs = pkgs; };
       wezterm.enable = true;
       zoxide.enable = true;
       ripgrep.enable = true;
