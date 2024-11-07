@@ -64,7 +64,7 @@ in
 
     environment = {
       sessionVariables = {
-        RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}";
+        RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}/bin/mold";
       };
       # enable completion for system packages
       pathsToLink = [ "/share/zsh" ];
