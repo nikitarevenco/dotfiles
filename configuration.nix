@@ -63,6 +63,9 @@ in
     };
 
     environment = {
+      sessionVariables = {
+        RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}";
+      };
       # enable completion for system packages
       pathsToLink = [ "/share/zsh" ];
       systemPackages = with pkgs; [
@@ -71,7 +74,7 @@ in
         trash-cli
         p7zip
         brightnessctl
-
+        mold
       ];
     };
 
