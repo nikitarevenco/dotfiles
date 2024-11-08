@@ -8,17 +8,22 @@
     defaultKeymap = "emacs";
     localVariables = {
       PROMPT = "%F{green} ➜ %f";
-      RPROMPT = "%~ ";
+      RPROMPT = "%F{blue}%~ ";
     };
-    # ctrl-right and ctrl-left
     initExtra = ''
       bindkey "^[[1;5C" forward-word
-      bindkey "^[[1;5D" backward-word'';
-    # start i3 when logging in
+      bindkey "^[[1;5D" backward-word
+      alias -s .git="git clone"
+      function t() {
+        z "$@"
+        ls
+      }
+    '';
     profileExtra = ''
       if [[ "$(tty)" = "/dev/tty1" ]]; then 
         pgrep i3 || startx $(which i3)
-      fi'';
+      fi
+    '';
     plugins = [
       {
         name = "zsh-autopair";

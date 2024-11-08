@@ -15,11 +15,13 @@
   ];
   config = {
     home-manager.users.${config.user} = {
+      xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
       xsession.windowManager.i3.enable = true;
       services.flameshot.enable = true;
       programs = {
         yazi.enable = true;
         zoxide.enable = true;
+        wezterm.enable = true;
         ripgrep.enable = true;
         fzf.enable = true;
         fd.enable = true;
@@ -28,7 +30,6 @@
     environment.systemPackages =
       with pkgs;
       [
-        wezterm
         sof-firmware
         xclip
         trash-cli
