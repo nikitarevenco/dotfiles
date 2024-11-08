@@ -21,42 +21,47 @@
         yazi.enable = true;
         zoxide.enable = true;
         ripgrep.enable = true;
+        fzf.enable = true;
         fd.enable = true;
       };
     };
-    environment.systemPackages = with pkgs; [
-      wezterm
-      sof-firmware
-      xclip
-      trash-cli
-      p7zip
-      brightnessctl
-      mold
-      clang
+    environment.systemPackages =
+      with pkgs;
+      [
+        wezterm
+        sof-firmware
+        xclip
+        trash-cli
+        p7zip
+        brightnessctl
+        mold
+        clang
+      ]
+      ++ (with pkgs.unstable; [
 
-      typescript-language-server
-      vscode-langservers-extracted
-      bash-language-server
-      rust-analyzer
-      lua-language-server
-      yaml-language-server
-      nil
+        typescript-language-server
+        vscode-langservers-extracted
+        bash-language-server
+        rust-analyzer
+        lua-language-server
+        yaml-language-server
+        nil
 
-      # formatters
-      prettierd
-      nixfmt-rfc-style
-      stylua
-      deno
-      shfmt
-      rustfmt
+        # formatters
+        prettierd
+        nixfmt-rfc-style
+        stylua
+        deno
+        shfmt
+        rustfmt
 
-      # package managers
-      pnpm
-      cargo
+        # package managers
+        pnpm
+        cargo
 
-      # compilers
-      rustc
-      gcc
-    ];
+        # compilers
+        rustc
+        gcc
+      ]);
   };
 }
