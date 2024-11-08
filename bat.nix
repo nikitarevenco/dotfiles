@@ -2,7 +2,6 @@
 {
   home-manager.users.${config.user}.programs.bat = {
     package = pkgs.unstable.bat;
-    enable = true;
     config = {
       theme = "catppuccin-mocha";
       pager = "less -FR";

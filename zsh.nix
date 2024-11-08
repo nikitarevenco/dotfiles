@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
   home-manager.users.${config.user}.programs.zsh = {
-    enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
@@ -36,11 +35,11 @@
       "cat" = "bat";
       "copy" = "xclip -selection clipboard";
       "r" = "trash";
+      "n" = "hx";
       "e" = "ls --classify --human-readable";
       "ee" = "e --almost-all";
       "t" = "z && e";
       "g" = "git";
-      "n" = "hx";
       "." = "cd .. && e";
       ".." = "cd ../.. && e";
       "..." = "cd ../../.. && e";

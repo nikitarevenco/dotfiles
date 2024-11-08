@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   environment.systemPackages = with pkgs.unstable; [
     # language servers
@@ -32,122 +37,8 @@
     gcc
   ];
   home-manager.users.${config.user}.programs.helix = {
-    enable = true;
     defaultEditor = true;
     package = pkgs.unstable.helix;
-
-    languages = {
-      language = [
-        {
-          name = "rust";
-          auto-format = true;
-        }
-        {
-          name = "nix";
-          formatter.command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
-          auto-format = true;
-        }
-        {
-          name = "toml";
-          formatter.command = "${pkgs.taplo}/bin/taplo";
-          formatter.args = [
-            "format"
-            "-"
-          ];
-          auto-format = true;
-        }
-        {
-          name = "lua";
-          formatter.command = "${pkgs.stylua}/bin/stylua";
-          formatter.args = [ "-" ];
-        }
-        {
-          name = "python";
-          formatter.command = "${pkgs.ruff}/bin/ruff";
-          formatter.args = [
-            "format"
-            "--line-length"
-            "88"
-            "-"
-          ];
-          auto-format = true;
-        }
-        {
-          name = "bash";
-          indent = {
-            tab-width = 4;
-            unit = "\t";
-          };
-          formatter.command = "${pkgs.shfmt}/bin/shfmt";
-          auto-format = true;
-        }
-        {
-          name = "javascript";
-          formatter.command = "${pkgs.deno}/bin/deno";
-          formatter.args = [
-            "fmt"
-            "-"
-            "--ext"
-            "js"
-          ];
-          auto-format = true;
-        }
-        {
-          name = "json";
-          formatter.command = "${pkgs.deno}/bin/deno";
-          formatter.args = [
-            "fmt"
-            "-"
-            "--ext"
-            "json"
-          ];
-        }
-        {
-          name = "markdown";
-          formatter.command = "${pkgs.deno}/bin/deno";
-          formatter.args = [
-            "fmt"
-            "-"
-            "--ext"
-            "md"
-          ];
-          auto-format = true;
-        }
-        {
-          name = "typescript";
-          formatter.command = "${pkgs.deno}/bin/deno";
-          formatter.args = [
-            "fmt"
-            "-"
-            "--ext"
-            "ts"
-          ];
-          auto-format = true;
-        }
-        {
-          name = "jsx";
-          formatter.command = "${pkgs.deno}/bin/deno";
-          formatter.args = [
-            "fmt"
-            "-"
-            "--ext"
-            "jsx"
-          ];
-          auto-format = true;
-        }
-        {
-          name = "tsx";
-          formatter.command = "${pkgs.deno}/bin/deno";
-          formatter.args = [
-            "fmt"
-            "-"
-            "--ext"
-            "tsx"
-          ];
-          auto-format = true;
-        }
-      ];
-    };
 
     settings = {
       theme = "catppuccin_mocha";
@@ -197,7 +88,7 @@
           I = "select_all_children";
           m = "select_all_children";
           p = "select_prev_sibling";
-          n = "elect_next_sibling";
+          n = "select_next_sibling";
           e = "move_parent_node_end";
           b = "move_parent_node_start";
           a = "select_all_siblings";
@@ -252,5 +143,70 @@
       };
     };
 
+    languages =
+      let
+        prettierd-formatted = (
+          map
+            (language: {
+              name = language;
+              formatter = {
+                command = lib.getExe pkgs.unstable.prettierd;
+                args = [
+                  "--stdin-filepath"
+                  "{}"
+                ];
+              };
+            })
+            [
+              "javascript"
+              "json"
+              "markdown"
+              "typescript"
+              "jsx"
+              "tsx"
+              "toml"
+            ]
+        );
+      in
+      {
+        language-server = {
+          tailwind = {
+            command = lib.getExe pkgs.unstable.tailwindcss-language-server;
+          };
+        };
+
+        language = map (language: language // { auto-format = true; }) (
+          prettierd-formatted
+          ++ [
+            {
+              name = "nix";
+              formatter.command = lib.getExe pkgs.unstable.nixfmt-rfc-style;
+            }
+            {
+              name = "lua";
+              formatter.command = lib.getExe pkgs.unstable.stylua;
+              formatter.args = [ "-" ];
+            }
+            {
+              name = "python";
+              formatter.command = lib.getExe pkgs.unstable.ruff;
+              formatter.args = [
+                "format"
+                "--line-length"
+                "88"
+                "-"
+              ];
+            }
+            {
+              name = "bash";
+              indent = {
+                tab-width = 4;
+                unit = "\t";
+              };
+              formatter.command = lib.getExe pkgs.unstable.shfmt;
+            }
+          ]
+        );
+      };
   };
 }

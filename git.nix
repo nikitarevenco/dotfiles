@@ -8,16 +8,15 @@
       init.defaultBranch = "main";
       safe.directory = "*";
     };
-    enable = true;
     aliases = {
       "a" = "add";
       "c" = "commit";
-      "e" = "checkout";
-      "u" = "push";
+      "co" = "checkout";
+      "p" = "push";
       "r" = "remote";
       "b" = "branch";
       "f" = "fetch";
-      "p" = "pull";
+      "pl" = "pull";
       "l" = "log";
       "d" = "diff";
       "s" = "status";

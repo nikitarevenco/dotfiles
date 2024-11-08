@@ -16,14 +16,8 @@ in
   };
 
   imports = [
-    ./hardware-configuration.nix
-    ./helix.nix
-    ./bat.nix
-    ./firefox.nix
-    ./git.nix
-    ./lazygit.nix
-    ./zsh.nix
-    ./i3.nix
+    ./software.nix
+    ./hardware.nix
     (import "${home-manager}/nixos")
   ];
 
@@ -41,24 +35,12 @@ in
 
     home-manager.backupFileExtension = "backup";
     home-manager.users.${config.user} = {
-      xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
-
       home = {
         stateVersion = version;
         pointerCursor = {
           package = pkgs.bibata-cursors;
           name = "Bibata-Modern-Ice";
         };
-      };
-      services.flameshot.enable = true;
-
-      programs = {
-        yazi.enable = true;
-        wezterm.enable = true;
-        zoxide.enable = true;
-        ripgrep.enable = true;
-        fzf.enable = true;
-        fd.enable = true;
       };
     };
 
@@ -68,14 +50,6 @@ in
       };
       # enable completion for system packages
       pathsToLink = [ "/share/zsh" ];
-      systemPackages = with pkgs; [
-        sof-firmware
-        xclip
-        trash-cli
-        p7zip
-        brightnessctl
-        mold
-      ];
     };
 
     fonts = {
@@ -99,7 +73,6 @@ in
     time.timeZone = "Europe/London";
     i18n.defaultLocale = "en_GB.UTF-8";
 
-    programs.zsh.enable = true;
     security.sudo.wheelNeedsPassword = false;
 
     users = {
@@ -152,13 +125,6 @@ in
       "nodiratime"
       "discard"
     ];
-
-    nix.gc = {
-      automatic = true;
-      persistent = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
 
     boot = {
       kernelParams = [
