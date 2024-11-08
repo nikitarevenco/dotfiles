@@ -20,7 +20,6 @@
       programs = {
         git.enable = true;
         zsh.enable = true;
-        i3.enable = true;
         yazi.enable = true;
         wezterm.enable = true;
         bat.enable = true;
