@@ -84,6 +84,9 @@ in
       };
     };
 
+    # required to be able to set zsh as default shell for users
+    programs.zsh.enable = true;
+
     hardware.pulseaudio = {
       enable = true;
       support32Bit = true;

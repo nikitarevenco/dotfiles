@@ -1,6 +1,7 @@
 { config, ... }:
 {
   home-manager.users.${config.user}.programs.git = {
+    enable = true;
     userName = "Nikita Revenco";
     userEmail = "154856872+nikitarevenco@users.noreply.github.com";
     extraConfig = {

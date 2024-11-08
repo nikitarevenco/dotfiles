@@ -38,6 +38,7 @@
   ];
   home-manager.users.${config.user}.programs.helix = {
     defaultEditor = true;
+    enable = true;
     package = pkgs.unstable.helix;
 
     settings = {

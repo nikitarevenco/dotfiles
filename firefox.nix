@@ -17,6 +17,7 @@ let
 in
 {
   home-manager.users.${config.user}.programs.firefox = {
+    enable = true;
     policies = {
       DisableFirefoxStudies = true;
       DisableTelemetry = true;
