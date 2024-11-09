@@ -68,7 +68,6 @@
         };
       };
       keys.normal = {
-        backspace = ":write-buffer-close";
         right = "goto_word";
         up = "select_textobject_inner";
         down = "select_textobject_around";
@@ -110,17 +109,12 @@
         S-right = "jump_forward";
         ret = ":write";
         space.x = ":write-quit-all";
-        g = {
-          h = "extend_to_line_start";
-          l = "extend_to_line_end";
-          x = ":buffer-close-others";
-          s = [
-            "collapse_selection"
-            "select_mode"
-            "goto_first_nonwhitespace"
-            "exit_select_mode"
-          ];
-        };
+        g.s = [
+          "collapse_selection"
+          "select_mode"
+          "goto_first_nonwhitespace"
+          "exit_select_mode"
+        ];
         C-d = [
           "page_cursor_half_down"
           "align_view_center"

@@ -22,6 +22,10 @@ in
   ];
 
   config = {
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     nixpkgs.config = {
       packageOverrides = pkgs: {
         unstable =
