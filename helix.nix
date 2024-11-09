@@ -132,12 +132,12 @@
         {
           name = "scss";
           formatter.command = "prettierd";
-          formatter.args = ".scss";
+          formatter.args = [ ".scss" ];
         }
         {
           name = "css";
           formatter.command = "prettierd";
-          formatter.args = ".css";
+          formatter.args = [ ".css" ];
         }
         {
           name = "tsx";
