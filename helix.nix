@@ -37,10 +37,16 @@
           select = "underline";
         };
       };
+      keys.select = {
+        H = "extend_prev_sub_word_start";
+        L = "extend_next_sub_word_start";
+      };
       keys.normal = {
         right = "goto_word";
         up = "select_textobject_inner";
         down = "select_textobject_around";
+        H = "move_prev_sub_word_start";
+        L = "move_next_sub_word_start";
         x = "select_line_below";
         X = "select_line_above";
         "," = {

@@ -43,11 +43,7 @@
     pkgs-unstable.deno
     pkgs-unstable.shfmt
     pkgs-unstable.rustfmt
-
   ];
-
-  # home.packages = with pkgs; [
-  # ];
 
   xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
   xsession.windowManager.i3.enable = true;
