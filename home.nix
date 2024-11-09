@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
     ./helix.nix
@@ -19,8 +19,8 @@
     mold
     clang
 
-    typescript-language-server
-    vscode-langservers-extracted
+    # typescript-language-server
+    # inputs.pkgs-unstable.vscode-langservers-extracted
     bash-language-server
     rust-analyzer
     lua-language-server

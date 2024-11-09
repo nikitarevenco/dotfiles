@@ -25,16 +25,16 @@ in
     "nix-command"
     "flakes"
   ];
-  nixpkgs.config = {
-    packageOverrides = pkgs: {
-      unstable =
-        import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz")
-          { config.allowUnfree = true; };
-      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-        inherit pkgs;
-      };
-    };
-  };
+  # nixpkgs.config = {
+  #   packageOverrides = pkgs: {
+  #     unstable =
+  #       import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz")
+  #         { config.allowUnfree = true; };
+  #     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+  #       inherit pkgs;
+  #     };
+  #   };
+  # };
 
   # home-manager.backupFileExtension = "backup";
   # home-manager.users.e = {
