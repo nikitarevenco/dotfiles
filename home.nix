@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   pkgs-unstable,
   ...
 }:
@@ -14,38 +15,50 @@
     ./i3.nix
   ];
 
-  home.packages = with pkgs; [
-    sof-firmware
-    ripgrep
-    xclip
-    trash-cli
-    p7zip
-    brightnessctl
+  home.packages =
+    with pkgs;
+    [
+      sof-firmware
+      ripgrep
+      xclip
+      trash-cli
+      p7zip
+      brightnessctl
 
-    mold
-    clang
-    rustc
+      # package manager
+      pnpm
+      cargo
 
-    pnpm
-    cargo
-    pkgs-unstable.typescript-language-server
-    pkgs-unstable.vscode-langservers-extracted
-    pkgs-unstable.bash-language-server
-    pkgs-unstable.rust-analyzer
-    pkgs-unstable.lua-language-server
-    pkgs-unstable.yaml-language-server
-    pkgs-unstable.nil
+      mold
+      nodejs
+      clang
+      rustc
+      deno
 
-    # formatters
-    pkgs-unstable.prettierd
-    pkgs-unstable.nixfmt-rfc-style
-    pkgs-unstable.stylua
-    pkgs-unstable.deno
-    pkgs-unstable.shfmt
-    pkgs-unstable.rustfmt
-  ];
+      nodejs
+    ]
+    ++ (with pkgs-unstable; [
+      # language servers
+      typescript-language-server
+      vscode-langservers-extracted
+      bash-language-server
+      rust-analyzer
+      nil
 
+      prettierd
+      nixfmt-rfc-style
+      stylua
+      shfmt
+      rustfmt
+    ]);
+
+  xdg.configFile."pnpm/rc".source =
+    let
+      keyValue = pkgs.formats.keyValue { };
+    in
+    keyValue.generate "rc" { update-notifier = false; };
   xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
+  xdg.userDirs.download = "${config.home.homeDirectory}/t";
   xsession.windowManager.i3.enable = true;
   services.flameshot.enable = true;
   programs = {

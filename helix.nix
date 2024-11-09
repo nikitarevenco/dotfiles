@@ -91,14 +91,6 @@
           "goto_first_nonwhitespace"
           "exit_select_mode"
         ];
-        C-d = [
-          "page_cursor_half_down"
-          "align_view_center"
-        ];
-        C-u = [
-          "page_cursor_half_up"
-          "align_view_center"
-        ];
         C-g = [
           ":write-all"
           ":new"
@@ -114,70 +106,78 @@
       };
     };
 
-    languages =
-      let
-        prettierd-formatted = (
-          map
-            (language: {
-              name = language;
-              formatter = {
-                command = lib.getExe pkgs-unstable.prettierd;
-                args = [
-                  "--stdin-filepath"
-                  "{}"
-                ];
-              };
-            })
-            [
-              "javascript"
-              "json"
-              "markdown"
-              "typescript"
-              "jsx"
-              "tsx"
-              "toml"
-            ]
-        );
-      in
-      {
-        language-server = {
-          tailwind = {
-            command = lib.getExe pkgs-unstable.tailwindcss-language-server;
-          };
+    languages = {
+      language-server = {
+        tailwind = {
+          command = lib.getExe pkgs-unstable.tailwindcss-language-server;
         };
-
-        language = map (language: language // { auto-format = true; }) (
-          prettierd-formatted
-          ++ [
-            {
-              name = "nix";
-              formatter.command = lib.getExe pkgs-unstable.nixfmt-rfc-style;
-            }
-            {
-              name = "lua";
-              formatter.command = lib.getExe pkgs-unstable.stylua;
-              formatter.args = [ "-" ];
-            }
-            {
-              name = "python";
-              formatter.command = lib.getExe pkgs-unstable.ruff;
-              formatter.args = [
-                "format"
-                "--line-length"
-                "88"
-                "-"
-              ];
-            }
-            {
-              name = "bash";
-              indent = {
-                tab-width = 4;
-                unit = "\t";
-              };
-              formatter.command = lib.getExe pkgs-unstable.shfmt;
-            }
-          ]
-        );
       };
+
+      language = map (language: language // { auto-format = true; }) ([
+        {
+          name = "typescript";
+          formatter.command = lib.getExe pkgs-unstable.prettierd;
+          formatter.args = [ ".ts" ];
+        }
+        {
+          name = "yaml";
+          formatter.command = lib.getExe pkgs-unstable.prettierd;
+          formatter.args = [ ".yaml" ];
+        }
+        {
+          name = "markdown";
+          formatter.command = lib.getExe pkgs-unstable.prettierd;
+          formatter.args = [ ".md" ];
+        }
+        {
+          name = "scss";
+          formatter.command = "prettierd";
+          formatter.args = ".scss";
+        }
+        {
+          name = "css";
+          formatter.command = "prettierd";
+          formatter.args = ".css";
+        }
+        {
+          name = "tsx";
+          formatter.command = lib.getExe pkgs-unstable.prettierd;
+          formatter.args = [ ".tsx" ];
+        }
+        {
+          name = "jsx";
+          formatter.command = lib.getExe pkgs-unstable.prettierd;
+          formatter.args = [ ".jsx" ];
+        }
+        {
+          name = "json";
+          formatter.command = lib.getExe pkgs-unstable.prettierd;
+          formatter.args = [ ".json" ];
+        }
+        {
+          name = "html";
+          formatter.command = lib.getExe pkgs-unstable.prettierd;
+          formatter.args = [ ".html" ];
+        }
+        {
+          name = "javascript";
+          formatter.command = lib.getExe pkgs-unstable.prettierd;
+          formatter.args = [ ".js" ];
+        }
+        {
+          name = "nix";
+          formatter.command = lib.getExe pkgs-unstable.nixfmt-rfc-style;
+        }
+        {
+          name = "lua";
+          formatter.command = lib.getExe pkgs-unstable.stylua;
+          formatter.args = [ "-" ];
+        }
+        {
+          name = "bash";
+          formatter.command = lib.getExe pkgs-unstable.shfmt;
+        }
+      ]);
+    };
   };
 }
