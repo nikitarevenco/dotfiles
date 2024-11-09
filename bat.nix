@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  home-manager.users.${config.user}.programs.bat = {
+  programs.bat = {
     enable = true;
     package = pkgs.unstable.bat;
     config = {

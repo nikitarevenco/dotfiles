@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  home-manager.users.${config.user}.xsession.windowManager.i3 = {
+  xsession.windowManager.i3 = {
     enable = true;
     config = {
       window.titlebar = false;

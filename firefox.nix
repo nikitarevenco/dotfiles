@@ -16,7 +16,7 @@ let
   ];
 in
 {
-  home-manager.users.${config.user}.programs.firefox = {
+  programs.firefox = {
     enable = true;
     policies = {
       DisableFirefoxStudies = true;

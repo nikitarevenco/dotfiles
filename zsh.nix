@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  home-manager.users.${config.user}.programs.zsh = {
+  programs.zsh = {
     enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;

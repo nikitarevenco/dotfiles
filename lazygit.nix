@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  home-manager.users.${config.user}.programs.lazygit = {
+  programs.lazygit = {
     enable = true;
     settings = {
       git.paging = {

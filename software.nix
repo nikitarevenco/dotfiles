@@ -14,7 +14,7 @@
     ./i3.nix
   ];
   config = {
-    home-manager.users.${config.user} = {
+    home-manager.users.e = {
       xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
       xsession.windowManager.i3.enable = true;
       services.flameshot.enable = true;
