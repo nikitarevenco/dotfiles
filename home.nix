@@ -18,7 +18,7 @@
     enable = true;
     package = inputs.helix.packages.${pkgs.system}.helix;
     settings.theme = "catppuccin_mocha";
-  }
+  };
 
   # home.packages = with pkgs; [
   #   sof-firmware
