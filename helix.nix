@@ -85,6 +85,7 @@
         S-right = "jump_forward";
         ret = ":write";
         space.x = ":write-quit-all";
+        space.n = "file_browser";
         g.s = [
           "collapse_selection"
           "select_mode"
@@ -108,8 +109,9 @@
 
     languages = {
       language-server = {
-        tailwind = {
+        tailwindcss = {
           command = lib.getExe pkgs-unstable.tailwindcss-language-server;
+          args = [ "--stdio" ];
         };
       };
 
@@ -118,6 +120,10 @@
           name = "typescript";
           formatter.command = lib.getExe pkgs-unstable.prettierd;
           formatter.args = [ ".ts" ];
+          language-servers = [
+            "tailwindcss"
+            "typescript-language-server"
+          ];
         }
         {
           name = "yaml";
@@ -143,6 +149,10 @@
           name = "tsx";
           formatter.command = lib.getExe pkgs-unstable.prettierd;
           formatter.args = [ ".tsx" ];
+          language-servers = [
+            "tailwindcss"
+            "typescript-language-server"
+          ];
         }
         {
           name = "jsx";

@@ -40,6 +40,7 @@
     ++ (with pkgs-unstable; [
       # language servers
       typescript-language-server
+      tailwindcss-language-server
       vscode-langservers-extracted
       bash-language-server
       rust-analyzer
