@@ -49,7 +49,10 @@
               inherit inputs;
             };
             home-manager.users.e = {
-              imports = [ ./home.nix inputs.nur.hmModules.nur ];
+              imports = [
+                ./home.nix
+                inputs.nur.hmModules.nur
+              ];
             };
           }
         ];

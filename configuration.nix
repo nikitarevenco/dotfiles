@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 
@@ -8,55 +7,25 @@ let
   version = "24.05";
 in
 {
-  # options.user = lib.mkOption {
-  #   type = lib.types.str;
-  #   default = "e";
-  # };
-
   imports = [
     ./hardware.nix
-    # ./software.nix
-    # home-manager.nixosModules.default
   ];
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
-  # nixpkgs.config = {
-  #   packageOverrides = pkgs: {
-  #     unstable =
-  #       import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz")
-  #         { config.allowUnfree = true; };
-  #     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-  #       inherit pkgs;
-  #     };
-  #   };
-  # };
 
-  # home-manager.backupFileExtension = "backup";
-  # home-manager.users.e = {
-  #   home = {
-  #     stateVersion = version;
-  #     pointerCursor = {
-  #       package = pkgs.bibata-cursors;
-  #       name = "Bibata-Modern-Ice";
-  #     };
-  #   };
-  # };
-
-  # environment = {
-  #   systemPackages = with pkgs; [
-  #     git
-      # inputs.helix.packages.${pkgs.system}.helix
-      # inputs.helix.packages.${pkgs.system}.helix
-    # ];
-    # sessionVariables = {
-    #   RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}/bin/mold";
-    # };
+  environment = {
+    systemPackages = with pkgs; [
+      git
+    ];
+    sessionVariables = {
+      RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}/bin/mold";
+    };
     # enable completion for system packages
-    # pathsToLink = [ "/share/zsh" ];
-  # };
+    pathsToLink = [ "/share/zsh" ];
+  };
 
   fonts = {
     packages = with pkgs; [
