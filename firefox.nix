@@ -1,11 +1,11 @@
 {
-  config,
   pkgs,
   lib,
+  config,
   ...
 }:
 let
-  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+  extensions = with config.nur.repos.rycee.firefox-addons; [
     # https://github.com/TLATER/dotfiles/blob/b39af91fbd13d338559a05d69f56c5a97f8c905d/home-config/config/graphical-applications/firefox.nix
     react-devtools
     ublock-origin
@@ -70,7 +70,7 @@ in
           definedAliases = [ "@hm" ];
         };
       };
-      extensions = extensions;
+      # extensions = extensions;
       # all settings: https://kb.mozillazine.org/About:config_entries
       settings = {
         "browser.display.background_color.dark" = "#1e1e2e";

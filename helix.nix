@@ -1,45 +1,14 @@
+# {
+#   config,
+#   pkgs,
+#   lib,
+#   ...
+# }:
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-{
-  environment.systemPackages = with pkgs.unstable; [
-    # language servers
-    typescript-language-server
-    vscode-langservers-extracted
-    bash-language-server
-    rust-analyzer
-    lua-language-server
-    vue-language-server
-    svelte-language-server
-    yaml-language-server
-    taplo
-    dockerfile-language-server-nodejs
-    nil
-    marksman
-
-    # formatters
-    prettierd
-    nixfmt-rfc-style
-    stylua
-    deno
-    shfmt
-    rustfmt
-
-    # package managers
-    pnpm
-    cargo
-
-    # compilers
-    rustc
-    gcc
-  ];
-  home-manager.users.${config.user}.programs.helix = {
+  programs.helix = {
     defaultEditor = true;
     enable = true;
-    package = pkgs.unstable.helix;
+    # package = pkgs.unstable.helix;
 
     settings = {
       theme = "catppuccin_mocha";
@@ -138,70 +107,70 @@
       };
     };
 
-    languages =
-      let
-        prettierd-formatted = (
-          map
-            (language: {
-              name = language;
-              formatter = {
-                command = lib.getExe pkgs.unstable.prettierd;
-                args = [
-                  "--stdin-filepath"
-                  "{}"
-                ];
-              };
-            })
-            [
-              "javascript"
-              "json"
-              "markdown"
-              "typescript"
-              "jsx"
-              "tsx"
-              "toml"
-            ]
-        );
-      in
-      {
-        language-server = {
-          tailwind = {
-            command = lib.getExe pkgs.unstable.tailwindcss-language-server;
-          };
-        };
+    # languages =
+    #   let
+    #     prettierd-formatted = (
+    #       map
+    #         (language: {
+    #           name = language;
+    #           formatter = {
+    #             command = lib.getExe pkgs.unstable.prettierd;
+    #             args = [
+    #               "--stdin-filepath"
+    #               "{}"
+    #             ];
+    #           };
+    #         })
+    #         [
+    #           "javascript"
+    #           "json"
+    #           "markdown"
+    #           "typescript"
+    #           "jsx"
+    #           "tsx"
+    #           "toml"
+    #         ]
+    #     );
+    #   in
+    #   {
+    #     language-server = {
+    #       tailwind = {
+    #         command = lib.getExe pkgs.unstable.tailwindcss-language-server;
+    #       };
+    #     };
 
-        language = map (language: language // { auto-format = true; }) (
-          prettierd-formatted
-          ++ [
-            {
-              name = "nix";
-              formatter.command = lib.getExe pkgs.unstable.nixfmt-rfc-style;
-            }
-            {
-              name = "lua";
-              formatter.command = lib.getExe pkgs.unstable.stylua;
-              formatter.args = [ "-" ];
-            }
-            {
-              name = "python";
-              formatter.command = lib.getExe pkgs.unstable.ruff;
-              formatter.args = [
-                "format"
-                "--line-length"
-                "88"
-                "-"
-              ];
-            }
-            {
-              name = "bash";
-              indent = {
-                tab-width = 4;
-                unit = "\t";
-              };
-              formatter.command = lib.getExe pkgs.unstable.shfmt;
-            }
-          ]
-        );
-      };
+    #     language = map (language: language // { auto-format = true; }) (
+    #       prettierd-formatted
+    #       ++ [
+    #         {
+    #           name = "nix";
+    #           formatter.command = lib.getExe pkgs.unstable.nixfmt-rfc-style;
+    #         }
+    #         {
+    #           name = "lua";
+    #           formatter.command = lib.getExe pkgs.unstable.stylua;
+    #           formatter.args = [ "-" ];
+    #         }
+    #         {
+    #           name = "python";
+    #           formatter.command = lib.getExe pkgs.unstable.ruff;
+    #           formatter.args = [
+    #             "format"
+    #             "--line-length"
+    #             "88"
+    #             "-"
+    #           ];
+    #         }
+    #         {
+    #           name = "bash";
+    #           indent = {
+    #             tab-width = 4;
+    #             unit = "\t";
+    #           };
+    #           formatter.command = lib.getExe pkgs.unstable.shfmt;
+    #         }
+    #       ]
+    #     );
+    #   };
   };
 }

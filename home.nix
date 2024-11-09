@@ -1,7 +1,47 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   imports = [
-    ./software.nix
+    ./helix.nix
+    ./bat.nix
+    ./firefox.nix
+    ./git.nix
+    ./lazygit.nix
+    ./zsh.nix
+    ./i3.nix
+  ];
+
+  home.packages = with pkgs; [
+    sof-firmware
+    xclip
+    trash-cli
+    p7zip
+    brightnessctl
+    mold
+    clang
+
+    typescript-language-server
+    vscode-langservers-extracted
+    bash-language-server
+    rust-analyzer
+    lua-language-server
+    yaml-language-server
+    nil
+
+    # formatters
+    prettierd
+    nixfmt-rfc-style
+    stylua
+    deno
+    shfmt
+    rustfmt
+
+    # package managers
+    pnpm
+    cargo
+
+    # compilers
+    rustc
+    gcc
   ];
 
   pointerCursor = {
@@ -9,15 +49,17 @@
     name = "Bibata-Modern-Ice";
   };
 
-  # Add some options listed in https://nix-community.github.io/home-manager/options.html
+  xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
+  xsession.windowManager.i3.enable = true;
+  services.flameshot.enable = true;
+  programs = {
+    yazi.enable = true;
+    zoxide.enable = true;
+    wezterm.enable = true;
+    ripgrep.enable = true;
+    fzf.enable = true;
+    fd.enable = true;
+  };
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "23.05";
+  home.stateVersion = "24.05";
 }

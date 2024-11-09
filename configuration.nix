@@ -17,7 +17,7 @@ in
 
   imports = with inputs; [
     ./hardware.nix
-    ./software.nix
+    # ./software.nix
     home-manager.nixosModules.default
   ];
 
@@ -48,6 +48,10 @@ in
   # };
 
   environment = {
+    systemPackages = with pkgs; [
+      git
+      inputs.helix.packages.${pkgs.system}.helix
+    ];
     sessionVariables = {
       RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}/bin/mold";
     };
