@@ -21,18 +21,18 @@
 
     # typescript-language-server
     # inputs.pkgs-unstable.vscode-langservers-extracted
-    bash-language-server
-    rust-analyzer
-    lua-language-server
-    yaml-language-server
-    nil
+    # bash-language-server
+    # rust-analyzer
+    # lua-language-server
+    # yaml-language-server
+    # nil
 
     # formatters
-    prettierd
+    # prettierd
     nixfmt-rfc-style
-    stylua
-    deno
-    shfmt
+    # stylua
+    # deno
+    # shfmt
     rustfmt
 
     # package managers

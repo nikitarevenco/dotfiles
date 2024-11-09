@@ -33,7 +33,7 @@
         "type": "github"
       }
     },
-    "helix": {
+    "helix-git": {
       "inputs": {
         "crane": "crane",
         "flake-utils": "flake-utils",
@@ -62,15 +62,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1730837930,
-        "narHash": "sha256-0kZL4m+bKBJUBQse0HanewWO0g8hDdCvBhudzxgehqc=",
+        "lastModified": 1726989464,
+        "narHash": "sha256-Vl+WVTJwutXkimwGprnEtXc/s/s8sMuXzqXaspIGlwM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2f607e07f3ac7e53541120536708e824acccfaa8",
+        "rev": "2f23fa308a7c067e52dfcc30a0758f47043ec176",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
+        "ref": "release-24.05",
         "repo": "home-manager",
         "type": "github"
       }
@@ -140,7 +141,7 @@
     },
     "root": {
       "inputs": {
-        "helix": "helix",
+        "helix-git": "helix-git",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
@@ -150,7 +151,7 @@
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "helix",
+          "helix-git",
           "nixpkgs"
         ]
       },
