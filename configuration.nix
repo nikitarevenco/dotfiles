@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   inputs,
   ...
 }:
@@ -15,7 +13,7 @@ in
   #   default = "e";
   # };
 
-  imports = with inputs; [
+  imports = [
     ./hardware.nix
     # ./software.nix
     # home-manager.nixosModules.default
@@ -50,13 +48,14 @@ in
   environment = {
     systemPackages = with pkgs; [
       git
+      inputs.helix.packages.${pkgs.system}.helix
       # inputs.helix.packages.${pkgs.system}.helix
     ];
-    sessionVariables = {
-      RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}/bin/mold";
-    };
+    # sessionVariables = {
+    #   RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}/bin/mold";
+    # };
     # enable completion for system packages
-    pathsToLink = [ "/share/zsh" ];
+    # pathsToLink = [ "/share/zsh" ];
   };
 
   fonts = {
