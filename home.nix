@@ -44,10 +44,10 @@
     gcc
   ];
 
-  pointerCursor = {
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Ice";
-  };
+  # pointerCursor = {
+  #   package = pkgs.bibata-cursors;
+  #   name = "Bibata-Modern-Ice";
+  # };
 
   xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
   xsession.windowManager.i3.enable = true;
