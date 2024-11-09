@@ -48,7 +48,7 @@ in
   environment = {
     systemPackages = with pkgs; [
       git
-      inputs.helix.packages.${pkgs.system}.helix
+      # inputs.helix.packages.${pkgs.system}.helix
       # inputs.helix.packages.${pkgs.system}.helix
     ];
     # sessionVariables = {
