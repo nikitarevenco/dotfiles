@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   helix-git,
   ...
 }:
@@ -9,7 +10,7 @@
   programs.helix = {
     defaultEditor = true;
     enable = true;
-    # package = pkgs.unstable.helix;
+    package = inputs.helix.packages.${pkgs.system}.helix;
 
     settings = {
       theme = "catppuccin_mocha";
