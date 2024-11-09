@@ -27,7 +27,7 @@
           inherit inputs;
         };
         modules = [
-          nur.nixosModules.nur
+          # nur.nixosModules.nur
           ./configuration.nix
           {
             home-manager.users.e = ./home.nix;
