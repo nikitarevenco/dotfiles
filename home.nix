@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, pkgs-unstable, ... }:
 {
   imports = [
     ./helix.nix
@@ -20,13 +20,9 @@
     
     mold
     clang
-  ];
 
-  # programs.helix = {
-  #   enable = true;
-  #   package = inputs.helix.packages.${pkgs.system}.helix;
-  #   settings.theme = "catppuccin_mocha";
-  # };
+    pkgs-unstable.typescript-language-server
+  ];
 
   # home.packages = with pkgs; [
   #   sof-firmware

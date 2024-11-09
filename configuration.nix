@@ -45,18 +45,18 @@ in
   #   };
   # };
 
-  environment = {
-    systemPackages = with pkgs; [
-      git
+  # environment = {
+  #   systemPackages = with pkgs; [
+  #     git
       # inputs.helix.packages.${pkgs.system}.helix
       # inputs.helix.packages.${pkgs.system}.helix
-    ];
+    # ];
     # sessionVariables = {
     #   RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}/bin/mold";
     # };
     # enable completion for system packages
     # pathsToLink = [ "/share/zsh" ];
-  };
+  # };
 
   fonts = {
     packages = with pkgs; [
