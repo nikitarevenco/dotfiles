@@ -1,9 +1,10 @@
-# {
-#   config,
-#   pkgs,
-#   lib,
-#   ...
-# }:
+{
+  config,
+  pkgs,
+  lib,
+  helix-git,
+  ...
+}:
 {
   programs.helix = {
     defaultEditor = true;

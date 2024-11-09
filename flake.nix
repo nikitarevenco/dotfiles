@@ -13,6 +13,7 @@
       nixpkgs,
       nixpkgs-unstable,
       nur,
+      helix-git,
       home-manager,
       ...
     }:
@@ -39,6 +40,7 @@
             _module.args = {
               inherit pkgs-unstable;
               inherit pkgs-nur;
+              inherit helix-git;
             };
           }
           {
@@ -46,6 +48,7 @@
             home-manager.extraSpecialArgs = {
               inherit pkgs-unstable;
               inherit pkgs-nur;
+              inherit helix-git;
             };
             # home-manager.backupFileExtension = "backup";
             home-manager.useGlobalPkgs = true;
