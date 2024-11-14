@@ -28,6 +28,7 @@
       # package manager
       pnpm
       cargo
+      asciinema
 
       mold
       nodejs
