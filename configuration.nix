@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 
@@ -8,7 +9,7 @@ let
 in
 {
   imports = [
-    ./hardware.nix
+    inputs.hardware-configuration.outPath
   ];
 
   nix.settings.experimental-features = [

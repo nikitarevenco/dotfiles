@@ -33,6 +33,19 @@
         "type": "github"
       }
     },
+    "hardware-configuration": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1731686503,
+        "narHash": "sha256-RrvuoOmkQkGZqMbCnxiAVvzIdyVF5Bdai4lJUsKIYO4=",
+        "path": "/etc/nix/hardware.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "/etc/nix/hardware.nix",
+        "type": "path"
+      }
+    },
     "helix": {
       "inputs": {
         "crane": "crane",
@@ -141,6 +154,7 @@
     },
     "root": {
       "inputs": {
+        "hardware-configuration": "hardware-configuration",
         "helix": "helix",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
