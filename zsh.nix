@@ -15,7 +15,7 @@
       bindkey "^[[1;5D" backward-word
       alias -s .git="git clone"
       function t() {
-        z "$@"
+        z "$1"
         ls
       }
     '';
@@ -38,13 +38,10 @@
     ];
     shellAliases = {
       "md" = "mkdir";
-      "cat" = "bat";
-      "copy" = "xclip -selection clipboard";
+      "yank" = "xclip -selection clipboard";
       "r" = "trash";
       "n" = "hx";
       "e" = "ls --classify --human-readable";
-      "ee" = "e --almost-all";
-      "t" = "z && e";
       "g" = "git";
       "." = "cd .. && e";
       ".." = "cd ../.. && e";

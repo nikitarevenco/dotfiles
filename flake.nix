@@ -1,18 +1,14 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    helix.url = "github:nikitarevenco/helix/personal";
+    helix.url = "github:NikitaRevenco/helix/personal";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # helix-git.url = "github:helix-editor/helix/master";
-    # nur.url = "github:nix-community/NUR";
-    # home-manager.url = "github:nix-community/home-manager/release-24.05";
-    # home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
