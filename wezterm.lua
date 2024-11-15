@@ -59,6 +59,4 @@ config.selection_word_boundary = " \t\n{}[]()\"'`,;:@│┃*…$"
 config.audible_bell = "Disabled"
 config.hide_tab_bar_if_only_one_tab = true
 
-config.default_cursor_style = "SteadyBar"
-
 return config
