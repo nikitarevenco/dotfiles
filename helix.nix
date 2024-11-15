@@ -32,92 +32,25 @@
           skip-levels = 1;
           render = true;
         };
-        cursor-shape = {
-          insert = "bar";
-          select = "underline";
-        };
-      };
-      keys.select = {
-        H = "extend_prev_sub_word_start";
-        L = "extend_next_sub_word_start";
       };
       keys.normal = {
-        H = "move_prev_sub_word_start";
-        L = "move_next_sub_word_start";
         x = "select_line_below";
         X = "select_line_above";
         up = "select_textobject_inner";
         down = "select_textobject_around";
-        right = "goto_word";
-        backspace = {
-          d = "goto_prev_diag";
-          D = "goto_first_diag";
-          f = "goto_prev_function";
-          t = "goto_prev_class";
-          a = "goto_prev_parameter";
-          c = "goto_prev_comment";
-          T = "goto_prev_test";
-          p = "goto_prev_paragraph";
-          g = "goto_prev_change";
-          G = "goto_first_change";
-          space = "add_newline_above";
-        };
-        tab = {
-          d = "goto_next_diag";
-          D = "goto_last_diag";
-          f = "goto_next_function";
-          t = "goto_next_class";
-          a = "goto_next_parameter";
-          c = "goto_next_comment";
-          T = "goto_next_test";
-          p = "goto_next_paragraph";
-          g = "goto_next_change";
-          G = "goto_last_change";
-          space = "add_newline_below";
-        };
-        "," = {
-          "." = "repeat_last_motion";
-          "`" = "switch_to_uppercase";
-          d = "delete_selection_noyank";
-          c = "change_selection_noyank";
-          C = "copy_selection_on_prev_line";
-          s = "split_selection_on_newline";
-          minus = "merge_selections";
-          _ = "merge_consecutive_selections";
-          ";" = "flip_selections";
-          o = "expand_selection";
-          i = "shrink_selection";
-          I = "select_all_children";
-          m = "select_all_children";
-          p = "select_prev_sibling";
-          n = "select_next_sibling";
-          e = "move_parent_node_end";
-          b = "move_parent_node_start";
-          a = "select_all_siblings";
-          x = "shrink_to_line_bounds";
-          J = "join_selections_space";
-          K = "remove_selections";
-          "," = "remove_primary_selection";
-          "(" = "rotate_selection_contents_backward";
-          ")" = "rotate_selection_contents_forward";
-          ":" = "ensure_selections_forward";
-          B = "toggle_block_comments";
-          "!" = "shell_append_output";
-          "|" = "shell_pipe_to";
-          u = "earlier";
-          U = "later";
-        };
+        left = "@]";
+        right = "@[";
+        backspace = "goto_word";
+        D = "copy_selection_on_prev_line";
+        V = "remove_primary_selection";
+        L = "expand_selection";
+        H = "shrink_selection";
         S-left = "jump_backward";
         S-right = "jump_forward";
         ret = ":write";
         space.x = ":write-quit-all";
         space.n = "file_browser";
-        g.s = [
-          "collapse_selection"
-          "select_mode"
-          "goto_first_nonwhitespace"
-          "exit_select_mode"
-        ];
+        g.s = "extend_to_first_nonwhitespace";
         C-g = [
           ":write-all"
           ":new"
@@ -125,10 +58,6 @@
           ":buffer-close!"
           ":redraw"
           ":reload-all"
-        ];
-        esc = [
-          "keep_primary_selection"
-          "collapse_selection"
         ];
       };
     };
