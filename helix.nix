@@ -42,13 +42,39 @@
         L = "extend_next_sub_word_start";
       };
       keys.normal = {
-        right = "goto_word";
-        up = "select_textobject_inner";
-        down = "select_textobject_around";
         H = "move_prev_sub_word_start";
         L = "move_next_sub_word_start";
         x = "select_line_below";
         X = "select_line_above";
+        up = "select_textobject_inner";
+        down = "select_textobject_around";
+        right = "goto_word";
+        backspace = {
+          d = "goto_prev_diag";
+          D = "goto_first_diag";
+          f = "goto_prev_function";
+          t = "goto_prev_class";
+          a = "goto_prev_parameter";
+          c = "goto_prev_comment";
+          T = "goto_prev_test";
+          p = "goto_prev_paragraph";
+          g = "goto_prev_change";
+          G = "goto_first_change";
+          space = "add_newline_above";
+        };
+        tab = {
+          d = "goto_next_diag";
+          D = "goto_last_diag";
+          f = "goto_next_function";
+          t = "goto_next_class";
+          a = "goto_next_parameter";
+          c = "goto_next_comment";
+          T = "goto_next_test";
+          p = "goto_next_paragraph";
+          g = "goto_next_change";
+          G = "goto_last_change";
+          space = "add_newline_below";
+        };
         "," = {
           "." = "repeat_last_motion";
           "`" = "switch_to_uppercase";
