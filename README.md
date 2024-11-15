@@ -82,7 +82,7 @@ nix-shell -p git
 git clone https://github.com/nikitarevenco/dotfiles.git \
           /mnt/etc/nixos
 nixos-generate-config --root /mnt --show-hardware-config \
-            > /mnt/etc/nixos/hardware.nix
+            > /mnt/etc/nix/hardware.nix
 nixos-install
 reboot
 ```
