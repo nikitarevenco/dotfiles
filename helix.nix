@@ -153,6 +153,11 @@
           }
           {
             name = "haskell";
+            formatter.command = lib.getExe pkgs-unstable.ormolu;
+            formatter.args = [
+              "--stdin-input-file"
+              "."
+            ];
           }
           # {
           #   name = "haskell";
