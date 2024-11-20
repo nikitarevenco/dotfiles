@@ -11,6 +11,16 @@
       RPROMPT = "%F{blue}%~ ";
     };
     initExtra = ''
+      # Allow Ctrl-z to toggle between suspend and resume
+      function Resume {
+        fg
+        zle push-input
+        BUFFER=""
+        zle accept-line
+      }
+      zle -N Resume
+      bindkey "^Z" Resume
+
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word
       alias -s .git="git clone"
