@@ -37,6 +37,7 @@
       }
     ];
     shellAliases = {
+      "bat" = "bat --style=plain";
       "md" = "mkdir";
       "yank" = "xclip -selection clipboard";
       "r" = "trash";

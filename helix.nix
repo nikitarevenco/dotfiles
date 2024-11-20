@@ -70,79 +70,105 @@
         };
       };
 
-      language = map (language: language // { auto-format = true; }) ([
-        {
-          name = "typescript";
-          formatter.command = lib.getExe pkgs-unstable.prettierd;
-          formatter.args = [ ".ts" ];
-          language-servers = [
-            "tailwindcss"
-            "typescript-language-server"
-          ];
-        }
-        {
-          name = "yaml";
-          formatter.command = lib.getExe pkgs-unstable.prettierd;
-          formatter.args = [ ".yaml" ];
-        }
-        {
-          name = "markdown";
-          formatter.command = lib.getExe pkgs-unstable.prettierd;
-          formatter.args = [ ".md" ];
-        }
-        {
-          name = "scss";
-          formatter.command = "prettierd";
-          formatter.args = [ ".scss" ];
-        }
-        {
-          name = "css";
-          formatter.command = "prettierd";
-          formatter.args = [ ".css" ];
-        }
-        {
-          name = "tsx";
-          formatter.command = lib.getExe pkgs-unstable.prettierd;
-          formatter.args = [ ".tsx" ];
-          language-servers = [
-            "tailwindcss"
-            "typescript-language-server"
-          ];
-        }
-        {
-          name = "jsx";
-          formatter.command = lib.getExe pkgs-unstable.prettierd;
-          formatter.args = [ ".jsx" ];
-        }
-        {
-          name = "json";
-          formatter.command = lib.getExe pkgs-unstable.prettierd;
-          formatter.args = [ ".json" ];
-        }
-        {
-          name = "html";
-          formatter.command = lib.getExe pkgs-unstable.prettierd;
-          formatter.args = [ ".html" ];
-        }
-        {
-          name = "javascript";
-          formatter.command = lib.getExe pkgs-unstable.prettierd;
-          formatter.args = [ ".js" ];
-        }
-        {
-          name = "nix";
-          formatter.command = lib.getExe pkgs-unstable.nixfmt-rfc-style;
-        }
-        {
-          name = "lua";
-          formatter.command = lib.getExe pkgs-unstable.stylua;
-          formatter.args = [ "-" ];
-        }
-        {
-          name = "bash";
-          formatter.command = lib.getExe pkgs-unstable.shfmt;
-        }
-      ]);
+      language =
+        let
+          prettier = lib.getExe pkgs-unstable.prettierd;
+        in
+        map (language: language // { auto-format = true; }) ([
+          {
+            name = "typescript";
+            formatter.command = prettier;
+            formatter.args = [ ".ts" ];
+            language-servers = [
+              "tailwindcss"
+              "typescript-language-server"
+            ];
+          }
+          {
+            name = "astro";
+            formatter.command = prettier;
+            formatter.args = [ "--parser astro" ];
+          }
+          {
+            name = "yaml";
+            formatter.command = prettier;
+            formatter.args = [ ".yaml" ];
+          }
+          {
+            name = "markdown";
+            formatter.command = prettier;
+            formatter.args = [ ".md" ];
+          }
+          {
+            name = "scss";
+            formatter.command = prettier;
+            formatter.args = [ ".scss" ];
+          }
+          {
+            name = "css";
+            formatter.command = prettier;
+            formatter.args = [ ".css" ];
+          }
+          {
+            name = "tsx";
+            formatter.command = prettier;
+            formatter.args = [ ".tsx" ];
+            language-servers = [
+              "tailwindcss"
+              "typescript-language-server"
+            ];
+          }
+          {
+            name = "jsx";
+            formatter.command = prettier;
+            formatter.args = [ ".jsx" ];
+          }
+          {
+            name = "json";
+            formatter.command = prettier;
+            formatter.args = [ ".json" ];
+          }
+          {
+            name = "html";
+            formatter.command = prettier;
+            formatter.args = [ ".html" ];
+          }
+          {
+            name = "javascript";
+            formatter.command = prettier;
+            formatter.args = [ ".js" ];
+          }
+          {
+            name = "nix";
+            formatter.command = lib.getExe pkgs-unstable.nixfmt-rfc-style;
+          }
+          {
+            name = "lua";
+            formatter.command = lib.getExe pkgs-unstable.stylua;
+            formatter.args = [ "-" ];
+          }
+          {
+            name = "bash";
+            formatter.command = lib.getExe pkgs-unstable.shfmt;
+          }
+          {
+            name = "haskell";
+          }
+          # {
+          #   name = "haskell";
+          # }
+          # {
+          #   name = "haskell";
+          # }
+          # {
+          #   name = "haskell";
+          #   formatter.command = lib.getExe pkgs-unstable.ormolu;
+          #   formatter.ags = [
+          #     "--stdin-input-file"
+          #     "."
+          #   ];
+          # }
+        ]);
     };
   };
 }

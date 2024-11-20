@@ -13,6 +13,7 @@
     ./lazygit.nix
     ./zsh.nix
     ./i3.nix
+    ./languages.nix
   ];
 
   home.packages =
@@ -24,41 +25,14 @@
       trash-cli
       p7zip
       brightnessctl
-
-      # package manager
-      pnpm
-      cargo
-      asciinema
-
-      mold
-      nodejs
-      clang
-      rustc
-      deno
-
-      nodejs
     ]
     ++ (with pkgs-unstable; [
-      # language servers
-      typescript-language-server
-      tailwindcss-language-server
-      vscode-langservers-extracted
-      bash-language-server
-      rust-analyzer
-      nil
-
-      prettierd
-      nixfmt-rfc-style
-      stylua
-      shfmt
-      rustfmt
+      # for recordings
+      gnome-terminal
+      dconf
+      asciinema
     ]);
 
-  xdg.configFile."pnpm/rc".source =
-    let
-      keyValue = pkgs.formats.keyValue { };
-    in
-    keyValue.generate "rc" { update-notifier = false; };
   xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
   xdg.userDirs.download = "${config.home.homeDirectory}/t";
   xsession.windowManager.i3.enable = true;
@@ -70,6 +44,8 @@
     ripgrep.enable = true;
     fzf.enable = true;
     fd.enable = true;
+    go.enable = true;
+    go.goBin = "go/bin";
   };
   home = {
     pointerCursor = {

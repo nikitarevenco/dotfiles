@@ -22,6 +22,7 @@ in
       git
     ];
     sessionVariables = {
+      # faster rustc compile times
       RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}/bin/mold";
     };
     # enable completion for system packages
