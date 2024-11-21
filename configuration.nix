@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   inputs,
   ...
 }:
@@ -11,6 +12,8 @@ in
   imports = [
     inputs.hardware-configuration.outPath
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -24,6 +27,9 @@ in
     sessionVariables = {
       # faster rustc compile times
       RUSTFLAGS = "-C linker=clang -C link-arg=-fuse-ld=${pkgs.mold}/bin/mold";
+      # https://nixos.wiki/wiki/Playwright
+      PLAYWRIGHT_BROWSERS_PATH = pkgs-unstable.playwright-driver.browsers;
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
     };
     # enable completion for system packages
     pathsToLink = [ "/share/zsh" ];

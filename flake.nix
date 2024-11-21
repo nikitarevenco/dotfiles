@@ -13,6 +13,10 @@
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
+    playwright = {
+      url = "github:pietdevries94/playwright-web-flake/1.47.0";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -21,17 +25,29 @@
       nixpkgs,
       nixpkgs-unstable,
       nur,
+      playwright,
       home-manager,
       ...
     }@inputs:
+    let
+      system = "x86_64-linux";
+      overlay = final: prev: {
+        inherit (playwright.packages.${system}) playwright-driver playwright-test;
+      };
+      # pkgs = import nixpkgs {
+      #   inherit system;
+      # };
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [ overlay ];
+      };
+    in
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        inherit system;
         specialArgs = {
-          pkgs-unstable = import nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
+          inherit pkgs-unstable;
           inherit inputs;
         };
         modules = [
@@ -42,10 +58,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
-              pkgs-unstable = import nixpkgs-unstable {
-                inherit system;
-                config.allowUnfree = true;
-              };
+              inherit pkgs-unstable;
               inherit inputs;
             };
             home-manager.users.e = {

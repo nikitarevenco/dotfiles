@@ -21,14 +21,20 @@
     [
       sof-firmware
       ripgrep
+      libreoffice
       xclip
+      google-chrome
       trash-cli
       p7zip
       brightnessctl
+      # otherwise playwright will not work
+      chromium
     ]
     ++ (with pkgs-unstable; [
       # for recordings
       gnome-terminal
+      playwright-test
+      # playwright-driver
       dconf
       asciinema
     ]);
