@@ -23,12 +23,13 @@
       ripgrep
       libreoffice
       xclip
-      google-chrome
+      # google-chrome
       trash-cli
       p7zip
       brightnessctl
+      imagemagick
       # otherwise playwright will not work
-      chromium
+      # chromium
     ]
     ++ (with pkgs-unstable; [
       # for recordings

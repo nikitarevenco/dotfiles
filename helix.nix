@@ -68,6 +68,7 @@
           command = lib.getExe pkgs-unstable.tailwindcss-language-server;
           args = [ "--stdio" ];
         };
+        gopls.config.gofumpt = true;
       };
 
       language =
@@ -98,6 +99,14 @@
             name = "markdown";
             formatter.command = prettier;
             formatter.args = [ ".md" ];
+          }
+          {
+            name = "markdown";
+            file-types = [ "mdx" ];
+            block-comment-tokens = {
+              start = "{/*";
+              end = "*/}";
+            };
           }
           {
             name = "scss";

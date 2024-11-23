@@ -1,22 +1,20 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    helix.url = "github:NikitaRevenco/helix/personal";
     hardware-configuration = {
       url = "path:/etc/nix/hardware.nix";
       flake = false;
     };
+
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/NUR";
-    playwright = {
-      url = "github:pietdevries94/playwright-web-flake/1.47.0";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    helix.url = "github:NikitaRevenco/helix/personal";
+    playwright.url = "github:pietdevries94/playwright-web-flake/1.47.0";
   };
 
   outputs =
@@ -34,22 +32,18 @@
       overlay = final: prev: {
         inherit (playwright.packages.${system}) playwright-driver playwright-test;
       };
-      # pkgs = import nixpkgs {
-      #   inherit system;
-      # };
       pkgs-unstable = import nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
         overlays = [ overlay ];
       };
+      specialArgs = {
+        inherit pkgs-unstable inputs;
+      };
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit pkgs-unstable;
-          inherit inputs;
-        };
+        inherit system specialArgs;
         modules = [
           ./configuration.nix
           nur.nixosModules.nur
@@ -57,10 +51,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              inherit pkgs-unstable;
-              inherit inputs;
-            };
+            home-manager.extraSpecialArgs = specialArgs;
             home-manager.users.e = {
               imports = [
                 ./home.nix

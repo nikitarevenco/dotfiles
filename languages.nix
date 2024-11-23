@@ -6,6 +6,10 @@ let
     cabal-install
     ghc
   ];
+  go = with pkgs-unstable; [
+    gopls
+    gofumpt
+  ];
   rust = with pkgs-unstable; [
     rustc
     rust-analyzer
@@ -36,7 +40,7 @@ let
   ];
 in
 {
-  home.packages = haskell ++ rust ++ nix ++ lua ++ c ++ shell ++ javascript;
+  home.packages = haskell ++ rust ++ nix ++ lua ++ c ++ shell ++ javascript ++ go;
 
   # disable update check for pnpm
   xdg.configFile."pnpm/rc".source =
