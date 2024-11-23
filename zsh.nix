@@ -25,8 +25,7 @@
       bindkey "^[[1;5D" backward-word
       alias -s .git="git clone"
       function t() {
-        z "$1"
-        ls
+        z "$@" && ls
       }
     '';
     profileExtra = ''
