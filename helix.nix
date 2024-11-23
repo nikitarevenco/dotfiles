@@ -69,6 +69,16 @@
           args = [ "--stdio" ];
         };
         gopls.config.gofumpt = true;
+        astro-ls = {
+          command = lib.getExe pkgs-unstable.nodePackages."@astrojs/language-server";
+          args = [ "--stdio" ];
+          config = {
+            typescript = {
+              tsdk = "${pkgs-unstable.typescript}/lib/node_modules/typescript/lib";
+              environment = "node";
+            };
+          };
+        };
       };
 
       language =
@@ -87,8 +97,23 @@
           }
           {
             name = "astro";
-            formatter.command = prettier;
-            formatter.args = [ "--parser astro" ];
+            scope = "source.astro";
+            injection-regex = "astro";
+            file-types = [ "astro" ];
+            roots = [
+              "package.json"
+              "astro.config.mjs"
+            ];
+            language-servers = [ "astro-ls" ];
+            formatter = {
+              command = prettier;
+              args = [
+                "--plugin"
+                "prettier-plugin-astro"
+                "--parser"
+                "astro"
+              ];
+            };
           }
           {
             name = "yaml";

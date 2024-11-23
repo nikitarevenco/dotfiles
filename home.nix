@@ -16,30 +16,6 @@
     ./languages.nix
   ];
 
-  home.packages =
-    with pkgs;
-    [
-      sof-firmware
-      ripgrep
-      libreoffice
-      xclip
-      # google-chrome
-      trash-cli
-      p7zip
-      brightnessctl
-      imagemagick
-      # otherwise playwright will not work
-      # chromium
-    ]
-    ++ (with pkgs-unstable; [
-      # for recordings
-      gnome-terminal
-      playwright-test
-      # playwright-driver
-      dconf
-      asciinema
-    ]);
-
   xdg.configFile."wezterm/wezterm.lua".source = ./wezterm.lua;
   xdg.userDirs.download = "${config.home.homeDirectory}/t";
   xsession.windowManager.i3.enable = true;
@@ -59,6 +35,31 @@
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
     };
+    packages =
+      with pkgs;
+      [
+        sof-firmware
+        ripgrep
+        libreoffice
+        xclip
+        # google-chrome
+        trash-cli
+        p7zip
+        brightnessctl
+        imagemagick
+        # otherwise playwright will not work
+        # chromium
+      ]
+      ++ (with pkgs-unstable; [
+        # for recordings
+        gnome-terminal
+        playwright-test
+        # playwright-driver
+        dconf
+        asciinema
+        # interactive search and replace
+        scooter
+      ]);
     stateVersion = "24.05";
   };
 }

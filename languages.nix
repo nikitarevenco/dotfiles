@@ -33,6 +33,10 @@ let
     nodejs
     deno
     prettierd
+    typescript
+    nodePackages."@astrojs/language-server"
+    # to be able to view built static websites on localhost
+    live-server
   ];
   c = with pkgs-unstable; [
     clang
