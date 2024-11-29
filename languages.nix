@@ -37,6 +37,13 @@ let
     nodePackages."@astrojs/language-server"
     # to be able to view built static websites on localhost
     live-server
+    # INFO: to globally install npm packages use the following two commands:
+    # npm config set prefix "${HOME}/.cache/npm/global"
+    # mkdir -p "${HOME}/.cache/npm/global"
+    # after this we can run npm install -g <pkg>
+    # 
+    # Installed packages this way:
+    # @mdx-js/language-server
   ];
   c = with pkgs-unstable; [
     clang

@@ -16,6 +16,7 @@
       "b" = "branch";
       "l" = "log";
       "co" = "checkout";
+      "cl" = "clone";
       "ps" = "push";
       "pl" = "pull";
       "re" = "remote";

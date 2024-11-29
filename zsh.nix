@@ -11,6 +11,14 @@
       RPROMPT = "%F{blue}%~ ";
     };
     initExtra = ''
+      function t() {
+        z "$@" && ls
+      }
+
+      # Ctrl-Left and Ctrl-Right go to previous and next word
+      bindkey "^[[1;5C" forward-word
+      bindkey "^[[1;5D" backward-word
+
       # Allow Ctrl-z to toggle between suspend and resume
       function Resume {
         fg
@@ -20,15 +28,9 @@
       }
       zle -N Resume
       bindkey "^Z" Resume
-
-      bindkey "^[[1;5C" forward-word
-      bindkey "^[[1;5D" backward-word
-      alias -s .git="git clone"
-      function t() {
-        z "$@" && ls
-      }
     '';
     profileExtra = ''
+      # auto start i3 when logging in
       if [[ "$(tty)" = "/dev/tty1" ]]; then 
         pgrep i3 || startx $(which i3)
       fi
@@ -46,9 +48,9 @@
       }
     ];
     shellAliases = {
-      "bat" = "bat --style=plain";
       "md" = "mkdir";
-      "yank" = "xclip -selection clipboard";
+      "rd" = "rmdir";
+      "copy" = "xclip -selection clipboard";
       "r" = "trash";
       "n" = "hx";
       "e" = "ls --classify --human-readable";
@@ -56,7 +58,9 @@
       "." = "cd .. && e";
       ".." = "cd ../.. && e";
       "..." = "cd ../../.. && e";
+      "cat" = "bat --style=plain";
       "icat" = "wezterm imgcat";
+      "head" = "bat --style=plain --line-range :10";
     };
   };
 }

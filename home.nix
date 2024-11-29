@@ -31,6 +31,9 @@
     go.goBin = "go/bin";
   };
   home = {
+    sessionPath = [
+      "$HOME/.cache/npm/global/bin"
+    ];
     pointerCursor = {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
@@ -54,11 +57,14 @@
         # for recordings
         gnome-terminal
         playwright-test
+        jq
         # playwright-driver
         dconf
         asciinema
         # interactive search and replace
         scooter
+        # benchmarking tool
+        hyperfine
       ]);
     stateVersion = "24.05";
   };
