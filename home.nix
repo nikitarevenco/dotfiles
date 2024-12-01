@@ -2,6 +2,7 @@
   pkgs,
   config,
   pkgs-unstable,
+  pkgs-old,
   ...
 }:
 {
@@ -23,7 +24,11 @@
   programs = {
     yazi.enable = true;
     zoxide.enable = true;
-    wezterm.enable = true;
+    wezterm = {
+      enable = true;
+      # currently, rendering is broken in the new wezterm versions https://github.com/NixOS/nixpkgs/issues/336069
+      package = pkgs-old.wezterm;
+    };
     ripgrep.enable = true;
     fzf.enable = true;
     fd.enable = true;

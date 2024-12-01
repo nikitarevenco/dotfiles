@@ -7,6 +7,7 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-old.url = "github:NixOS/nixpkgs/nixos-24.05";
     nur.url = "github:nix-community/NUR";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
@@ -22,6 +23,7 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-old,
       nur,
       playwright,
       home-manager,
@@ -37,8 +39,13 @@
         config.allowUnfree = true;
         overlays = [ overlay ];
       };
+      pkgs-old = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [ overlay ];
+      };
       specialArgs = {
-        inherit pkgs-unstable inputs;
+        inherit pkgs-unstable inputs pkgs-old;
       };
     in
     {
