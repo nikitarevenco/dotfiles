@@ -2,6 +2,7 @@
   pkgs,
   config,
   pkgs-unstable,
+  version,
   ...
 }:
 {
@@ -33,6 +34,7 @@
   home = {
     sessionPath = [
       "$HOME/.cache/npm/global/bin"
+      "$HOME/.cargo/bin"
     ];
     pointerCursor = {
       package = pkgs.bibata-cursors;
@@ -48,6 +50,7 @@
         # google-chrome
         trash-cli
         p7zip
+        exercism
         brightnessctl
         imagemagick
         # otherwise playwright will not work
@@ -66,6 +69,6 @@
         # benchmarking tool
         hyperfine
       ]);
-    stateVersion = "24.05";
+    stateVersion = version;
   };
 }

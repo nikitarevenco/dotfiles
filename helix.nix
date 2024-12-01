@@ -175,6 +175,10 @@
           {
             name = "markdown";
             formatter.command = prettier;
+            language-servers = [
+              "mdx"
+              "tailwind"
+            ];
             formatter.args = [ "--parser markdown" ];
           }
           {
@@ -183,20 +187,8 @@
             formatter.args = [ "--parser mdx" ];
             grammar = "markdown";
             file-types = [ "mdx" ];
-            language-servers = [
-              "mdx"
-              "tailwind"
-            ];
             roots = [ ];
             scope = "source.mdx";
-          }
-          {
-            name = "markdown";
-            file-types = [ "mdx" ];
-            block-comment-tokens = {
-              start = "{/*";
-              end = "*/}";
-            };
           }
           {
             name = "scss";

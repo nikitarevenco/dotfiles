@@ -1,3 +1,8 @@
+# download all exercises for a track
+# track=$TRACK_NAME; curl "https://exercism.org/api/v2/tracks/$track/exercises" | \     ~/exercism/rust
+#   jq -r '.exercises[].slug' | \
+#   xargs -I {} -n1 sh -c "exercism download --track=$track --exercise {} || true"
+
 { pkgs, ... }:
 {
   programs.zsh = {

@@ -2,12 +2,9 @@
   pkgs,
   pkgs-unstable,
   inputs,
+  version,
   ...
 }:
-
-let
-  version = "24.05";
-in
 {
   imports = [
     inputs.hardware-configuration.outPath
@@ -38,7 +35,7 @@ in
   fonts = {
     packages = with pkgs; [
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
@@ -70,11 +67,18 @@ in
   # required to be able to set zsh as default shell for users
   programs.zsh.enable = true;
 
-  hardware.pulseaudio = {
+  services.pipewire = {
     enable = true;
-    support32Bit = true;
-    tcp.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
+
+  # hardware.pulseaudio = {
+  #   enable = true;
+  #   support32Bit = true;
+  #   tcp.enable = true;
+  # };
 
   networking = {
     hostName = "nixos";

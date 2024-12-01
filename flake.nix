@@ -1,3 +1,6 @@
+let
+  version = "24.11";
+in
 {
   inputs = {
     hardware-configuration = {
@@ -5,11 +8,11 @@
       flake = false;
     };
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-${version}";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-${version}";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -38,7 +41,7 @@
         overlays = [ overlay ];
       };
       specialArgs = {
-        inherit pkgs-unstable inputs;
+        inherit pkgs-unstable inputs version;
       };
     in
     {

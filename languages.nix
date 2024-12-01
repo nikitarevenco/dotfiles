@@ -10,10 +10,15 @@ let
     gopls
     gofumpt
   ];
+  elixir = with pkgs-unstable; [
+    elixir_1_16
+    elixir-ls
+  ];
   rust = with pkgs-unstable; [
     rustc
     rust-analyzer
     cargo
+    clippy
     rustfmt
   ];
   nix = with pkgs-unstable; [
@@ -51,7 +56,7 @@ let
   ];
 in
 {
-  home.packages = haskell ++ rust ++ nix ++ lua ++ c ++ shell ++ javascript ++ go;
+  home.packages = haskell ++ rust ++ nix ++ lua ++ c ++ shell ++ javascript ++ go ++ elixir;
 
   # disable update check for pnpm
   xdg.configFile."pnpm/rc".source =
