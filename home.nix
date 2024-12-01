@@ -2,7 +2,6 @@
   pkgs,
   config,
   pkgs-unstable,
-  version,
   ...
 }:
 {
@@ -69,6 +68,6 @@
         # benchmarking tool
         hyperfine
       ]);
-    stateVersion = version;
+    stateVersion = "24.11";
   };
 }

@@ -2,7 +2,6 @@
   pkgs,
   pkgs-unstable,
   inputs,
-  version,
   ...
 }:
 {
@@ -35,7 +34,7 @@
   fonts = {
     packages = with pkgs; [
       noto-fonts
-      noto-fonts-cjk-sans
+      noto-fonts-cjk
       noto-fonts-emoji
       (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
@@ -131,5 +130,5 @@
     initrd.luks.devices.cryptroot.device = "/dev/disk/by-partlabel/luks_root";
   };
 
-  system.stateVersion = version;
+  system.stateVersion = "24.11";
 }
