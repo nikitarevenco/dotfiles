@@ -57,6 +57,8 @@
         exercism
         brightnessctl
         imagemagick
+        # sound control
+        pamixer
         # otherwise playwright will not work
         # chromium
       ]

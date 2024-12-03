@@ -14,6 +14,12 @@ let
     elixir_1_16
     elixir-ls
   ];
+  python = with pkgs-unstable; [
+    python3
+    pipx
+    ruff
+    pyright
+  ];
   rust = with pkgs-unstable; [
     rustc
     rust-analyzer
@@ -56,7 +62,7 @@ let
   ];
 in
 {
-  home.packages = haskell ++ rust ++ nix ++ lua ++ c ++ shell ++ javascript ++ go ++ elixir;
+  home.packages = haskell ++ rust ++ nix ++ lua ++ c ++ shell ++ javascript ++ go ++ elixir ++ python;
 
   # disable update check for pnpm
   xdg.configFile."pnpm/rc".source =

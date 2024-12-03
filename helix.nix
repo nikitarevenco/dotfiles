@@ -86,6 +86,9 @@
           auto-info = false;
           soft-wrap.enable = true;
           line-number = "relative";
+          inline-diagnostics = {
+            cursor-line = "hint";
+          };
           cursorline = true;
           statusline = {
             left = [ ];
@@ -119,6 +122,9 @@
         tailwindcss = {
           command = lib.getExe pkgs-unstable.tailwindcss-language-server;
           args = [ "--stdio" ];
+        };
+        ruff = {
+          command = lib.getExe pkgs-unstable.ruff;
         };
         gopls.config.gofumpt = true;
         astro-ls = {
@@ -171,6 +177,13 @@
             name = "yaml";
             formatter.command = prettier;
             formatter.args = [ ".yaml" ];
+          }
+          {
+            name = "python";
+            language-servers = [
+              "pyright"
+              "ruff"
+            ];
           }
           {
             name = "markdown";
