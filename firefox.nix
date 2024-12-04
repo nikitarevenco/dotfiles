@@ -96,8 +96,6 @@ in
         "browser.toolbars.bookmarks.visibility" = "never";
         # alt will not open menu
         "ui.key.menuAccessKeyFocuses" = false;
-        # new tabs are added at the end of the tab list, not next to the current tab
-        "browser.tabs.insertRelatedAfterCurrent" = true;
         # new tab page
         "browser.newtabpage.activity-stream.feeds.topsites" = false;
         "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
