@@ -105,8 +105,6 @@ in
         "full-screen-api.transition-duration.enter" = "0 0";
         "full-screen-api.transition-duration.leave" = "0 0";
         "full-screen-api.transition.timeout" = 0;
-        # disable address bar hiding in fullscreen mode
-        "browser.fullscreen.autohide" = false;
         "full-screen-api.warning.delay" = 0;
         # disable message "... is now fullscreen"
         "full-screen-api.warning.timeout" = 0;
