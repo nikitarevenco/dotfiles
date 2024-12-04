@@ -14,18 +14,6 @@
     settings =
       let
         keybindings = {
-          P = "paste_clipboard_before";
-          p = "paste_clipboard_after";
-          y = "yank_to_clipboard";
-          R = "replace_selections_with_clipboard";
-          d = [
-            "yank_to_clipboard"
-            "delete_selection_noyank"
-          ];
-          space.R = "replace_with_yanked";
-          space.y = "yank";
-          space.p = "paste_after";
-          space.P = "paste_before";
           x = "select_line_below";
           X = "select_line_above";
           S-left = "jump_backward";
@@ -78,6 +66,19 @@
             "extend_line_above"
             "delete_selection"
           ];
+          # use clipboard as default, registers are opt-in
+          d = [
+            "yank_to_clipboard"
+            "delete_selection_noyank"
+          ];
+          R = "replace_selections_with_clipboard";
+          y = "yank_to_clipboard";
+          p = "paste_clipboard_after";
+          P = "paste_clipboard_before";
+          space.R = "replace_with_yanked";
+          space.y = "yank";
+          space.p = "paste_after";
+          space.P = "paste_before";
         };
       in
       {

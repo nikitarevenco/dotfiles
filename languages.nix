@@ -3,7 +3,9 @@ let
   haskell = with pkgs-unstable; [
     haskell-language-server
     ormolu
+    stack
     cabal-install
+    hpack
     ghc
   ];
   go = with pkgs-unstable; [
