@@ -1,6 +1,6 @@
 { pkgs, pkgs-unstable, ... }:
 let
-  haskell = with pkgs-unstable; [
+  haskell_ = with pkgs-unstable; [
     haskell-language-server
     ormolu
     stack
@@ -64,7 +64,8 @@ let
   ];
 in
 {
-  home.packages = haskell ++ rust ++ nix ++ lua ++ c ++ shell ++ javascript ++ go ++ elixir ++ python;
+  home.packages =
+    haskell_ ++ rust ++ nix ++ lua ++ c ++ shell ++ javascript ++ go ++ elixir ++ python;
 
   # disable update check for pnpm
   xdg.configFile."pnpm/rc".source =

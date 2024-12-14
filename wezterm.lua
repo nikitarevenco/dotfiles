@@ -3,7 +3,7 @@ local config = wezterm.config_builder()
 
 config.color_scheme = "Catppuccin Mocha"
 config.font_size = 19
-config.font = wezterm.font("JetBrainsMono Nerd Font")
+config.font = wezterm.font("JetBrainsMono NF")
 config.window_close_confirmation = "NeverPrompt"
 config.window_decorations = "RESIZE"
 config.automatically_reload_config = false

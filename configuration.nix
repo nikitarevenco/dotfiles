@@ -36,7 +36,11 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+        ];
+      })
     ];
     fontconfig = {
       enable = true;

@@ -18,10 +18,14 @@
           X = "select_line_above";
           S-left = "jump_backward";
           S-right = "jump_forward";
-          S = "split_selection_on_newline";
+          M = "split_selection_on_newline";
+          "." = "collapse_selection";
           ret = ":write";
+          w = "no_op";
+          W = "no_op";
           space.x = ":write-quit-all";
-          space.n = "file_browser";
+          space.e = "file_browser_in_current_buffer_directory";
+          space.E = "file_browser";
           g.S = "extend_to_first_nonwhitespace";
           D = "copy_selection_on_prev_line";
           L = "expand_selection";
@@ -140,6 +144,14 @@
         };
       };
 
+      grammar = {
+        name = "cabal";
+        source = {
+          git = "https://github.com/thomasvergne/tree-sitter-cabal";
+          rev = "1762ded13e5351c0bc662a2273d523b80d314b4e";
+        };
+      };
+
       language =
         let
           prettier = lib.getExe pkgs-unstable.prettierd;
@@ -194,15 +206,6 @@
               "tailwind"
             ];
             formatter.args = [ "--parser markdown" ];
-          }
-          {
-            name = "mdx";
-            formatter.command = prettier;
-            formatter.args = [ "--parser mdx" ];
-            grammar = "markdown";
-            file-types = [ "mdx" ];
-            roots = [ ];
-            scope = "source.mdx";
           }
           {
             name = "scss";
@@ -264,20 +267,6 @@
               "."
             ];
           }
-          # {
-          #   name = "haskell";
-          # }
-          # {
-          #   name = "haskell";
-          # }
-          # {
-          #   name = "haskell";
-          #   formatter.command = lib.getExe pkgs-unstable.ormolu;
-          #   formatter.ags = [
-          #     "--stdin-input-file"
-          #     "."
-          #   ];
-          # }
         ]);
     };
   };
