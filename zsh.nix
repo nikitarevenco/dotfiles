@@ -55,7 +55,6 @@
     shellAliases = {
       "md" = "mkdir";
       "rd" = "rmdir";
-      "copy" = "xclip -selection clipboard";
       "r" = "trash";
       "n" = "hx";
       "e" = "ls --classify --human-readable";
@@ -63,9 +62,14 @@
       "." = "cd .. && e";
       ".." = "cd ../.. && e";
       "..." = "cd ../../.. && e";
+      "...." = "cd ../../../.. && e";
+      "....." = "cd ../../../../.. && e";
       "cat" = "bat --style=plain";
       "icat" = "wezterm imgcat";
+      "copy" = "xclip -selection clipboard";
+      "icopy" = "xclip -selection clipboard -target image/png";
       "head" = "bat --style=plain --line-range :10";
+      "zathura" = "nohup zathura";
     };
   };
 }

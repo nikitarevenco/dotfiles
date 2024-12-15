@@ -19,9 +19,8 @@
           S-left = "jump_backward";
           S-right = "jump_forward";
           M = "split_selection_on_newline";
-          "." = "collapse_selection";
+          w = "collapse_selection";
           ret = ":write";
-          w = "no_op";
           W = "no_op";
           space.x = ":write-quit-all";
           space.e = "file_browser_in_current_buffer_directory";
@@ -141,14 +140,6 @@
               environment = "node";
             };
           };
-        };
-      };
-
-      grammar = {
-        name = "cabal";
-        source = {
-          git = "https://github.com/thomasvergne/tree-sitter-cabal";
-          rev = "1762ded13e5351c0bc662a2273d523b80d314b4e";
         };
       };
 

@@ -55,7 +55,9 @@
         trash-cli
         p7zip
         exercism
+        zathura
         brightnessctl
+        gimp
         imagemagick
         # sound control
         pamixer
