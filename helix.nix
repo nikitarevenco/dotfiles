@@ -31,8 +31,8 @@
           H = "shrink_selection";
           up = "select_textobject_inner";
           down = "select_textobject_around";
-          left = "@]";
-          right = "@[";
+          left = "@[";
+          right = "@]";
           "`"."u" = "switch_to_uppercase";
           "`"."l" = "switch_to_lowercase";
           # delete current line
@@ -119,6 +119,7 @@
 
     languages = {
       language-server = {
+        rust-analyzer.config.check.command = "clippy";
         mdx = {
           command = "mdx-language-server";
           args = [ "--stdio" ];
