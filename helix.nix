@@ -170,6 +170,7 @@
             language-servers = [ "astro-ls" ];
             formatter = {
               command = prettier;
+              command = lib.getExe pkgs-unstable.nodePackages.prettier;
               args = [
                 "--plugin"
                 "prettier-plugin-astro"
@@ -177,6 +178,27 @@
                 "astro"
               ];
             };
+          }
+
+          {
+            name = "cpp";
+            file-types = [
+              "cpp"
+              "cc"
+              "cxx"
+              "hpp"
+              "hcc"
+              "hxx"
+            ];
+            formatter.command = "clang-format";
+          }
+          {
+            name = "c";
+            file-types = [
+              "c"
+              "h"
+            ];
+            formatter.command = "clang-format";
           }
           {
             name = "yaml";

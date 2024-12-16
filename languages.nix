@@ -47,7 +47,9 @@ let
     deno
     prettierd
     typescript
+    biome
     nodePackages."@astrojs/language-server"
+    nodePackages.prettier
     # to be able to view built static websites on localhost
     live-server
     # INFO: to globally install npm packages use the following two commands:
@@ -57,9 +59,11 @@ let
     # 
     # Installed packages this way:
     # @mdx-js/language-server
+    # prettier-plugin-astro
   ];
   c = with pkgs-unstable; [
     clang
+    clang-tools
     mold
   ];
 in
