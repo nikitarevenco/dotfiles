@@ -7,6 +7,9 @@
       pull.rebase = true;
       init.defaultBranch = "main";
       safe.directory = "*";
+      rerere.enabled = true;
+      column.ui = "auto";
+      branch.sort = "committerdate";
     };
     aliases = {
       "a" = "add";

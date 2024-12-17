@@ -14,6 +14,8 @@
     settings =
       let
         keybindings = {
+          tab.r = ":reset-diff-change";
+          tab.x = ":write-quit-all";
           x = "select_line_below";
           X = "select_line_above";
           S-left = "jump_backward";
@@ -21,14 +23,9 @@
           M = "split_selection_on_newline";
           w = "collapse_selection";
           ret = ":write";
-          W = "no_op";
-          space.x = ":write-quit-all";
           space.e = "file_browser_in_current_buffer_directory";
           space.E = "file_browser";
-          g.S = "extend_to_first_nonwhitespace";
           D = "copy_selection_on_prev_line";
-          L = "expand_selection";
-          H = "shrink_selection";
           up = "select_textobject_inner";
           down = "select_textobject_around";
           left = "@[";
@@ -69,7 +66,7 @@
             "extend_line_above"
             "delete_selection"
           ];
-          # use clipboard as default, registers are opt-in
+          # use clipboard as default
           d = [
             "yank_to_clipboard"
             "delete_selection_noyank"
@@ -120,6 +117,23 @@
     languages = {
       language-server = {
         rust-analyzer.config.check.command = "clippy";
+        eslint = {
+          args = [ "--stdio" ];
+          command = "vscode-eslint-language-server";
+          config.validate = "on";
+        };
+        typescript-language-server = {
+          required-root-patterns = [ "package.json" ];
+        };
+        deno = {
+          command = "deno";
+          args = [ "lsp" ];
+          config.deno = {
+            enable = true;
+            lint = true;
+          };
+          required-root-patterns = [ "deno.*" ];
+        };
         mdx = {
           command = "mdx-language-server";
           args = [ "--stdio" ];
@@ -146,18 +160,12 @@
 
       language =
         let
-          prettier = lib.getExe pkgs-unstable.prettierd;
+          prettier = lang: {
+            command = lib.getExe pkgs-unstable.prettierd;
+            args = [ lang ];
+          };
         in
         map (language: language // { auto-format = true; }) ([
-          {
-            name = "typescript";
-            formatter.command = prettier;
-            formatter.args = [ ".ts" ];
-            language-servers = [
-              "tailwindcss"
-              "typescript-language-server"
-            ];
-          }
           {
             name = "astro";
             scope = "source.astro";
@@ -169,7 +177,6 @@
             ];
             language-servers = [ "astro-ls" ];
             formatter = {
-              command = prettier;
               command = lib.getExe pkgs-unstable.nodePackages.prettier;
               args = [
                 "--plugin"
@@ -179,7 +186,6 @@
               ];
             };
           }
-
           {
             name = "cpp";
             file-types = [
@@ -201,11 +207,6 @@
             formatter.command = "clang-format";
           }
           {
-            name = "yaml";
-            formatter.command = prettier;
-            formatter.args = [ ".yaml" ];
-          }
-          {
             name = "python";
             language-servers = [
               "pyright"
@@ -213,52 +214,61 @@
             ];
           }
           {
-            name = "markdown";
-            formatter.command = prettier;
+            name = "typescript";
+            formatter = prettier ".ts";
             language-servers = [
-              "mdx"
+              "typescript-language-server"
+              "eslint"
+              "deno"
+            ];
+          }
+          {
+            name = "yaml";
+            formatter = prettier ".yaml";
+          }
+          {
+            name = "markdown";
+            formatter = prettier ".md";
+            language-servers = [
               "tailwind"
             ];
-            formatter.args = [ "--parser markdown" ];
           }
           {
             name = "scss";
-            formatter.command = prettier;
-            formatter.args = [ ".scss" ];
+            formatter = prettier ".scss";
           }
           {
             name = "css";
-            formatter.command = prettier;
-            formatter.args = [ ".css" ];
+            formatter = prettier ".css";
           }
           {
             name = "tsx";
-            formatter.command = prettier;
-            formatter.args = [ ".tsx" ];
+            formatter = prettier ".tsx";
             language-servers = [
               "tailwindcss"
               "typescript-language-server"
+              "eslint"
+            ];
+            block-comment-tokens = [
+              "{/*"
+              "*/}"
             ];
           }
           {
             name = "jsx";
-            formatter.command = prettier;
-            formatter.args = [ ".jsx" ];
+            formatter = prettier ".jsx";
           }
           {
             name = "json";
-            formatter.command = prettier;
-            formatter.args = [ ".json" ];
+            formatter = prettier ".json";
           }
           {
             name = "html";
-            formatter.command = prettier;
-            formatter.args = [ ".html" ];
+            formatter = prettier ".html";
           }
           {
             name = "javascript";
-            formatter.command = prettier;
-            formatter.args = [ ".js" ];
+            formatter = prettier ".js";
           }
           {
             name = "nix";
