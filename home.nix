@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    # ./helix.nix
+    ./helix.nix
     ./bat.nix
     ./firefox.nix
     ./git.nix
