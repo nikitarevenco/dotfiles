@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    ./helix.nix
+    # ./helix.nix
     ./bat.nix
     ./firefox.nix
     ./git.nix
@@ -68,6 +68,7 @@
         # for recordings
         gnome-terminal
         playwright-test
+        doggo
         jq
         # playwright-driver
         dconf

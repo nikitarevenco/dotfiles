@@ -57,6 +57,7 @@
       "rd" = "rmdir";
       "r" = "trash";
       "n" = "hx";
+      "sn" = "sudo -E hx";
       "e" = "ls --classify --human-readable";
       "g" = "git";
       "." = "cd .. && e";
@@ -64,6 +65,7 @@
       "..." = "cd ../../.. && e";
       "...." = "cd ../../../.. && e";
       "....." = "cd ../../../../.. && e";
+      "nrs" = "sudo nixos-rebuild switch";
       "cat" = "bat --style=plain";
       "icat" = "wezterm imgcat";
       "copy" = "xclip -selection clipboard";

@@ -12,6 +12,10 @@ let
     gopls
     gofumpt
   ];
+  misc = with pkgs-unstable; [
+    nginx-language-server
+    nginx
+  ];
   elixir = with pkgs-unstable; [
     elixir_1_16
     elixir-ls
@@ -69,7 +73,7 @@ let
 in
 {
   home.packages =
-    haskell_ ++ rust ++ nix ++ lua ++ c ++ shell ++ javascript ++ go ++ elixir ++ python;
+    haskell_ ++ rust ++ nix ++ lua ++ c ++ shell ++ javascript ++ go ++ elixir ++ python ++ misc;
 
   # disable update check for pnpm
   xdg.configFile."pnpm/rc".source =

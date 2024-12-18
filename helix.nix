@@ -117,6 +117,11 @@
     languages = {
       language-server = {
         rust-analyzer.config.check.command = "clippy";
+        nginx = {
+          command = "nginx-language-server";
+          filetypes = [ "nginx" ];
+          required-root-patterns = [ "nginx.conf" ];
+        };
         eslint = {
           args = [ "--stdio" ];
           command = "vscode-eslint-language-server";
